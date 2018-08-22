@@ -68,7 +68,7 @@ export default {
         length: 10,
         search: "",
         column: 0,
-        dir: "desc"
+        dir: "asc"
       },
       pagination: {
         lastPage: "",

@@ -50303,7 +50303,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         length: 10,
         search: "",
         column: 0,
-        dir: "desc"
+        dir: "asc"
       },
       pagination: {
         lastPage: "",
