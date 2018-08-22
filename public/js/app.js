@@ -50040,7 +50040,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "card card-default" }, [
             _c("div", { staticClass: "card-header" }, [
-              _vm._v("Dashbaord Component")
+              _vm._v("Dashboard Component")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
