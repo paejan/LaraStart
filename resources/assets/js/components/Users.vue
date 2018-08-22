@@ -40,7 +40,7 @@ export default {
     let sortOrders = {};
     let columns = [
       { width: "33%", label: "ID", name: "id" },
-      { width: "33%", label: "Name", name: "email" },
+      { width: "33%", label: "Name", name: "name" },
       { width: "33%", label: "E-mail", name: "email" }
     ];
     columns.forEach(column => {
