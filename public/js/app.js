@@ -50267,6 +50267,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50417,6 +50428,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["columns", "sortKey", "sortOrders"]
@@ -50432,7 +50444,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "table",
-    { staticClass: "table is-bordered data-table" },
+    { staticClass: "table table-hover" },
     [
       _c("thead", [
         _c(
@@ -51126,128 +51138,153 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "users" },
-    [
-      _c("div", { staticClass: "tableFilters" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.tableData.search,
-              expression: "tableData.search"
-            }
-          ],
-          staticClass: "input",
-          attrs: { type: "text", placeholder: "Search Users" },
-          domProps: { value: _vm.tableData.search },
-          on: {
-            input: [
-              function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.tableData, "search", $event.target.value)
-              },
-              function($event) {
-                _vm.getUsers()
-              }
-            ]
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "control" }, [
-          _c("div", { staticClass: "select" }, [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.tableData.length,
-                    expression: "tableData.length"
-                  }
-                ],
-                on: {
-                  change: [
-                    function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.tableData,
-                        "length",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
+  return _c("div", { staticClass: "users" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [_vm._v("Users")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "tableFilters" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "input-group input-group-sm",
+                  staticStyle: { width: "150px" }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.tableData.search,
+                        expression: "tableData.search"
+                      }
+                    ],
+                    staticClass: "form-control float-right",
+                    attrs: {
+                      type: "text",
+                      name: "table_search",
+                      placeholder: "Search Users"
                     },
-                    function($event) {
-                      _vm.getUsers()
+                    domProps: { value: _vm.tableData.search },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.tableData, "search", $event.target.value)
+                        },
+                        function($event) {
+                          _vm.getUsers()
+                        }
+                      ]
                     }
-                  ]
-                }
-              },
-              _vm._l(_vm.perPage, function(records, index) {
-                return _c(
-                  "option",
-                  { key: index, domProps: { value: records } },
-                  [_vm._v(_vm._s(records))]
-                )
-              })
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "datatable",
-        {
-          attrs: {
-            columns: _vm.columns,
-            sortKey: _vm.sortKey,
-            sortOrders: _vm.sortOrders
-          },
-          on: { sort: _vm.sortBy }
-        },
-        [
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control" }, [
+                    _c("div", { staticClass: "select" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tableData.length,
+                              expression: "tableData.length"
+                            }
+                          ],
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.tableData,
+                                  "length",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                              function($event) {
+                                _vm.getUsers()
+                              }
+                            ]
+                          }
+                        },
+                        _vm._l(_vm.perPage, function(records, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: records } },
+                            [_vm._v(_vm._s(records))]
+                          )
+                        })
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
           _c(
-            "tbody",
-            _vm._l(_vm.users, function(user) {
-              return _c("tr", { key: user.id }, [
-                _c("td", [_vm._v(_vm._s(user.id))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(user.name))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(user.email))])
-              ])
-            })
+            "div",
+            { staticClass: "card-body table-responsive p-0" },
+            [
+              _c(
+                "datatable",
+                {
+                  attrs: {
+                    columns: _vm.columns,
+                    sortKey: _vm.sortKey,
+                    sortOrders: _vm.sortOrders
+                  },
+                  on: { sort: _vm.sortBy }
+                },
+                [
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.users, function(user) {
+                      return _c("tr", { key: user.id }, [
+                        _c("td", [_vm._v(_vm._s(user.id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.email))])
+                      ])
+                    })
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("pagination", {
+                attrs: { pagination: _vm.pagination },
+                on: {
+                  prev: function($event) {
+                    _vm.getUsers(_vm.pagination.prevPageUrl)
+                  },
+                  next: function($event) {
+                    _vm.getUsers(_vm.pagination.nextPageUrl)
+                  }
+                }
+              })
+            ],
+            1
           )
-        ]
-      ),
-      _vm._v(" "),
-      _c("pagination", {
-        attrs: { pagination: _vm.pagination },
-        on: {
-          prev: function($event) {
-            _vm.getUsers(_vm.pagination.prevPageUrl)
-          },
-          next: function($event) {
-            _vm.getUsers(_vm.pagination.nextPageUrl)
-          }
-        }
-      })
-    ],
-    1
-  )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,30 +1,41 @@
 <template>
     <div class="users">
-        <div class="tableFilters">
-            <input class="input" type="text" v-model="tableData.search" placeholder="Search Users"
-                   @input="getUsers()">
-
-            <div class="control">
-                <div class="select">
-                    <select v-model="tableData.length" @change="getUsers()">
-                        <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
-                    </select>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Users</h3>
+                        <div class="tableFilters">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" v-model="tableData.search" class="form-control float-right" placeholder="Search Users" @input="getUsers()">
+                                <div class="control">
+                                    <div class="select">
+                                        <select v-model="tableData.length" @change="getUsers()">
+                                            <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="card-body table-responsive p-0">   
+                        <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
+                            <tbody>
+                                <tr v-for="user in users" :key="user.id">
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.email}}</td>
+                                </tr>
+                            </tbody>
+                        </datatable>
+                        <pagination :pagination="pagination"
+                                    @prev="getUsers(pagination.prevPageUrl)"
+                                    @next="getUsers(pagination.nextPageUrl)">
+                        </pagination>
+                    </div>
                 </div>
             </div>
         </div>
-        <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
-            <tbody>
-                <tr v-for="user in users" :key="user.id">
-                    <td>{{user.id}}</td>
-                    <td>{{user.name}}</td>
-                    <td>{{user.email}}</td>
-                </tr>
-            </tbody>
-        </datatable>
-        <pagination :pagination="pagination"
-                    @prev="getUsers(pagination.prevPageUrl)"
-                    @next="getUsers(pagination.nextPageUrl)">
-        </pagination>
     </div>
 </template>
 
