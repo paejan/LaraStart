@@ -32,22 +32,10 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-cog"></i><p>Management<i class="right fa fa-angle-left"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i><p>Active Page</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i><p>Inactive Page</p>
-                            </a>
-                        </li>
-                    </ul>
+                <li class="nav-item">
+                    <router-link to="/users" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i><p>Users</p>
+                    </router-link>
                 </li>
 
                 <li class="nav-item">
