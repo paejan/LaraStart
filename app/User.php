@@ -16,6 +16,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password',
+        'logged_at', 'profile_photo'
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at', 'updated_at', 'logged_at'
     ];
 
     /**
