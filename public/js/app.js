@@ -50331,6 +50331,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -50937,16 +50942,16 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
         _c("div", { staticClass: "info-box mb-3" }, [
-          _c("span", { staticClass: "info-box-icon bg-danger elevation-1" }, [
+          _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
             _c("i", { staticClass: "fa fa-user-plus" })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [
-              _vm._v("Active Users")
-            ]),
+            _c("span", { staticClass: "info-box-text" }, [_vm._v("New Users")]),
             _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [_vm._v("0")])
+            _c("span", { staticClass: "info-box-number" }, [
+              _vm._v("\n                0\n            ")
+            ])
           ])
         ])
       ]),
@@ -50955,14 +50960,19 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
         _c("div", { staticClass: "info-box mb-3" }, [
-          _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
-            _c("i", { staticClass: "fa fa-shopping-cart" })
+          _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
+            _c("i", { staticClass: "fa fa-user-check" })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [_vm._v("Sales")]),
+            _c("span", { staticClass: "info-box-text" }, [
+              _vm._v("Active Users")
+            ]),
             _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [_vm._v("760")])
+            _c("span", { staticClass: "info-box-number" }, [
+              _vm._v("\n                0\n                "),
+              _c("small", [_vm._v("%")])
+            ])
           ])
         ])
       ]),
