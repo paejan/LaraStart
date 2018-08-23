@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Users</h3>
+                        <h3 class="card-title">Users <button type="button" data-toggle="tooltip" data-placement="bottom" title="New User" class="btn btn-outline-success btn-sm"><i class="fa fa-user-plus"></i></button></h3>
                         <div class="card-tools">
                             <div class="input-group input-group-sm">
                                 <input type="text" name="table_search" v-model="tableData.search" class="form-control float-right" placeholder="Search Users" @input="getUsers()">
@@ -15,10 +15,9 @@
                         <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
                             <tbody>
                                 <tr v-for="user in users" :key="user.id">
-                                    <td>{{user.id}}</td>
+                                    <td><button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button></td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
-                                    <td><button type="button" class="btn btn-block btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button></td>
                                 </tr>
                             </tbody>
                         </datatable>
@@ -44,10 +43,9 @@ export default {
   data() {
     let sortOrders = {};
     let columns = [
-      { width: "33%", label: "ID", name: "id" },
+      { width: "33%", label: "Actions", name: "actions" },
       { width: "33%", label: "Name", name: "name" },
-      { width: "33%", label: "E-mail", name: "email" },
-      { width: "33%", label: "Actions", name: "actions" }
+      { width: "33%", label: "E-mail", name: "email" }
     ];
     columns.forEach(column => {
       sortOrders[column.name] = -1;

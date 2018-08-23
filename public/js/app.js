@@ -50271,7 +50271,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -50282,7 +50281,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     var sortOrders = {};
-    var columns = [{ width: "33%", label: "ID", name: "id" }, { width: "33%", label: "Name", name: "name" }, { width: "33%", label: "E-mail", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
+    var columns = [{ width: "33%", label: "Actions", name: "actions" }, { width: "33%", label: "Name", name: "name" }, { width: "33%", label: "E-mail", name: "email" }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
     });
@@ -50754,7 +50753,7 @@ var render = function() {
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [_vm._v("Users")]),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "card-tools" }, [
               _c("div", { staticClass: "input-group input-group-sm" }, [
@@ -50811,23 +50810,20 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.users, function(user) {
                       return _c("tr", { key: user.id }, [
-                        _c("td", [_vm._v(_vm._s(user.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.email))]),
-                        _vm._v(" "),
                         _c("td", [
                           _c(
                             "button",
                             {
-                              staticClass:
-                                "btn btn-block btn-outline-primary btn-sm",
+                              staticClass: "btn btn-outline-primary btn-sm",
                               attrs: { type: "button" }
                             },
                             [_c("i", { staticClass: "fa fa-user-edit" })]
                           )
-                        ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.email))])
                       ])
                     })
                   )
@@ -50853,7 +50849,29 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "card-title" }, [
+      _vm._v("Users "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-success btn-sm",
+          attrs: {
+            type: "button",
+            "data-toggle": "tooltip",
+            "data-placement": "bottom",
+            title: "New User"
+          }
+        },
+        [_c("i", { staticClass: "fa fa-user-plus" })]
+      )
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
