@@ -34,4 +34,14 @@ class UserController extends Controller
         $users = $query->paginate($request->input('length'));
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
+
+    /**
+     * Return a count of all registered users.
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        return User::count();
+    }
 }
