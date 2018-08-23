@@ -5,16 +5,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Users</h3>
-                        <div class="tableFilters">
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm">
                                 <input type="text" name="table_search" v-model="tableData.search" class="form-control float-right" placeholder="Search Users" @input="getUsers()">
-                                <div class="control">
-                                    <div class="select">
-                                        <select v-model="tableData.length" @change="getUsers()">
-                                            <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -25,6 +18,7 @@
                                     <td>{{user.id}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
+                                    <td><button type="button" class="btn btn-block btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button></td>
                                 </tr>
                             </tbody>
                         </datatable>
@@ -52,7 +46,8 @@ export default {
     let columns = [
       { width: "33%", label: "ID", name: "id" },
       { width: "33%", label: "Name", name: "name" },
-      { width: "33%", label: "E-mail", name: "email" }
+      { width: "33%", label: "E-mail", name: "email" },
+      { width: "33%", label: "Actions", name: "actions" }
     ];
     columns.forEach(column => {
       sortOrders[column.name] = -1;

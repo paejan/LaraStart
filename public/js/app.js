@@ -50272,12 +50272,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -50288,7 +50282,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     var sortOrders = {};
-    var columns = [{ width: "33%", label: "ID", name: "id" }, { width: "33%", label: "Name", name: "name" }, { width: "33%", label: "E-mail", name: "email" }];
+    var columns = [{ width: "33%", label: "ID", name: "id" }, { width: "33%", label: "Name", name: "name" }, { width: "33%", label: "E-mail", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
     });
@@ -50762,95 +50756,39 @@ var render = function() {
           _c("div", { staticClass: "card-header" }, [
             _c("h3", { staticClass: "card-title" }, [_vm._v("Users")]),
             _vm._v(" "),
-            _c("div", { staticClass: "tableFilters" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "input-group input-group-sm",
-                  staticStyle: { width: "150px" }
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.tableData.search,
-                        expression: "tableData.search"
-                      }
-                    ],
-                    staticClass: "form-control float-right",
-                    attrs: {
-                      type: "text",
-                      name: "table_search",
-                      placeholder: "Search Users"
-                    },
-                    domProps: { value: _vm.tableData.search },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.tableData, "search", $event.target.value)
-                        },
-                        function($event) {
-                          _vm.getUsers()
-                        }
-                      ]
+            _c("div", { staticClass: "card-tools" }, [
+              _c("div", { staticClass: "input-group input-group-sm" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.tableData.search,
+                      expression: "tableData.search"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "control" }, [
-                    _c("div", { staticClass: "select" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.tableData.length,
-                              expression: "tableData.length"
-                            }
-                          ],
-                          on: {
-                            change: [
-                              function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.tableData,
-                                  "length",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              },
-                              function($event) {
-                                _vm.getUsers()
-                              }
-                            ]
-                          }
-                        },
-                        _vm._l(_vm.perPage, function(records, index) {
-                          return _c(
-                            "option",
-                            { key: index, domProps: { value: records } },
-                            [_vm._v(_vm._s(records))]
-                          )
-                        })
-                      )
-                    ])
-                  ])
-                ]
-              )
+                  ],
+                  staticClass: "form-control float-right",
+                  attrs: {
+                    type: "text",
+                    name: "table_search",
+                    placeholder: "Search Users"
+                  },
+                  domProps: { value: _vm.tableData.search },
+                  on: {
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.tableData, "search", $event.target.value)
+                      },
+                      function($event) {
+                        _vm.getUsers()
+                      }
+                    ]
+                  }
+                })
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -50877,7 +50815,19 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(user.name))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.email))])
+                        _c("td", [_vm._v(_vm._s(user.email))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-block btn-outline-primary btn-sm",
+                              attrs: { type: "button" }
+                            },
+                            [_c("i", { staticClass: "fa fa-user-edit" })]
+                          )
+                        ])
                       ])
                     })
                   )
