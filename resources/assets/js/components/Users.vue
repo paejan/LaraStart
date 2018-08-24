@@ -64,8 +64,11 @@
               <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user-check"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Currently Online</span>
-                <span class="info-box-number">
+                <span class="info-box-text">Currently Online <i @click="getUsersOnlineCount()" class="fa fa-sync"></i> </span>
+                <span class="info-box-number" v-if="loadingUsersOnlineCount">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </span>
+                <span class="info-box-number" v-else>
                     {{ usersOnlineCount }}
                 </span>
               </div>
@@ -189,6 +192,7 @@ export default {
       activeUserCount: 0,
       loadingActiveUserCount: true,
       usersOnlineCount: 0,
+      loadingUsersOnlineCount: true,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -265,8 +269,10 @@ export default {
       });
     },
     getUsersOnlineCount() {
+      this.loadingUsersOnlineCount = true;
       axios.get("api/count/users/online").then(({ data }) => {
         this.usersOnlineCount = data;
+        this.loadingUsersOnlineCount = false;
       });
     },
     deleteUser(id) {

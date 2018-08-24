@@ -50388,6 +50388,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -50423,6 +50426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       activeUserCount: 0,
       loadingActiveUserCount: true,
       usersOnlineCount: 0,
+      loadingUsersOnlineCount: true,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -50519,10 +50523,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getUsersOnlineCount: function getUsersOnlineCount() {
       var _this6 = this;
 
+      this.loadingUsersOnlineCount = true;
       axios.get("api/count/users/online").then(function (_ref5) {
         var data = _ref5.data;
 
         _this6.usersOnlineCount = data;
+        _this6.loadingUsersOnlineCount = false;
       });
     },
     deleteUser: function deleteUser(id) {
@@ -50968,16 +50974,28 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "info-box-content" }, [
             _c("span", { staticClass: "info-box-text" }, [
-              _vm._v("Currently Online")
+              _vm._v("Currently Online "),
+              _c("i", {
+                staticClass: "fa fa-sync",
+                on: {
+                  click: function($event) {
+                    _vm.getUsersOnlineCount()
+                  }
+                }
+              })
             ]),
             _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.usersOnlineCount) +
-                  "\n            "
-              )
-            ])
+            _vm.loadingUsersOnlineCount
+              ? _c("span", { staticClass: "info-box-number" }, [
+                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                ])
+              : _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.usersOnlineCount) +
+                      "\n            "
+                  )
+                ])
           ])
         ])
       ])
