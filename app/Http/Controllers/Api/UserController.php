@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -43,5 +44,15 @@ class UserController extends Controller
     public function count()
     {
         return User::count();
+    }
+
+    /**
+     * Returns all of the active users within the past week.
+     *
+     * @return integer
+     */
+    public function active()
+    {
+        return User::where('logged_at', '>', Carbon::now()->subWeek())->count();
     }
 }

@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('users', 'Api\UserController');
 Route::get('count/users', 'Api\UserController@count');
+Route::get('count/users/active', 'Api\UserController@active');
