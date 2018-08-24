@@ -50336,6 +50336,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -50346,6 +50348,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.getUserCount();
     this.getNewUserCount();
     this.getActiveUserCount();
+    this.getUsersOnlineCount();
   },
   data: function data() {
     var sortOrders = {};
@@ -50358,6 +50361,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       userCount: 0,
       newUserCount: 0,
       activeUserCount: 0,
+      usersOnlineCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -50424,6 +50428,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var data = _ref3.data;
 
         _this4.activeUserCount = data;
+      });
+    },
+    getUsersOnlineCount: function getUsersOnlineCount() {
+      var _this5 = this;
+
+      axios.get("api/count/users/online").then(function (_ref4) {
+        var data = _ref4.data;
+
+        _this5.usersOnlineCount = data;
       });
     },
     configPagination: function configPagination(data) {
@@ -50908,7 +50921,25 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(3)
+      _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+        _c("div", { staticClass: "info-box mb-3" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "info-box-content" }, [
+            _c("span", { staticClass: "info-box-text" }, [
+              _vm._v("Currently Online")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "info-box-number" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.usersOnlineCount) +
+                  "\n            "
+              )
+            ])
+          ])
+        ])
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -51040,18 +51071,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-      _c("div", { staticClass: "info-box mb-3" }, [
-        _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
-          _c("i", { staticClass: "fa fa-users" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "info-box-content" }, [
-          _c("span", { staticClass: "info-box-text" }, [_vm._v("New Members")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "info-box-number" }, [_vm._v("2,000")])
-        ])
-      ])
+    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-check" })
     ])
   },
   function() {

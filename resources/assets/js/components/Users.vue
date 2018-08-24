@@ -52,11 +52,13 @@
           <!-- /.col -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-users"></i></span>
+              <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user-check"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
-                <span class="info-box-number">2,000</span>
+                <span class="info-box-text">Currently Online</span>
+                <span class="info-box-number">
+                    {{ usersOnlineCount }}
+                </span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -107,6 +109,7 @@ export default {
     this.getUserCount();
     this.getNewUserCount();
     this.getActiveUserCount();
+    this.getUsersOnlineCount();
   },
   data() {
     let sortOrders = {};
@@ -123,6 +126,7 @@ export default {
       userCount: 0,
       newUserCount: 0,
       activeUserCount: 0,
+      usersOnlineCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -175,6 +179,11 @@ export default {
     getActiveUserCount() {
       axios.get("api/count/users/active").then(({ data }) => {
         this.activeUserCount = data;
+      });
+    },
+    getUsersOnlineCount() {
+      axios.get("api/count/users/online").then(({ data }) => {
+        this.usersOnlineCount = data;
       });
     },
     configPagination(data) {

@@ -47,7 +47,7 @@ class UserController extends Controller
     }
 
     /**
-     * Returns all of the active users within the past week.
+     * Returns a count of the active users within the past week.
      *
      * @return integer
      */
@@ -57,12 +57,22 @@ class UserController extends Controller
     }
 
     /**
-     * Returns all of the new users created within the past 2 weeks.
+     * Returns a count of the new users created within the past 2 weeks.
      *
      * @return integer
      */
     public function newUsers()
     {
         return User::where('created_at', '>', Carbon::now()->subWeeks(2))->count();
+    }
+
+    /**
+     * Returns a count of users that are currently logged in.
+     *
+     * @return integer
+     */
+    public function online()
+    {
+        return User::where('login_at', '>', Carbon::now()->subHour())->count();
     }
 }
