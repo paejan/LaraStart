@@ -100,7 +100,7 @@
                                     <td>{{user.email}}</td>
                                     <td>
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button>
-                                        <button @click="showModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
+                                        <button @click="getUser(user.id); showModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -122,7 +122,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="deleteUserModal">Deleting: {{ user.name }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" @click="showModal = false" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                 </div>
@@ -130,7 +130,7 @@
                                     Are you sure you want to delete {{ user.name }}?
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
                                     <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
                                     <button v-else @click="deleteUser(user.id)" type="button" class="btn btn-danger">Delete User</button>
                                 </div>
@@ -223,6 +223,13 @@ export default {
           console.log(errors);
         });
     },
+    refresh() {
+      this.getUsers();
+      this.getUserCount();
+      this.getNewUserCount();
+      this.getActiveUserCount();
+      this.getUsersOnlineCount();
+    },
     getUserCount() {
       this.loadingUserCount = true;
       axios.get("api/count/users").then(({ data }) => {
@@ -256,6 +263,8 @@ export default {
         //
       });
       this.loadingDeleteUser = false;
+      this.refresh();
+      this.showModal = false;
     },
     configPagination(data) {
       this.pagination.lastPage = data.last_page;

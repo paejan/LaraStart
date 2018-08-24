@@ -50459,6 +50459,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log(errors);
       });
     },
+    refresh: function refresh() {
+      this.getUsers();
+      this.getUserCount();
+      this.getNewUserCount();
+      this.getActiveUserCount();
+      this.getUsersOnlineCount();
+    },
     getUserCount: function getUserCount() {
       var _this2 = this;
 
@@ -50514,6 +50521,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var data = _ref6.data;
       });
       this.loadingDeleteUser = false;
+      this.refresh();
+      this.showModal = false;
     },
     configPagination: function configPagination(data) {
       this.pagination.lastPage = data.last_page;
@@ -51053,6 +51062,7 @@ var render = function() {
                               attrs: { type: "button" },
                               on: {
                                 click: function($event) {
+                                  _vm.getUser(user.id)
                                   _vm.showModal = true
                                 }
                               }
@@ -51113,10 +51123,11 @@ var render = function() {
                             "button",
                             {
                               staticClass: "close",
-                              attrs: {
-                                type: "button",
-                                "data-dismiss": "modal",
-                                "aria-label": "Close"
+                              attrs: { type: "button", "aria-label": "Close" },
+                              on: {
+                                click: function($event) {
+                                  _vm.showModal = false
+                                }
                               }
                             },
                             [
@@ -51140,7 +51151,12 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-secondary",
-                              attrs: { type: "button", "data-dismiss": "modal" }
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  _vm.showModal = false
+                                }
+                              }
                             },
                             [_vm._v("Close")]
                           ),
