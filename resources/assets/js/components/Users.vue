@@ -1,5 +1,6 @@
 <template>
     <div class="users">
+        <notifications group="foo" />
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
@@ -239,6 +240,11 @@ export default {
             this.configPagination(data.data);
             this.loadingUsers = false;
             this.loadingTable = false;
+            this.$notify({
+              group: "foo",
+              title: "Important message",
+              text: "Hello user! This is a notification!"
+            });
           }
         })
         .catch(errors => {

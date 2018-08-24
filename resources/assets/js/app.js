@@ -10,7 +10,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
+import Notifications from 'vue-notification'
+
 Vue.use(VueRouter)
+Vue.use(Notifications)
+
 
 let routes = [
   { path: '/dashboard', component: require('./components/Dashboard.vue') },
