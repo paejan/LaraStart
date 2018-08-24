@@ -104,6 +104,7 @@ export default {
   components: { datatable: Datatable, pagination: Pagination },
   created() {
     this.getUsers();
+    this.getUserCount();
   },
   data() {
     let sortOrders = {};
@@ -117,6 +118,7 @@ export default {
     });
     return {
       users: [],
+      userCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -155,6 +157,11 @@ export default {
         .catch(errors => {
           console.log(errors);
         });
+    },
+    getUserCount() {
+      axios.get("api/count/users").then(({ data }) => {
+        this.userCount = data;
+      });
     },
     configPagination(data) {
       this.pagination.lastPage = data.last_page;

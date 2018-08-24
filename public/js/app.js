@@ -50343,6 +50343,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a, pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a },
   created: function created() {
     this.getUsers();
+    this.getUserCount();
   },
   data: function data() {
     var sortOrders = {};
@@ -50352,6 +50353,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
     return {
       users: [],
+      userCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -50391,6 +50393,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       }).catch(function (errors) {
         console.log(errors);
+      });
+    },
+    getUserCount: function getUserCount() {
+      var _this2 = this;
+
+      axios.get("api/count/users").then(function (_ref) {
+        var data = _ref.data;
+
+        _this2.userCount = data;
       });
     },
     configPagination: function configPagination(data) {
