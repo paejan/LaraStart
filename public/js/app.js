@@ -50663,18 +50663,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["pagination", "client", "filtered"]
@@ -50688,153 +50676,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return !_vm.client
-    ? _c("div", [
-        _c("ul", { staticClass: "pagination pagination-sm m-0 float-left" }, [
-          _c("p", [
-            _vm._v(
-              " " +
-                _vm._s(_vm.pagination.from) +
-                " - " +
-                _vm._s(_vm.pagination.to) +
-                " of " +
-                _vm._s(_vm.pagination.total) +
-                " "
+  return _c("div", [
+    _c("ul", { staticClass: "pagination pagination-sm m-0 float-left" }, [
+      _c("p", [
+        _vm._v(
+          " " +
+            _vm._s(_vm.pagination.from) +
+            " - " +
+            _vm._s(_vm.pagination.to) +
+            " of " +
+            _vm._s(_vm.pagination.total) +
+            " "
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("ul", { staticClass: "pagination pagination-sm m-0 float-right" }, [
+      _vm.pagination.prevPageUrl
+        ? _c("li", { staticClass: "page-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.$emit("prev")
+                  }
+                }
+              },
+              [_vm._v("Previous")]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "pagination pagination-sm m-0 float-right" }, [
-          _vm.pagination.prevPageUrl
-            ? _c("li", { staticClass: "page-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "page-link",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("prev")
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.pagination.from))]
-                )
-              ])
-            : _c(
-                "li",
-                { staticClass: "page-item", attrs: { disabled: true } },
-                [
-                  _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(_vm.pagination.from))
-                  ])
-                ]
-              ),
-          _vm._v(" "),
-          _vm.pagination.nextPageUrl
-            ? _c("li", { staticClass: "page-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "page-link",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("next")
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.pagination.to))]
-                )
-              ])
-            : _c(
-                "li",
-                { staticClass: "page-item", attrs: { disabled: true } },
-                [
-                  _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(_vm.pagination.to))
-                  ])
-                ]
-              )
-        ])
-      ])
-    : _c("div", [
-        _c("ul", { staticClass: "pagination pagination-sm m-0 float-left" }, [
-          _c("p", [
-            _vm._v(
-              " " +
-                _vm._s(_vm.pagination.from) +
-                " - " +
-                _vm._s(_vm.pagination.to) +
-                " of " +
-                _vm._s(_vm.filtered.length) +
-                " "
-            )
+        : _c("li", { staticClass: "page-item", attrs: { disabled: true } }, [
+            _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+              _vm._v("Previous")
+            ])
           ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              " Filtered from " +
-                _vm._s(_vm.pagination.total) +
-                " total entries."
+      _vm._v(" "),
+      _vm.pagination.nextPageUrl
+        ? _c("li", { staticClass: "page-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.$emit("next")
+                  }
+                }
+              },
+              [_vm._v("Next")]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "pagination pagination-sm m-0 float-right" }, [
-          _vm.pagination.prevPage
-            ? _c("li", { staticClass: "page-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "page-link",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("prev")
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.pagination.from))]
-                )
-              ])
-            : _c(
-                "li",
-                { staticClass: "page-item", attrs: { disabled: true } },
-                [
-                  _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(_vm.pagination.from))
-                  ])
-                ]
-              ),
-          _vm._v(" "),
-          _vm.pagination.nextPage
-            ? _c("li", { staticClass: "page-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "page-link",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("next")
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.pagination.to))]
-                )
-              ])
-            : _c(
-                "li",
-                { staticClass: "page-item", attrs: { disabled: true } },
-                [
-                  _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(_vm.pagination.to))
-                  ])
-                ]
-              )
-        ])
-      ])
+        : _c("li", { staticClass: "page-item", attrs: { disabled: true } }, [
+            _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+              _vm._v("Next")
+            ])
+          ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
