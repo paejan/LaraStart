@@ -50500,6 +50500,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this6.usersOnlineCount = data;
       });
     },
+    deleteUser: function deleteUser(id) {
+      var _this7 = this;
+
+      axios.get("api/user/delete/" + id).then(function (_ref6) {
+        var data = _ref6.data;
+
+        _this7.user = data;
+      });
+    },
     configPagination: function configPagination(data) {
       this.pagination.lastPage = data.last_page;
       this.pagination.currentPage = data.current_page;
@@ -51116,7 +51125,30 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(6)
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.deleteUser(_vm.user.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Delete User")]
+                )
+              ])
             ])
           ]
         )
@@ -51191,27 +51223,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-danger", attrs: { type: "button" } },
-        [_vm._v("Delete User")]
-      )
-    ])
   }
 ]
 render._withStripped = true

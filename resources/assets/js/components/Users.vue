@@ -131,7 +131,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger">Delete User</button>
+                        <button @click="deleteUser(user.id)" type="button" class="btn btn-danger">Delete User</button>
                     </div>
                 </div>
             </div>
@@ -242,6 +242,11 @@ export default {
     getUsersOnlineCount() {
       axios.get("api/count/users/online").then(({ data }) => {
         this.usersOnlineCount = data;
+      });
+    },
+    deleteUser(id) {
+      axios.get("api/user/delete/" + id).then(({ data }) => {
+        this.user = data;
       });
     },
     configPagination(data) {
