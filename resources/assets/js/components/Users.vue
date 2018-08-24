@@ -100,7 +100,7 @@
                                     <td>{{user.email}}</td>
                                     <td>
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button>
-                                        <button @click="getUser(user.id)" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal"><i class="fa fa-trash-alt"></i></button>
+                                        <button @click="showModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -114,25 +114,31 @@
             </div>
         </div>
         <!-- Delete User Modal -->
-        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteUserModal">Deleting: {{ user.name }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to delete {{ user.name }}?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
-                        <button v-else @click="deleteUser(user.id)" type="button" class="btn btn-danger">Delete User</button>
+        <div v-if="showModal">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteUserModal">Deleting: {{ user.name }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete {{ user.name }}?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                                    <button v-else @click="deleteUser(user.id)" type="button" class="btn btn-danger">Delete User</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </transition>
         </div>
     </div>
 </template>
@@ -165,6 +171,7 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
+      showModal: false,
       user: [],
       users: [],
       loadingDeleteUser: false,
@@ -248,6 +255,7 @@ export default {
       axios.get("api/user/delete/" + id).then(({ data }) => {
         //
       });
+      this.loadingDeleteUser = false;
     },
     configPagination(data) {
       this.pagination.lastPage = data.last_page;

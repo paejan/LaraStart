@@ -50376,6 +50376,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50399,6 +50405,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       sortOrders[column.name] = -1;
     });
     return {
+      showModal: false,
       user: [],
       users: [],
       loadingDeleteUser: false,
@@ -50506,6 +50513,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         var data = _ref6.data;
       });
+      this.loadingDeleteUser = false;
     },
     configPagination: function configPagination(data) {
       this.pagination.lastPage = data.last_page;
@@ -51042,14 +51050,10 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-outline-danger btn-sm",
-                              attrs: {
-                                type: "button",
-                                "data-toggle": "modal",
-                                "data-target": "#deleteUserModal"
-                              },
+                              attrs: { type: "button" },
                               on: {
                                 click: function($event) {
-                                  _vm.getUser(user.id)
+                                  _vm.showModal = true
                                 }
                               }
                             },
@@ -51080,83 +51084,100 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "deleteUserModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "deleteUserModal",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
+    _vm.showModal
+      ? _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "deleteUserModal" }
-                  },
-                  [_vm._v("Deleting: " + _vm._s(_vm.user.name))]
-                ),
-                _vm._v(" "),
-                _vm._m(5)
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _vm._v(
-                  "\n                    Are you sure you want to delete " +
-                    _vm._s(_vm.user.name) +
-                    "?\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
-                _vm._v(" "),
-                _vm.loadingDeleteUser
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { disabled: "", type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.deleteUser(_vm.user.id)
-                          }
-                        }
-                      },
-                      [_vm._v("Delete User")]
-                    )
+            _c("transition", { attrs: { name: "modal" } }, [
+              _c("div", { staticClass: "modal-mask" }, [
+                _c("div", { staticClass: "modal-wrapper" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "modal-dialog",
+                      attrs: { role: "document" }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-content" }, [
+                        _c("div", { staticClass: "modal-header" }, [
+                          _c(
+                            "h5",
+                            {
+                              staticClass: "modal-title",
+                              attrs: { id: "deleteUserModal" }
+                            },
+                            [_vm._v("Deleting: " + _vm._s(_vm.user.name))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "close",
+                              attrs: {
+                                type: "button",
+                                "data-dismiss": "modal",
+                                "aria-label": "Close"
+                              }
+                            },
+                            [
+                              _c("span", { attrs: { "aria-hidden": "true" } }, [
+                                _vm._v("×")
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-body" }, [
+                          _vm._v(
+                            "\n                                Are you sure you want to delete " +
+                              _vm._s(_vm.user.name) +
+                              "?\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-footer" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary",
+                              attrs: { type: "button", "data-dismiss": "modal" }
+                            },
+                            [_vm._v("Close")]
+                          ),
+                          _vm._v(" "),
+                          _vm.loadingDeleteUser
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  attrs: { disabled: "", type: "button" }
+                                },
+                                [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.deleteUser(_vm.user.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Delete User")]
+                              )
+                        ])
+                      ])
+                    ]
+                  )
+                ])
               ])
             ])
-          ]
+          ],
+          1
         )
-      ]
-    )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -51208,23 +51229,6 @@ var staticRenderFns = [
         }
       },
       [_c("i", { staticClass: "fa fa-user-plus" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
   }
 ]
