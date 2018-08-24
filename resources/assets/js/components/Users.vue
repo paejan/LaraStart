@@ -24,10 +24,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">New Users</span>
-                <span class="info-box-number" v-if="loadingNewUsers">
-                    <i class="fa fa-spinner fa-spin"></i>
-                </span>
-                <span class="info-box-number" v-else>
+                <span class="info-box-number">
                    {{ newUserCount.toLocaleString('en') }}
                 </span>
               </div>
@@ -131,7 +128,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button @click="deleteUser(user.id)" type="button" class="btn btn-danger">Delete User</button>
+                        <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                        <button v-else @click="deleteUser(user.id)" type="button" class="btn btn-danger">Delete User</button>
                     </div>
                 </div>
             </div>
@@ -169,6 +167,7 @@ export default {
     return {
       user: [],
       users: [],
+      loadingDeleteUser: false,
       loadingUsers: true,
       userCount: 0,
       loadingUserCount: true,
@@ -245,8 +244,9 @@ export default {
       });
     },
     deleteUser(id) {
+      this.loadingDeleteUser = true;
       axios.get("api/user/delete/" + id).then(({ data }) => {
-        this.user = data;
+        //
       });
     },
     configPagination(data) {

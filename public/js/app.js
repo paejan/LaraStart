@@ -50376,8 +50376,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -50403,6 +50401,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       user: [],
       users: [],
+      loadingDeleteUser: false,
       loadingUsers: true,
       userCount: 0,
       loadingUserCount: true,
@@ -50501,12 +50500,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this7 = this;
-
+      this.loadingDeleteUser = true;
       axios.get("api/user/delete/" + id).then(function (_ref6) {
-        var data = _ref6.data;
+        //
 
-        _this7.user = data;
+        var data = _ref6.data;
       });
     },
     configPagination: function configPagination(data) {
@@ -50868,17 +50866,13 @@ var render = function() {
           _c("div", { staticClass: "info-box-content" }, [
             _c("span", { staticClass: "info-box-text" }, [_vm._v("New Users")]),
             _vm._v(" "),
-            _vm.loadingNewUsers
-              ? _c("span", { staticClass: "info-box-number" }, [
-                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                ])
-              : _c("span", { staticClass: "info-box-number" }, [
-                  _vm._v(
-                    "\n               " +
-                      _vm._s(_vm.newUserCount.toLocaleString("en")) +
-                      "\n            "
-                  )
-                ])
+            _c("span", { staticClass: "info-box-number" }, [
+              _vm._v(
+                "\n               " +
+                  _vm._s(_vm.newUserCount.toLocaleString("en")) +
+                  "\n            "
+              )
+            ])
           ])
         ])
       ]),
@@ -51135,19 +51129,28 @@ var render = function() {
                   [_vm._v("Close")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.deleteUser(_vm.user.id)
-                      }
-                    }
-                  },
-                  [_vm._v("Delete User")]
-                )
+                _vm.loadingDeleteUser
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { disabled: "", type: "button" }
+                      },
+                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteUser(_vm.user.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete User")]
+                    )
               ])
             ])
           ]
