@@ -287,8 +287,8 @@ export default {
     },
     deleteUser(id) {
       this.loadingDeleteUser = true;
-      axios.get("api/user/delete/" + id).then(({ data }) => {
-        //
+      axios.get("api/user/delete/" + id).catch(errors => {
+        console.log(errors);
       });
       this.loadingDeleteUser = false;
       this.refresh();

@@ -50543,10 +50543,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     deleteUser: function deleteUser(id) {
       this.loadingDeleteUser = true;
-      axios.get("api/user/delete/" + id).then(function (_ref6) {
-        //
-
-        var data = _ref6.data;
+      axios.get("api/user/delete/" + id).catch(function (errors) {
+        console.log(errors);
       });
       this.loadingDeleteUser = false;
       this.refresh();
