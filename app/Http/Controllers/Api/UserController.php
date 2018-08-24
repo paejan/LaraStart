@@ -86,4 +86,17 @@ class UserController extends Controller
     {
         return $user;
     }
+
+    /**
+     * Deletes a user by the speciifed id.
+     *
+     * @param  integer  $user
+     * @return mixed
+     */
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return $user;
+    }
 }
