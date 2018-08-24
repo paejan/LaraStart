@@ -50542,13 +50542,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     deleteUser: function deleteUser(id) {
+      var _this7 = this;
+
       this.loadingDeleteUser = true;
-      axios.get("api/user/delete/" + id).catch(function (errors) {
+      axios.get("api/user/delete/" + id).then(function (response) {
+        _this7.loadingDeleteUser = false;
+        _this7.refresh();
+        _this7.showModal = false;
+      }).catch(function (errors) {
         console.log(errors);
       });
-      this.loadingDeleteUser = false;
-      this.refresh();
-      this.showModal = false;
     },
     configPagination: function configPagination(data) {
       this.pagination.lastPage = data.last_page;

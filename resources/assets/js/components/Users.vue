@@ -287,12 +287,16 @@ export default {
     },
     deleteUser(id) {
       this.loadingDeleteUser = true;
-      axios.get("api/user/delete/" + id).catch(errors => {
-        console.log(errors);
-      });
-      this.loadingDeleteUser = false;
-      this.refresh();
-      this.showModal = false;
+      axios
+        .get("api/user/delete/" + id)
+        .then(response => {
+          this.loadingDeleteUser = false;
+          this.refresh();
+          this.showModal = false;
+        })
+        .catch(errors => {
+          console.log(errors);
+        });
     },
     configPagination(data) {
       this.pagination.lastPage = data.last_page;
