@@ -50385,6 +50385,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -50418,6 +50421,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       newUserCount: 0,
       loadingNewUserCount: true,
       activeUserCount: 0,
+      loadingActiveUserCount: true,
       usersOnlineCount: 0,
       columns: columns,
       sortKey: "deadline",
@@ -50504,10 +50508,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getActiveUserCount: function getActiveUserCount() {
       var _this5 = this;
 
+      this.loadingActiveUserCount = true;
       axios.get("api/count/users/active").then(function (_ref4) {
         var data = _ref4.data;
 
         _this5.activeUserCount = data;
+        _this5.loadingActiveUserCount = false;
       });
     },
     getUsersOnlineCount: function getUsersOnlineCount() {
@@ -50922,21 +50928,36 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "info-box-content" }, [
             _c("span", { staticClass: "info-box-text" }, [
-              _vm._v("Active Users")
+              _vm._v("Active Users "),
+              _c("i", {
+                staticClass: "fa fa-sync",
+                on: {
+                  click: function($event) {
+                    _vm.getActiveUserCount()
+                  }
+                }
+              })
             ]),
             _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(
-                    (_vm.activeUserCount = 0
-                      ? ((_vm.activeUserCount / _vm.userCount) * 100).toFixed()
-                      : 0)
-                  ) +
-                  "\n                "
-              ),
-              _c("small", [_vm._v("%")])
-            ])
+            _vm.loadingActiveUserCount
+              ? _c("span", { staticClass: "info-box-number" }, [
+                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                ])
+              : _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(
+                        (_vm.activeUserCount = 0
+                          ? (
+                              (_vm.activeUserCount / _vm.userCount) *
+                              100
+                            ).toFixed()
+                          : 0)
+                      ) +
+                      "\n                "
+                  ),
+                  _c("small", [_vm._v("%")])
+                ])
           ])
         ])
       ]),

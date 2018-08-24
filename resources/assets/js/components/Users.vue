@@ -45,8 +45,11 @@
               <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-user-check"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Active Users</span>
-                <span class="info-box-number">
+                <span class="info-box-text">Active Users <i @click="getActiveUserCount()" class="fa fa-sync"></i></span>
+                <span class="info-box-number" v-if="loadingActiveUserCount">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </span>
+                <span class="info-box-number" v-else>
                     {{ (activeUserCount = 0 ? ((activeUserCount / userCount) * 100).toFixed() : 0) }}
                     <small>%</small>
                 </span>
@@ -184,6 +187,7 @@ export default {
       newUserCount: 0,
       loadingNewUserCount: true,
       activeUserCount: 0,
+      loadingActiveUserCount: true,
       usersOnlineCount: 0,
       columns: columns,
       sortKey: "deadline",
@@ -254,8 +258,10 @@ export default {
       });
     },
     getActiveUserCount() {
+      this.loadingActiveUserCount = true;
       axios.get("api/count/users/active").then(({ data }) => {
         this.activeUserCount = data;
+        this.loadingActiveUserCount = false;
       });
     },
     getUsersOnlineCount() {
