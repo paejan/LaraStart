@@ -7,7 +7,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total Users</span>
                 <span class="info-box-number">
-                  0
+                  {{ userCount.toLocaleString('en') }}
                 </span>
               </div>
               <!-- /.info-box-content -->
