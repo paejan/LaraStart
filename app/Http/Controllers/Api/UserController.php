@@ -55,4 +55,14 @@ class UserController extends Controller
     {
         return User::where('logged_at', '>', Carbon::now()->subWeek())->count();
     }
+
+    /**
+     * Returns all of the new users created within the past 2 weeks.
+     *
+     * @return integer
+     */
+    public function newUsers()
+    {
+        return User::where('created_at', '>', Carbon::now()->subWeeks(2))->count();
+    }
 }
