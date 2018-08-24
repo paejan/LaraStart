@@ -1,6 +1,6 @@
 <template>
     <div class="users">
-        <notifications group="foo" />
+        <notifications group="users" position="bottom right" :speed="2000"/>
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
@@ -149,7 +149,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
                                     <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
-                                    <button v-else @click="deleteUser(user.id)" type="button" class="btn btn-danger">Delete User</button>
+                                    <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
                                 </div>
                             </div>
                         </div>
@@ -240,11 +240,6 @@ export default {
             this.configPagination(data.data);
             this.loadingUsers = false;
             this.loadingTable = false;
-            this.$notify({
-              group: "foo",
-              title: "Important message",
-              text: "Hello user! This is a notification!"
-            });
           }
         })
         .catch(errors => {
@@ -291,14 +286,20 @@ export default {
         this.loadingUsersOnlineCount = false;
       });
     },
-    deleteUser(id) {
+    deleteUser(user) {
       this.loadingDeleteUser = true;
       axios
-        .get("api/user/delete/" + id)
+        .get("api/user/delete/" + user.id)
         .then(response => {
           this.loadingDeleteUser = false;
           this.refresh();
           this.showModal = false;
+          this.$notify({
+            group: "users",
+            title: "User Successfully Deleted",
+            type: "success",
+            text: user.name + " was successfully deleted."
+          });
         })
         .catch(errors => {
           console.log(errors);

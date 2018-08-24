@@ -50483,11 +50483,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.configPagination(data.data);
           _this.loadingUsers = false;
           _this.loadingTable = false;
-          _this.$notify({
-            group: "foo",
-            title: "Important message",
-            text: "Hello user! This is a notification!"
-          });
         }
       }).catch(function (errors) {
         console.log(errors);
@@ -50553,14 +50548,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this6.loadingUsersOnlineCount = false;
       });
     },
-    deleteUser: function deleteUser(id) {
+    deleteUser: function deleteUser(user) {
       var _this7 = this;
 
       this.loadingDeleteUser = true;
-      axios.get("api/user/delete/" + id).then(function (response) {
+      axios.get("api/user/delete/" + user.id).then(function (response) {
         _this7.loadingDeleteUser = false;
         _this7.refresh();
         _this7.showModal = false;
+        _this7.$notify({
+          group: "users",
+          title: "User Successfully Deleted",
+          type: "success",
+          text: user.name + " was successfully deleted."
+        });
       }).catch(function (errors) {
         console.log(errors);
       });
@@ -50887,7 +50888,9 @@ var render = function() {
     "div",
     { staticClass: "users" },
     [
-      _c("notifications", { attrs: { group: "foo" } }),
+      _c("notifications", {
+        attrs: { group: "users", position: "bottom right", speed: 2000 }
+      }),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
@@ -51285,7 +51288,7 @@ var render = function() {
                                     attrs: { type: "button" },
                                     on: {
                                       click: function($event) {
-                                        _vm.deleteUser(_vm.user.id)
+                                        _vm.deleteUser(_vm.user)
                                       }
                                     }
                                   },
