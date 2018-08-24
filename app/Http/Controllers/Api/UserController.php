@@ -75,4 +75,15 @@ class UserController extends Controller
     {
         return User::where('login_at', '>', Carbon::now()->subHour())->count();
     }
+
+    /**
+     * Returns a users data.
+     *
+     * @param  integer  $user
+     * @return Collection
+     */
+    public function user(User $user)
+    {
+        return $user;
+    }
 }

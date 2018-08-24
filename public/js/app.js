@@ -50464,31 +50464,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.loadingUserCount = false;
       });
     },
-    getNewUserCount: function getNewUserCount() {
+    deleteUser: function deleteUser(id) {
       var _this3 = this;
 
-      axios.get("api/count/users/new").then(function (_ref2) {
+      axios.get("api/user/" + id).then(function (_ref2) {
         var data = _ref2.data;
 
-        _this3.newUserCount = data;
+        _this3.user = data;
+      });
+    },
+    getNewUserCount: function getNewUserCount() {
+      var _this4 = this;
+
+      axios.get("api/count/users/new").then(function (_ref3) {
+        var data = _ref3.data;
+
+        _this4.newUserCount = data;
       });
     },
     getActiveUserCount: function getActiveUserCount() {
-      var _this4 = this;
+      var _this5 = this;
 
-      axios.get("api/count/users/active").then(function (_ref3) {
-        var data = _ref3.data;
+      axios.get("api/count/users/active").then(function (_ref4) {
+        var data = _ref4.data;
 
-        _this4.activeUserCount = data;
+        _this5.activeUserCount = data;
       });
     },
     getUsersOnlineCount: function getUsersOnlineCount() {
-      var _this5 = this;
+      var _this6 = this;
 
-      axios.get("api/count/users/online").then(function (_ref4) {
-        var data = _ref4.data;
+      axios.get("api/count/users/online").then(function (_ref5) {
+        var data = _ref5.data;
 
-        _this5.usersOnlineCount = data;
+        _this6.usersOnlineCount = data;
       });
     },
     configPagination: function configPagination(data) {
@@ -51034,6 +51043,11 @@ var render = function() {
                                 type: "button",
                                 "data-toggle": "modal",
                                 "data-target": "#deleteUserModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.deleteUser(user.id)
+                                }
                               }
                             },
                             [_c("i", { staticClass: "fa fa-trash-alt" })]

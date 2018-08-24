@@ -103,7 +103,7 @@
                                     <td>{{user.email}}</td>
                                     <td>
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button>
-                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal"><i class="fa fa-trash-alt"></i></button>
+                                        <button @click="deleteUser(user.id)" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal"><i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -222,6 +222,11 @@ export default {
       axios.get("api/count/users").then(({ data }) => {
         this.userCount = data;
         this.loadingUserCount = false;
+      });
+    },
+    deleteUser(id) {
+      axios.get("api/user/" + id).then(({ data }) => {
+        this.user = data;
       });
     },
     getNewUserCount() {
