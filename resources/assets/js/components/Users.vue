@@ -103,7 +103,14 @@
                     </div>
                      <div class="card-body table-responsive p-0">   
                         <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
-                            <tbody>
+                             <tbody v-if="loadingTable">
+                                <tr>
+                                    <td>Loading ... </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            <tbody v-else>
                                 <tr v-for="user in users" :key="user.id">
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
@@ -183,6 +190,7 @@ export default {
       showModal: false,
       user: [],
       users: [],
+      loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
       userCount: 0,
@@ -220,6 +228,7 @@ export default {
   methods: {
     getUsers(url = "api/users") {
       this.loadingUsers = true;
+      this.loadingTable = true;
       this.tableData.draw++;
       axios
         .get(url, { params: this.tableData })
@@ -229,6 +238,7 @@ export default {
             this.users = data.data.data;
             this.configPagination(data.data);
             this.loadingUsers = false;
+            this.loadingTable = false;
           }
         })
         .catch(errors => {

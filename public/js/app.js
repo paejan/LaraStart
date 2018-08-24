@@ -50391,6 +50391,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50417,6 +50424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       showModal: false,
       user: [],
       users: [],
+      loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
       userCount: 0,
@@ -50459,6 +50467,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/users";
 
       this.loadingUsers = true;
+      this.loadingTable = true;
       this.tableData.draw++;
       axios.get(url, { params: this.tableData }).then(function (response) {
         var data = response.data;
@@ -50466,6 +50475,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.users = data.data.data;
           _this.configPagination(data.data);
           _this.loadingUsers = false;
+          _this.loadingTable = false;
         }
       }).catch(function (errors) {
         console.log(errors);
@@ -51096,42 +51106,52 @@ var render = function() {
                   on: { sort: _vm.sortBy }
                 },
                 [
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.users, function(user) {
-                      return _c("tr", { key: user.id }, [
-                        _c("td", [_vm._v(_vm._s(user.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.email))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-outline-primary btn-sm",
-                              attrs: { type: "button" }
-                            },
-                            [_c("i", { staticClass: "fa fa-user-edit" })]
-                          ),
+                  _vm.loadingTable
+                    ? _c("tbody", [
+                        _c("tr", [
+                          _c("td", [_vm._v("Loading ... ")]),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-outline-danger btn-sm",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  _vm.getUser(user.id)
-                                  _vm.showModal = true
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fa fa-trash-alt" })]
-                          )
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td")
                         ])
                       ])
-                    })
-                  )
+                    : _c(
+                        "tbody",
+                        _vm._l(_vm.users, function(user) {
+                          return _c("tr", { key: user.id }, [
+                            _c("td", [_vm._v(_vm._s(user.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.email))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-primary btn-sm",
+                                  attrs: { type: "button" }
+                                },
+                                [_c("i", { staticClass: "fa fa-user-edit" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-danger btn-sm",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getUser(user.id)
+                                      _vm.showModal = true
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-trash-alt" })]
+                              )
+                            ])
+                          ])
+                        })
+                      )
                 ]
               ),
               _vm._v(" "),
