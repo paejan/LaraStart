@@ -50338,6 +50338,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -50352,13 +50355,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     var sortOrders = {};
-    var columns = [{ width: "33%", label: "Actions", name: "actions" }, { width: "33%", label: "Name", name: "name" }, { width: "33%", label: "E-mail", name: "email" }];
+    var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "E-mail", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
     });
     return {
       users: [],
       userCount: 0,
+      loadingUserCount: true,
       newUserCount: 0,
       activeUserCount: 0,
       usersOnlineCount: 0,
@@ -50406,10 +50410,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getUserCount: function getUserCount() {
       var _this2 = this;
 
+      this.loadingUserCount = true;
       axios.get("api/count/users").then(function (_ref) {
         var data = _ref.data;
 
         _this2.userCount = data;
+        _this2.loadingUserCount = false;
       });
     },
     getNewUserCount: function getNewUserCount() {
@@ -50764,16 +50770,28 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "info-box-content" }, [
             _c("span", { staticClass: "info-box-text" }, [
-              _vm._v("Total Users")
+              _vm._v("Total Users "),
+              _c("i", {
+                staticClass: "fa fa-sync",
+                on: {
+                  click: function($event) {
+                    _vm.getUserCount()
+                  }
+                }
+              })
             ]),
             _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [
-              _vm._v(
-                "\n              " +
-                  _vm._s(_vm.userCount.toLocaleString("en")) +
-                  "\n            "
-              )
-            ])
+            _vm.loadingUserCount
+              ? _c("span", { staticClass: "info-box-number" }, [
+                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                ])
+              : _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.userCount.toLocaleString("en")) +
+                      "\n            "
+                  )
+                ])
           ])
         ])
       ]),
@@ -50905,6 +50923,10 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.users, function(user) {
                       return _c("tr", { key: user.id }, [
+                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.email))]),
+                        _vm._v(" "),
                         _c("td", [
                           _c(
                             "button",
@@ -50914,11 +50936,7 @@ var render = function() {
                             },
                             [_c("i", { staticClass: "fa fa-user-edit" })]
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.email))])
+                        ])
                       ])
                     })
                   )

@@ -5,9 +5,12 @@
             <div class="info-box">
               <span class="info-box-icon bg-info elevation-1"><i class="fa fa-users"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Total Users</span>
-                <span class="info-box-number">
-                  {{ userCount.toLocaleString('en') }}
+                <span class="info-box-text">Total Users <i @click="getUserCount()" class="fa fa-sync"></i> </span>
+                <span class="info-box-number" v-if="loadingUserCount">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </span>
+                <span class="info-box-number" v-else>
+                    {{ userCount.toLocaleString('en') }}
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -82,9 +85,9 @@
                         <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
                             <tbody>
                                 <tr v-for="user in users" :key="user.id">
-                                    <td><button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button></td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
+                                    <td><button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button></td>
                                 </tr>
                             </tbody>
                         </datatable>
@@ -114,9 +117,9 @@ export default {
   data() {
     let sortOrders = {};
     let columns = [
-      { width: "33%", label: "Actions", name: "actions" },
       { width: "33%", label: "Name", name: "name" },
-      { width: "33%", label: "E-mail", name: "email" }
+      { width: "33%", label: "E-mail", name: "email" },
+      { width: "33%", label: "Actions", name: "actions" }
     ];
     columns.forEach(column => {
       sortOrders[column.name] = -1;
@@ -124,6 +127,7 @@ export default {
     return {
       users: [],
       userCount: 0,
+      loadingUserCount: true,
       newUserCount: 0,
       activeUserCount: 0,
       usersOnlineCount: 0,
@@ -167,8 +171,10 @@ export default {
         });
     },
     getUserCount() {
+      this.loadingUserCount = true;
       axios.get("api/count/users").then(({ data }) => {
         this.userCount = data;
+        this.loadingUserCount = false;
       });
     },
     getNewUserCount() {
