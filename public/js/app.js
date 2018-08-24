@@ -50345,6 +50345,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.getUsers();
     this.getUserCount();
     this.getNewUserCount();
+    this.getActiveUserCount();
   },
   data: function data() {
     var sortOrders = {};
@@ -50356,6 +50357,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       users: [],
       userCount: 0,
       newUserCount: 0,
+      activeUserCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -50413,6 +50415,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var data = _ref2.data;
 
         _this3.newUserCount = data;
+      });
+    },
+    getActiveUserCount: function getActiveUserCount() {
+      var _this4 = this;
+
+      axios.get("api/count/users/active").then(function (_ref3) {
+        var data = _ref3.data;
+
+        _this4.activeUserCount = data;
       });
     },
     configPagination: function configPagination(data) {

@@ -106,6 +106,7 @@ export default {
     this.getUsers();
     this.getUserCount();
     this.getNewUserCount();
+    this.getActiveUserCount();
   },
   data() {
     let sortOrders = {};
@@ -121,6 +122,7 @@ export default {
       users: [],
       userCount: 0,
       newUserCount: 0,
+      activeUserCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -168,6 +170,11 @@ export default {
     getNewUserCount() {
       axios.get("api/count/users/new").then(({ data }) => {
         this.newUserCount = data;
+      });
+    },
+    getActiveUserCount() {
+      axios.get("api/count/users/active").then(({ data }) => {
+        this.activeUserCount = data;
       });
     },
     configPagination(data) {
