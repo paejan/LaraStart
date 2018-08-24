@@ -50382,6 +50382,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -50413,6 +50416,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       userCount: 0,
       loadingUserCount: true,
       newUserCount: 0,
+      loadingNewUserCount: true,
       activeUserCount: 0,
       usersOnlineCount: 0,
       columns: columns,
@@ -50489,10 +50493,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getNewUserCount: function getNewUserCount() {
       var _this4 = this;
 
+      this.loadingNewUserCount = true;
       axios.get("api/count/users/new").then(function (_ref3) {
         var data = _ref3.data;
 
         _this4.newUserCount = data;
+        _this4.loadingNewUserCount = false;
       });
     },
     getActiveUserCount: function getActiveUserCount() {
@@ -50881,15 +50887,29 @@ var render = function() {
           _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [_vm._v("New Users")]),
+            _c("span", { staticClass: "info-box-text" }, [
+              _vm._v("New Users "),
+              _c("i", {
+                staticClass: "fa fa-sync",
+                on: {
+                  click: function($event) {
+                    _vm.getNewUserCount()
+                  }
+                }
+              })
+            ]),
             _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [
-              _vm._v(
-                "\n               " +
-                  _vm._s(_vm.newUserCount.toLocaleString("en")) +
-                  "\n            "
-              )
-            ])
+            _vm.loadingNewUserCount
+              ? _c("span", { staticClass: "info-box-number" }, [
+                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                ])
+              : _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(
+                    "\n               " +
+                      _vm._s(_vm.newUserCount.toLocaleString("en")) +
+                      "\n            "
+                  )
+                ])
           ])
         ])
       ]),
