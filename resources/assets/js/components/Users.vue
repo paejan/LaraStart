@@ -24,8 +24,11 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">New Users</span>
-                <span class="info-box-number">
-                    {{ newUserCount.toLocaleString('en') }}
+                <span class="info-box-number" v-if="loadingNewUsers">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </span>
+                <span class="info-box-number" v-else>
+                   {{ newUserCount.toLocaleString('en') }}
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -79,6 +82,12 @@
                             <button type="button" data-toggle="tooltip" data-placement="bottom" title="New User" class="btn btn-outline-success btn-sm">
                                 <i class="fa fa-user-plus"></i>
                             </button>
+                            <button v-if="loadingUsers" type="button" data-toggle="tooltip" data-placement="bottom" title="Refresh" class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-sync fa-spin"></i>
+                            </button>
+                            <button v-else @click="getUsers()" type="button" data-toggle="tooltip" data-placement="bottom" title="Refresh" class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-sync"></i>
+                            </button>
                         </h3>
                         <div class="card-tools">
                             <div class="input-group input-group-sm">
@@ -92,7 +101,10 @@
                                 <tr v-for="user in users" :key="user.id">
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
-                                    <td><button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button></td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal"><i class="fa fa-trash-alt"></i></button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </datatable>
@@ -104,6 +116,26 @@
                 </div>
             </div>
         </div>
+        <!-- Delete User Modal -->
+        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteUserModal">Deleting: {{ user.name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete {{ user.name }} ({{user.email}})?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger">Delete User</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -111,7 +143,11 @@
 import Datatable from "./DataTable.vue";
 import Pagination from "./Pagination.vue";
 export default {
-  components: { datatable: Datatable, pagination: Pagination },
+  components: {
+    datatable: Datatable,
+    pagination: Pagination
+  },
+
   created() {
     this.getUsers();
     this.getUserCount();
@@ -119,6 +155,7 @@ export default {
     this.getActiveUserCount();
     this.getUsersOnlineCount();
   },
+
   data() {
     let sortOrders = {};
     let columns = [
@@ -130,7 +167,9 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
+      user: [],
       users: [],
+      loadingUsers: true,
       userCount: 0,
       loadingUserCount: true,
       newUserCount: 0,
@@ -159,8 +198,10 @@ export default {
       }
     };
   },
+
   methods: {
     getUsers(url = "api/users") {
+      this.loadingUsers = true;
       this.tableData.draw++;
       axios
         .get(url, { params: this.tableData })
@@ -169,6 +210,7 @@ export default {
           if (this.tableData.draw == data.draw) {
             this.users = data.data.data;
             this.configPagination(data.data);
+            this.loadingUsers = false;
           }
         })
         .catch(errors => {
@@ -213,6 +255,7 @@ export default {
       this.tableData.column = this.getIndex(this.columns, "name", key);
       this.tableData.dir = this.sortOrders[key] === 1 ? "asc" : "desc";
       this.getUsers();
+      this.loadingUsers = false;
     },
     getIndex(array, key, value) {
       return array.findIndex(i => i[key] == value);

@@ -50346,11 +50346,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a, pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a },
+  components: {
+    datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
+    pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a
+  },
+
   created: function created() {
     this.getUsers();
     this.getUserCount();
@@ -50365,7 +50401,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       sortOrders[column.name] = -1;
     });
     return {
+      user: [],
       users: [],
+      loadingUsers: true,
       userCount: 0,
       loadingUserCount: true,
       newUserCount: 0,
@@ -50395,18 +50433,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
+
   methods: {
     getUsers: function getUsers() {
       var _this = this;
 
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/users";
 
+      this.loadingUsers = true;
       this.tableData.draw++;
       axios.get(url, { params: this.tableData }).then(function (response) {
         var data = response.data;
         if (_this.tableData.draw == data.draw) {
           _this.users = data.data.data;
           _this.configPagination(data.data);
+          _this.loadingUsers = false;
         }
       }).catch(function (errors) {
         console.log(errors);
@@ -50466,6 +50507,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.tableData.column = this.getIndex(this.columns, "name", key);
       this.tableData.dir = this.sortOrders[key] === 1 ? "asc" : "desc";
       this.getUsers();
+      this.loadingUsers = false;
     },
     getIndex: function getIndex(array, key, value) {
       return array.findIndex(function (i) {
@@ -50808,13 +50850,17 @@ var render = function() {
           _c("div", { staticClass: "info-box-content" }, [
             _c("span", { staticClass: "info-box-text" }, [_vm._v("New Users")]),
             _vm._v(" "),
-            _c("span", { staticClass: "info-box-number" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.newUserCount.toLocaleString("en")) +
-                  "\n            "
-              )
-            ])
+            _vm.loadingNewUsers
+              ? _c("span", { staticClass: "info-box-number" }, [
+                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                ])
+              : _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(
+                    "\n               " +
+                      _vm._s(_vm.newUserCount.toLocaleString("en")) +
+                      "\n            "
+                  )
+                ])
           ])
         ])
       ]),
@@ -50871,7 +50917,45 @@ var render = function() {
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._m(4),
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v(
+                "\n                        Users\n                        "
+              ),
+              _vm._m(4),
+              _vm._v(" "),
+              _vm.loadingUsers
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary btn-sm",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "tooltip",
+                        "data-placement": "bottom",
+                        title: "Refresh"
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                  )
+                : _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary btn-sm",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "tooltip",
+                        "data-placement": "bottom",
+                        title: "Refresh"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.getUsers()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-sync" })]
+                  )
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-tools" }, [
               _c("div", { staticClass: "input-group input-group-sm" }, [
@@ -50940,6 +51024,19 @@ var render = function() {
                               attrs: { type: "button" }
                             },
                             [_c("i", { staticClass: "fa fa-user-edit" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-danger btn-sm",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#deleteUserModal"
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-trash-alt" })]
                           )
                         ])
                       ])
@@ -50964,7 +51061,55 @@ var render = function() {
           )
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "deleteUserModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "deleteUserModal",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "deleteUserModal" }
+                  },
+                  [_vm._v("Deleting: " + _vm._s(_vm.user.name))]
+                ),
+                _vm._v(" "),
+                _vm._m(5)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm._v(
+                  "\n                    Are you sure you want to delete " +
+                    _vm._s(_vm.user.name) +
+                    " (" +
+                    _vm._s(_vm.user.email) +
+                    ")?\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(6)
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -51004,20 +51149,55 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-title" }, [
-      _vm._v("\n                        Users\n                        "),
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-outline-success btn-sm",
+        attrs: {
+          type: "button",
+          "data-toggle": "tooltip",
+          "data-placement": "bottom",
+          title: "New User"
+        }
+      },
+      [_c("i", { staticClass: "fa fa-user-plus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
       _c(
         "button",
         {
-          staticClass: "btn btn-outline-success btn-sm",
-          attrs: {
-            type: "button",
-            "data-toggle": "tooltip",
-            "data-placement": "bottom",
-            title: "New User"
-          }
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_c("i", { staticClass: "fa fa-user-plus" })]
+        [_vm._v("Close")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "button" } },
+        [_vm._v("Delete User")]
       )
     ])
   }
