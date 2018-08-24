@@ -41,7 +41,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Active Users</span>
                 <span class="info-box-number">
-                    0
+                    {{ ((activeUserCount / userCount) * 100).toFixed() }}
                     <small>%</small>
                 </span>
               </div>

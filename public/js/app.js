@@ -50883,7 +50883,28 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "clearfix hidden-md-up" }),
       _vm._v(" "),
-      _vm._m(2),
+      _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+        _c("div", { staticClass: "info-box mb-3" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "info-box-content" }, [
+            _c("span", { staticClass: "info-box-text" }, [
+              _vm._v("Active Users")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "info-box-number" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(
+                    ((_vm.activeUserCount / _vm.userCount) * 100).toFixed()
+                  ) +
+                  "\n                "
+              ),
+              _c("small", [_vm._v("%")])
+            ])
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _vm._m(3)
     ]),
@@ -51009,23 +51030,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-      _c("div", { staticClass: "info-box mb-3" }, [
-        _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
-          _c("i", { staticClass: "fa fa-user-check" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "info-box-content" }, [
-          _c("span", { staticClass: "info-box-text" }, [
-            _vm._v("Active Users")
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "info-box-number" }, [
-            _vm._v("\n                0\n                "),
-            _c("small", [_vm._v("%")])
-          ])
-        ])
-      ])
+    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-check" })
     ])
   },
   function() {
