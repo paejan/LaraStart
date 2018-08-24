@@ -50464,7 +50464,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.loadingUserCount = false;
       });
     },
-    deleteUser: function deleteUser(id) {
+    getUser: function getUser(id) {
       var _this3 = this;
 
       axios.get("api/user/" + id).then(function (_ref2) {
@@ -51046,7 +51046,7 @@ var render = function() {
                               },
                               on: {
                                 click: function($event) {
-                                  _vm.deleteUser(user.id)
+                                  _vm.getUser(user.id)
                                 }
                               }
                             },
@@ -51112,9 +51112,7 @@ var render = function() {
                 _vm._v(
                   "\n                    Are you sure you want to delete " +
                     _vm._s(_vm.user.name) +
-                    " (" +
-                    _vm._s(_vm.user.email) +
-                    ")?\n                "
+                    "?\n                "
                 )
               ]),
               _vm._v(" "),

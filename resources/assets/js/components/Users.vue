@@ -103,7 +103,7 @@
                                     <td>{{user.email}}</td>
                                     <td>
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button>
-                                        <button @click="deleteUser(user.id)" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal"><i class="fa fa-trash-alt"></i></button>
+                                        <button @click="getUser(user.id)" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal"><i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -127,7 +127,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete {{ user.name }} ({{user.email}})?
+                        Are you sure you want to delete {{ user.name }}?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -224,7 +224,7 @@ export default {
         this.loadingUserCount = false;
       });
     },
-    deleteUser(id) {
+    getUser(id) {
       axios.get("api/user/" + id).then(({ data }) => {
         this.user = data;
       });

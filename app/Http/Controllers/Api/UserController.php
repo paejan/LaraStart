@@ -77,7 +77,7 @@ class UserController extends Controller
     }
 
     /**
-     * Returns a users data.
+     * Returns a users data by the speciifed id.
      *
      * @param  integer  $user
      * @return Collection
