@@ -14,6 +14,6 @@
 
 <script>
 export default {
-  props: ["pagination", "client", "filtered"]
+  props: ["pagination"]
 };
 </script>
