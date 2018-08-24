@@ -74,7 +74,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Users <button type="button" data-toggle="tooltip" data-placement="bottom" title="New User" class="btn btn-outline-success btn-sm"><i class="fa fa-user-plus"></i></button></h3>
+                        <h3 class="card-title">
+                            Users
+                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="New User" class="btn btn-outline-success btn-sm">
+                                <i class="fa fa-user-plus"></i>
+                            </button>
+                        </h3>
                         <div class="card-tools">
                             <div class="input-group input-group-sm">
                                 <input type="text" name="table_search" v-model="tableData.search" class="form-control float-right" placeholder="Search Users" @input="getUsers()">

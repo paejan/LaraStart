@@ -50341,6 +50341,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -51000,7 +51005,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "card-title" }, [
-      _vm._v("Users "),
+      _vm._v("\n                        Users\n                        "),
       _c(
         "button",
         {
