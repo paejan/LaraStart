@@ -50344,6 +50344,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     this.getUsers();
     this.getUserCount();
+    this.getNewUserCount();
   },
   data: function data() {
     var sortOrders = {};
@@ -50354,6 +50355,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       users: [],
       userCount: 0,
+      newUserCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -50402,6 +50404,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var data = _ref.data;
 
         _this2.userCount = data;
+      });
+    },
+    getNewUserCount: function getNewUserCount() {
+      var _this3 = this;
+
+      axios.get("api/count/users/new").then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this3.newUserCount = data;
       });
     },
     configPagination: function configPagination(data) {
@@ -50841,7 +50852,23 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(1),
+      _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+        _c("div", { staticClass: "info-box mb-3" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "info-box-content" }, [
+            _c("span", { staticClass: "info-box-text" }, [_vm._v("New Users")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "info-box-number" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.newUserCount.toLocaleString("en")) +
+                  "\n            "
+              )
+            ])
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "clearfix hidden-md-up" }),
       _vm._v(" "),
@@ -50963,20 +50990,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-      _c("div", { staticClass: "info-box mb-3" }, [
-        _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
-          _c("i", { staticClass: "fa fa-user-plus" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "info-box-content" }, [
-          _c("span", { staticClass: "info-box-text" }, [_vm._v("New Users")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "info-box-number" }, [
-            _vm._v("\n                0\n            ")
-          ])
-        ])
-      ])
+    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-plus" })
     ])
   },
   function() {

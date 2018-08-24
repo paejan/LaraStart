@@ -22,7 +22,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">New Users</span>
                 <span class="info-box-number">
-                    0
+                    {{ newUserCount.toLocaleString('en') }}
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -105,6 +105,7 @@ export default {
   created() {
     this.getUsers();
     this.getUserCount();
+    this.getNewUserCount();
   },
   data() {
     let sortOrders = {};
@@ -119,6 +120,7 @@ export default {
     return {
       users: [],
       userCount: 0,
+      newUserCount: 0,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -161,6 +163,11 @@ export default {
     getUserCount() {
       axios.get("api/count/users").then(({ data }) => {
         this.userCount = data;
+      });
+    },
+    getNewUserCount() {
+      axios.get("api/count/users/new").then(({ data }) => {
+        this.newUserCount = data;
       });
     },
     configPagination(data) {
