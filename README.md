@@ -17,4 +17,4 @@ Starter Admin template for Laravel, Vue.js, and Bootstrap 4. Inspired by Laravel
     * Profile 
     * Landing Page
     * PHPUnit Tests
-    * README Documentation
+    * README Documentation (Including Screenshots)
