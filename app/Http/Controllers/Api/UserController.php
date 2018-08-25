@@ -77,7 +77,7 @@ class UserController extends Controller
     }
 
     /**
-     * Returns a users data by the speciifed id.
+     * Returns a users data by the specified id.
      *
      * @param  integer  $user
      * @return Collection
@@ -88,7 +88,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes a user by the speciifed id.
+     * Deletes a user by the specified id.
      *
      * @param  integer  $user
      * @return mixed
