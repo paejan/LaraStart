@@ -50431,7 +50431,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     var sortOrders = {};
-    var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "E-mail", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
+    var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "Email", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
     });

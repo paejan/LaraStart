@@ -30,7 +30,24 @@
                 {{ Auth::user()->name }}
                 <span class="fa fa-angle-down"></span>
             </a>
-      </li>
+            <ul class="dropdown-menu" style="right: 0;left: auto; width: 15rem;">
+                <!-- User image -->
+                <li class="user-header" style="text-align: center">
+                    <img src="./img/profile.png" class="img-circle" alt="User Image">
+                    <p>{{ Auth::user()->name }}</p>
+                    <p><small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small></p>
+                </li>
+                <!-- Menu Footer-->
+                <li style="padding: 10px;">
+                    <div class="float-left">
+                        <a href="#" class="btn btn-primary btn-flat">Profile</a>
+                    </div>
+                    <div class="float-right">
+                        <a href="#" class="btn btn-primary btn-flat">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </li>
     </ul>
 </nav>
 <!-- /.navbar -->
