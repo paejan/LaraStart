@@ -153,6 +153,7 @@
                 <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
             </template>
         </modal>
+        <!-- /.Delete User Modal -->
     </div>
 </template>
 

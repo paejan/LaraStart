@@ -1,4 +1,20 @@
 # About
-Starter template for Laravel AdminLTE 3, Vue.js, and Bootstrap 4.
+Starter Admin template for Laravel, Vue.js, and Bootstrap 4. Inspired by Laravel Nova.
 
-Includes User Authentication, User Permissions (Spatie Permissions), Vue Router, and basic starter unit tests.
+* Includes:
+    * ~User Management~
+    * ~Permissions~
+    * ~Profile~
+    * RESTful API (with all components)
+    * Bootstrap 4
+    * Font Awesome
+    * Vue.js Components
+
+* Todo:
+    * Ability to Create/Edit Users
+    * Permissions (Groups and Permission)
+    * Dashboard Example
+    * Profile 
+    * Landing Page
+    * PHPUnit Tests
+    * README Documentation
