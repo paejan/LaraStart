@@ -29513,3 +29513,7 @@ readers do not read off random characters that represent icons */
   vertical-align: top;
 }
 
+.navbar-badge {
+  position: unset !important;
+}
+
