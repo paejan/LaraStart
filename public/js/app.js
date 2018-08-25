@@ -51045,11 +51045,45 @@ var render = function() {
         _c("div", { staticClass: "col-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
-              _c("h3", { staticClass: "card-title" }, [
-                _vm._v(
-                  "\n                        Users\n                        "
-                ),
-                _vm._m(5),
+              _c("h3", { staticClass: "card-title col-3" }, [
+                _c("div", { staticClass: "input-group input-group-sm" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.tableData.search,
+                        expression: "tableData.search"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "table_search",
+                      placeholder: "Search Users"
+                    },
+                    domProps: { value: _vm.tableData.search },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.tableData, "search", $event.target.value)
+                        },
+                        function($event) {
+                          _vm.getUsers()
+                        }
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-tools" }, [
+                _vm._m(6),
                 _vm._v(" "),
                 _vm.loadingUsers
                   ? _c(
@@ -51083,41 +51117,6 @@ var render = function() {
                       },
                       [_c("i", { staticClass: "fa fa-sync" })]
                     )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-tools" }, [
-                _c("div", { staticClass: "input-group input-group-sm" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.tableData.search,
-                        expression: "tableData.search"
-                      }
-                    ],
-                    staticClass: "form-control float-right",
-                    attrs: {
-                      type: "text",
-                      name: "table_search",
-                      placeholder: "Search Users"
-                    },
-                    domProps: { value: _vm.tableData.search },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.tableData, "search", $event.target.value)
-                        },
-                        function($event) {
-                          _vm.getUsers()
-                        }
-                      ]
-                    }
-                  })
-                ])
               ])
             ]),
             _vm._v(" "),
@@ -51359,6 +51358,18 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-sm-6" }, [
         _c("h3", { staticClass: "m-0 text-dark" }, [_vm._v("Users")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-navbar", attrs: { type: "submit" } },
+        [_c("i", { staticClass: "fa fa-search" })]
+      )
     ])
   },
   function() {

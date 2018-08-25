@@ -91,8 +91,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
-                            Users
+                        <h3 class="card-title col-3">
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="table_search" v-model="tableData.search" class="form-control" placeholder="Search Users" @input="getUsers()">
+                                <div class="input-group-append"><button type="submit" class="btn btn-navbar"><i class="fa fa-search"></i></button></div>
+                            </div>
+                        </h3>
+                        <div class="card-tools">
                             <button type="button" data-toggle="tooltip" data-placement="bottom" title="New User" class="btn btn-outline-success btn-sm">
                                 <i class="fa fa-user-plus"></i>
                             </button>
@@ -102,11 +107,6 @@
                             <button v-else @click="getUsers()" type="button" data-toggle="tooltip" data-placement="bottom" title="Refresh" class="btn btn-outline-primary btn-sm">
                                 <i class="fa fa-sync"></i>
                             </button>
-                        </h3>
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm">
-                                <input type="text" name="table_search" v-model="tableData.search" class="form-control float-right" placeholder="Search Users" @input="getUsers()">
-                            </div>
                         </div>
                     </div>
                      <div class="card-body table-responsive p-0">   
