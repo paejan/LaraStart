@@ -27,8 +27,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <router-link to="/profile" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i><p>Profile</p>
+                    <router-link to="/permissions" class="nav-link">
+                        <i class="nav-icon fas fa-key"></i><p>Permissions</p>
                     </router-link>
                 </li>
             </ul>
