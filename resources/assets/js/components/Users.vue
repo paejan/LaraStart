@@ -109,7 +109,7 @@
                             </button>
                         </div>
                     </div>
-                     <div class="card-body table-responsive p-0">   
+                    <div class="card-body table-responsive p-0">   
                         <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
                              <tbody v-if="loadingTable">
                                 <tr>
@@ -129,6 +129,8 @@
                                 </tr>
                             </tbody>
                         </datatable>
+                    </div>
+                    <div class="card-footer">
                         <pagination :pagination="pagination"
                                     @prev="getUsers(pagination.prevPageUrl)"
                                     @next="getUsers(pagination.nextPageUrl)">

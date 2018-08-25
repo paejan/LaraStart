@@ -50412,6 +50412,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -51184,8 +51186,15 @@ var render = function() {
                           })
                         )
                   ]
-                ),
-                _vm._v(" "),
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-footer" },
+              [
                 _c("pagination", {
                   attrs: { pagination: _vm.pagination },
                   on: {
