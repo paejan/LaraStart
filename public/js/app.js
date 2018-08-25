@@ -50405,6 +50405,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -51032,6 +51039,8 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _vm._m(4),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
           _c("div", { staticClass: "card" }, [
@@ -51040,7 +51049,7 @@ var render = function() {
                 _vm._v(
                   "\n                        Users\n                        "
                 ),
-                _vm._m(4),
+                _vm._m(5),
                 _vm._v(" "),
                 _vm.loadingUsers
                   ? _c(
@@ -51340,6 +51349,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
       _c("i", { staticClass: "fa fa-user-check" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-2" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("h3", { staticClass: "m-0 text-dark" }, [_vm._v("Users")])
+      ])
     ])
   },
   function() {
