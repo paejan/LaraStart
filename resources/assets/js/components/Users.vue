@@ -139,7 +139,7 @@
             </div>
         </div>
         <!-- Delete User Modal -->
-        <modal v-if="showModal" :show-modal="showModal">
+        <modal v-if="showModal">
             <template slot="modal-title">Deleting: {{ user.name }}</template>
             <template slot="modal-close">
                 <button type="button" class="close" @click="showModal = false" aria-label="Close">

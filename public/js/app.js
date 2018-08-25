@@ -51198,7 +51198,6 @@ var render = function() {
       _vm.showModal
         ? _c(
             "modal",
-            { attrs: { "show-modal": _vm.showModal } },
             [
               _c("template", { slot: "modal-title" }, [
                 _vm._v("Deleting: " + _vm._s(_vm.user.name))
@@ -52583,7 +52582,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["show-modal"]
+  //
 });
 
 /***/ }),
