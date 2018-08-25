@@ -5,10 +5,11 @@ Starter Admin template for Laravel, Vue.js, and Bootstrap 4. Inspired by Laravel
     * ~User Management~
     * ~Permissions~
     * ~Profile~
-    * RESTful API (with all components)
+    * RESTful API (All Components)
     * Bootstrap 4
-    * Font Awesome
+    * Font Awesome 5.2
     * Vue.js Components
+    * Vue Router
 
 * Todo:
     * Ability to Create/Edit Users
