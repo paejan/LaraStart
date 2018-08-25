@@ -82,31 +82,30 @@
         <!-- /.row -->
 
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h3 class="m-0 text-dark">Users</h3>
-          </div>
+            <div class="col-sm-6">
+                <h3 class="m-0 text-dark">Users</h3>
+            </div>
         </div>
+        
 
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title col-3">
-                            <div class="input-group input-group-sm">
-                                <input type="text" name="table_search" v-model="tableData.search" class="form-control" placeholder="Search Users" @input="getUsers()">
-                                <div class="input-group-append"><button type="submit" class="btn btn-navbar"><i class="fa fa-search"></i></button></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" v-model="tableData.search" @input="getUsers()" placeholder="Search Users .." aria-label="Search Users" aria-describedby="userSearch">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="userSearch"><i class="fa fa-search"></i></div>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <div v-if="loadingUsers" class="input-group-text" id="userSearch"><i class="fa fa-sync fa-spin"></i></div>
+                                    <div v-else @click="getUsers()" class="input-group-text" id="userSearch"><i class="fa fa-sync"></i></div>
+                                </div>
                             </div>
                         </h3>
                         <div class="card-tools">
-                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="New User" class="btn btn-outline-success btn-sm">
-                                <i class="fa fa-user-plus"></i>
-                            </button>
-                            <button v-if="loadingUsers" type="button" data-toggle="tooltip" data-placement="bottom" title="Refresh" class="btn btn-outline-primary btn-sm">
-                                <i class="fa fa-sync fa-spin"></i>
-                            </button>
-                            <button v-else @click="getUsers()" type="button" data-toggle="tooltip" data-placement="bottom" title="Refresh" class="btn btn-outline-primary btn-sm">
-                                <i class="fa fa-sync"></i>
-                            </button>
+                            <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">   

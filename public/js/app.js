@@ -50413,7 +50413,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -51048,7 +51047,7 @@ var render = function() {
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", { staticClass: "card-title col-3" }, [
-                _c("div", { staticClass: "input-group input-group-sm" }, [
+                _c("div", { staticClass: "input-group" }, [
                   _c("input", {
                     directives: [
                       {
@@ -51061,8 +51060,9 @@ var render = function() {
                     staticClass: "form-control",
                     attrs: {
                       type: "text",
-                      name: "table_search",
-                      placeholder: "Search Users"
+                      placeholder: "Search Users ..",
+                      "aria-label": "Search Users",
+                      "aria-describedby": "userSearch"
                     },
                     domProps: { value: _vm.tableData.search },
                     on: {
@@ -51080,46 +51080,36 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-prepend" }, [
+                    _vm.loadingUsers
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "input-group-text",
+                            attrs: { id: "userSearch" }
+                          },
+                          [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                        )
+                      : _c(
+                          "div",
+                          {
+                            staticClass: "input-group-text",
+                            attrs: { id: "userSearch" },
+                            on: {
+                              click: function($event) {
+                                _vm.getUsers()
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-sync" })]
+                        )
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "card-tools" }, [
-                _vm._m(6),
-                _vm._v(" "),
-                _vm.loadingUsers
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-primary btn-sm",
-                        attrs: {
-                          type: "button",
-                          "data-toggle": "tooltip",
-                          "data-placement": "bottom",
-                          title: "Refresh"
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-primary btn-sm",
-                        attrs: {
-                          type: "button",
-                          "data-toggle": "tooltip",
-                          "data-placement": "bottom",
-                          title: "Refresh"
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.getUsers()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-sync" })]
-                    )
-              ])
+              _vm._m(6)
             ]),
             _vm._v(" "),
             _c(
@@ -51373,10 +51363,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
+    return _c("div", { staticClass: "input-group-prepend" }, [
       _c(
-        "button",
-        { staticClass: "btn btn-navbar", attrs: { type: "submit" } },
+        "div",
+        { staticClass: "input-group-text", attrs: { id: "userSearch" } },
         [_c("i", { staticClass: "fa fa-search" })]
       )
     ])
@@ -51385,19 +51375,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-outline-success btn-sm",
-        attrs: {
-          type: "button",
-          "data-toggle": "tooltip",
-          "data-placement": "bottom",
-          title: "New User"
-        }
-      },
-      [_c("i", { staticClass: "fa fa-user-plus" })]
-    )
+    return _c("div", { staticClass: "card-tools" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-lg", attrs: { type: "button" } },
+        [_c("i", { staticClass: "fa fa-user-plus" }), _vm._v(" New User ")]
+      )
+    ])
   }
 ]
 render._withStripped = true
