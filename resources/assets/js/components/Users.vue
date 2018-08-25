@@ -139,42 +139,32 @@
             </div>
         </div>
         <!-- Delete User Modal -->
-        <div v-if="showModal">
-            <transition name="modal">
-                <div class="modal-mask">
-                    <div class="modal-wrapper">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteUserModal">Deleting: {{ user.name }}</h5>
-                                        <button type="button" class="close" @click="showModal = false" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to delete {{ user.name }}?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
-                                    <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
-                                    <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-        </div>
+        <modal v-if="showModal" :show-modal="showModal">
+            <template slot="modal-title">Deleting: {{ user.name }}</template>
+            <template slot="modal-close">
+                <button type="button" class="close" @click="showModal = false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </template>
+            <template slot="modal-body">Are you sure you want to delete {{ user.name }}?</template>
+            <template slot="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+                <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
+            </template>
+        </modal>
     </div>
 </template>
 
 <script>
 import Datatable from "./DataTable.vue";
 import Pagination from "./Pagination.vue";
+import Modal from "./Modal.vue";
 export default {
   components: {
     datatable: Datatable,
-    pagination: Pagination
+    pagination: Pagination,
+    modal: Modal
   },
 
   created() {

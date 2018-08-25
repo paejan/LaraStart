@@ -50243,6 +50243,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DataTable_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
 //
 //
 //
@@ -50401,25 +50403,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
-    pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a
+    pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
+    modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a
   },
 
   created: function created() {
@@ -51205,111 +51197,81 @@ var render = function() {
       _vm._v(" "),
       _vm.showModal
         ? _c(
-            "div",
+            "modal",
+            { attrs: { "show-modal": _vm.showModal } },
             [
-              _c("transition", { attrs: { name: "modal" } }, [
-                _c("div", { staticClass: "modal-mask" }, [
-                  _c("div", { staticClass: "modal-wrapper" }, [
-                    _c(
-                      "div",
+              _c("template", { slot: "modal-title" }, [
+                _vm._v("Deleting: " + _vm._s(_vm.user.name))
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-close" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        _vm.showModal = false
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-body" }, [
+                _vm._v(
+                  "Are you sure you want to delete " +
+                    _vm._s(_vm.user.name) +
+                    "?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.showModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _vm.loadingDeleteUser
+                  ? _c(
+                      "button",
                       {
-                        staticClass: "modal-dialog",
-                        attrs: { role: "document" }
+                        staticClass: "btn btn-danger",
+                        attrs: { disabled: "", type: "button" }
                       },
-                      [
-                        _c("div", { staticClass: "modal-content" }, [
-                          _c("div", { staticClass: "modal-header" }, [
-                            _c(
-                              "h5",
-                              {
-                                staticClass: "modal-title",
-                                attrs: { id: "deleteUserModal" }
-                              },
-                              [_vm._v("Deleting: " + _vm._s(_vm.user.name))]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "close",
-                                attrs: {
-                                  type: "button",
-                                  "aria-label": "Close"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.showModal = false
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  { attrs: { "aria-hidden": "true" } },
-                                  [_vm._v("×")]
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "modal-body" }, [
-                            _vm._v(
-                              "\n                                Are you sure you want to delete " +
-                                _vm._s(_vm.user.name) +
-                                "?\n                            "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "modal-footer" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-secondary",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.showModal = false
-                                  }
-                                }
-                              },
-                              [_vm._v("Close")]
-                            ),
-                            _vm._v(" "),
-                            _vm.loadingDeleteUser
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    attrs: { disabled: "", type: "button" }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fa fa-sync fa-spin"
-                                    })
-                                  ]
-                                )
-                              : _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteUser(_vm.user)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Delete User")]
-                                )
-                          ])
-                        ])
-                      ]
+                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
                     )
-                  ])
-                ])
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteUser(_vm.user)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete User")]
+                    )
               ])
             ],
-            1
+            2
           )
         : _vm._e()
     ],
@@ -52540,6 +52502,151 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
 /******/ ]);
 });
 //# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(76)
+/* template */
+var __vue_template__ = __webpack_require__(77)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6e8d36f4", Component.options)
+  } else {
+    hotAPI.reload("data-v-6e8d36f4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["show-modal"]
+});
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "modal" } }, [
+    _c("div", { staticClass: "modal-mask" }, [
+      _c("div", { staticClass: "modal-wrapper" }, [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c(
+                "div",
+                { staticClass: "modal-header" },
+                [
+                  _c(
+                    "h5",
+                    { staticClass: "modal-title" },
+                    [_vm._t("modal-title")],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm._t("modal-close")
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [_vm._t("modal-body")],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-footer" },
+                [_vm._t("modal-footer")],
+                2
+              )
+            ])
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6e8d36f4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
