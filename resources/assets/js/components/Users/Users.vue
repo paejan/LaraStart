@@ -161,9 +161,9 @@
 </template>
 
 <script>
-import Datatable from "./DataTable.vue";
-import Pagination from "./Pagination.vue";
-import Modal from "./Modal.vue";
+import Datatable from "../DataTable.vue";
+import Pagination from "../Pagination.vue";
+import Modal from "../Modal.vue";
 export default {
   components: {
     datatable: Datatable,
