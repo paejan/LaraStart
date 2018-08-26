@@ -122,8 +122,9 @@
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
                                     <td>
+                                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-eye"></i></button>
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button>
-                                        <button @click="getUser(user.id); showModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
+                                        <button @click="getUser(user.id); showDeleteUserModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -139,16 +140,16 @@
             </div>
         </div>
         <!-- Delete User Modal -->
-        <modal v-if="showModal">
+        <modal v-if="showDeleteUserModal">
             <template slot="modal-title">Deleting: {{ user.name }}</template>
             <template slot="modal-close">
-                <button type="button" class="close" @click="showModal = false" aria-label="Close">
+                <button type="button" class="close" @click="showDeleteUserModal = false" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </template>
             <template slot="modal-body">Are you sure you want to delete {{ user.name }}?</template>
             <template slot="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+                <button type="button" class="btn btn-secondary" @click="showDeleteUserModal = false">Close</button>
                 <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
                 <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
             </template>
@@ -187,7 +188,7 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
-      showModal: false,
+      showDeleteUserModal: false,
       user: [],
       users: [],
       loadingTable: true,
@@ -292,7 +293,7 @@ export default {
         .then(response => {
           this.loadingDeleteUser = false;
           this.refresh();
-          this.showModal = false;
+          this.showDeleteUserModal = false;
           this.$notify({
             group: "users",
             title: "User Successfully Deleted",

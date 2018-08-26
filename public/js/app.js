@@ -50404,6 +50404,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -50429,7 +50430,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       sortOrders[column.name] = -1;
     });
     return {
-      showModal: false,
+      showDeleteUserModal: false,
       user: [],
       users: [],
       loadingTable: true,
@@ -50556,7 +50557,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get("api/user/delete/" + user.id).then(function (response) {
         _this7.loadingDeleteUser = false;
         _this7.refresh();
-        _this7.showModal = false;
+        _this7.showDeleteUserModal = false;
         _this7.$notify({
           group: "users",
           title: "User Successfully Deleted",
@@ -51146,6 +51147,16 @@ var render = function() {
                                       "btn btn-outline-primary btn-sm",
                                     attrs: { type: "button" }
                                   },
+                                  [_c("i", { staticClass: "fa fa-eye" })]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-outline-primary btn-sm",
+                                    attrs: { type: "button" }
+                                  },
                                   [_c("i", { staticClass: "fa fa-user-edit" })]
                                 ),
                                 _vm._v(" "),
@@ -51158,7 +51169,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         _vm.getUser(user.id)
-                                        _vm.showModal = true
+                                        _vm.showDeleteUserModal = true
                                       }
                                     }
                                   },
@@ -51196,7 +51207,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.showModal
+      _vm.showDeleteUserModal
         ? _c(
             "modal",
             [
@@ -51212,7 +51223,7 @@ var render = function() {
                     attrs: { type: "button", "aria-label": "Close" },
                     on: {
                       click: function($event) {
-                        _vm.showModal = false
+                        _vm.showDeleteUserModal = false
                       }
                     }
                   },
@@ -51240,7 +51251,7 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        _vm.showModal = false
+                        _vm.showDeleteUserModal = false
                       }
                     }
                   },
