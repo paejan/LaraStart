@@ -1,5 +1,5 @@
 <template>
-<transition name="modal">
+<transition name="fade">
     <div class="modal-mask">
         <div class="modal-wrapper">
             <div class="modal-dialog" role="document">
