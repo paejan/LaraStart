@@ -2,92 +2,95 @@
     <div class="users">
         <notifications group="users" position="bottom right" :speed="2000"/>
         <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fa fa-users"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Total Users <i @click="getUserCount()" class="fa fa-sync"></i> </span>
-                <span class="info-box-number" v-if="loadingUserCount">
-                    <i class="fa fa-spinner fa-spin"></i>
-                </span>
-                <span class="info-box-number" v-else>
-                    {{ userCount.toLocaleString('en') }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1">
+                        <i class="fa fa-users"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">
+                            Total Users 
+                            <i @click="getUserCount()" class="fa fa-sync"></i>
+                        </span>
+                        <span class="info-box-number" v-if="loadingUserCount">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span>
+                        <span class="info-box-number" v-else>
+                            {{ userCount.toLocaleString('en') }}
+                        </span>
+                    </div>
+                </div>
             </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fa fa-user-plus"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">New Users <i @click="getNewUserCount()" class="fa fa-sync"></i></span>
-                <span class="info-box-number" v-if="loadingNewUserCount">
-                    <i class="fa fa-spinner fa-spin"></i>
-                </span>
-                <span class="info-box-number" v-else>
-                   {{ newUserCount.toLocaleString('en') }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1">
+                        <i class="fa fa-user-plus"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">
+                            New Users 
+                            <i @click="getNewUserCount()" class="fa fa-sync"></i>
+                        </span>
+                        <span class="info-box-number" v-if="loadingNewUserCount">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span>
+                        <span class="info-box-number" v-else>
+                            {{ newUserCount.toLocaleString('en') }}
+                        </span>
+                    </div>
+                </div>
             </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-user-check"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Active Users <i @click="getActiveUserCount()" class="fa fa-sync"></i></span>
-                <span class="info-box-number" v-if="loadingActiveUserCount">
-                    <i class="fa fa-spinner fa-spin"></i>
-                </span>
-                <span class="info-box-number" v-else>
-                    {{ (activeUserCount = 0 ? ((activeUserCount / userCount) * 100).toFixed() : 0) }}
-                    <small>%</small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-primary elevation-1">
+                        <i class="fa fa-user-check"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">
+                            Active Users 
+                            <i @click="getActiveUserCount()" class="fa fa-sync"></i>
+                        </span>
+                        <span class="info-box-number" v-if="loadingActiveUserCount">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span>
+                        <span class="info-box-number" v-else>
+                            {{ (activeUserCount = 0 ? ((activeUserCount / userCount) * 100).toFixed() : 0) }}
+                            <small>%</small>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-user-check"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Currently Online <i @click="getUsersOnlineCount()" class="fa fa-sync"></i> </span>
-                <span class="info-box-number" v-if="loadingUsersOnlineCount">
-                    <i class="fa fa-spinner fa-spin"></i>
-                </span>
-                <span class="info-box-number" v-else>
-                    {{ usersOnlineCount }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1">
+                        <i class="fa fa-user-check"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">
+                            Currently Online 
+                            <i @click="getUsersOnlineCount()" class="fa fa-sync"></i>
+                        </span>
+                        <span class="info-box-number" v-if="loadingUsersOnlineCount">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span>
+                        <span class="info-box-number" v-else>
+                            {{ usersOnlineCount }}
+                        </span>
+                    </div>
+                </div>
             </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
 
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h3 class="m-0 text-dark">Users</h3>
+                <h3 class="m-0 text-dark">
+                    Users
+                </h3>
             </div>
         </div>
-        
-
+    
         <div class="row">
             <div class="col-12">
                 <div class="card">

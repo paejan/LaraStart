@@ -50405,6 +50405,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -50901,7 +50904,9 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
-                _vm._v("Total Users "),
+                _vm._v(
+                  "\n                        Total Users \n                        "
+                ),
                 _c("i", {
                   staticClass: "fa fa-sync",
                   on: {
@@ -50918,9 +50923,9 @@ var render = function() {
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "\n                " +
+                      "\n                        " +
                         _vm._s(_vm.userCount.toLocaleString("en")) +
-                        "\n            "
+                        "\n                    "
                     )
                   ])
             ])
@@ -50933,7 +50938,9 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
-                _vm._v("New Users "),
+                _vm._v(
+                  "\n                        New Users \n                        "
+                ),
                 _c("i", {
                   staticClass: "fa fa-sync",
                   on: {
@@ -50950,9 +50957,9 @@ var render = function() {
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "\n               " +
+                      "\n                        " +
                         _vm._s(_vm.newUserCount.toLocaleString("en")) +
-                        "\n            "
+                        "\n                    "
                     )
                   ])
             ])
@@ -50967,7 +50974,9 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
-                _vm._v("Active Users "),
+                _vm._v(
+                  "\n                        Active Users \n                        "
+                ),
                 _c("i", {
                   staticClass: "fa fa-sync",
                   on: {
@@ -50984,7 +50993,7 @@ var render = function() {
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "\n                " +
+                      "\n                        " +
                         _vm._s(
                           (_vm.activeUserCount = 0
                             ? (
@@ -50993,7 +51002,7 @@ var render = function() {
                               ).toFixed()
                             : 0)
                         ) +
-                        "\n                "
+                        "\n                        "
                     ),
                     _c("small", [_vm._v("%")])
                   ])
@@ -51007,7 +51016,9 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
-                _vm._v("Currently Online "),
+                _vm._v(
+                  "\n                        Currently Online \n                        "
+                ),
                 _c("i", {
                   staticClass: "fa fa-sync",
                   on: {
@@ -51024,9 +51035,9 @@ var render = function() {
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "\n                " +
+                      "\n                        " +
                         _vm._s(_vm.usersOnlineCount) +
-                        "\n            "
+                        "\n                    "
                     )
                   ])
             ])
@@ -51328,7 +51339,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mb-2" }, [
       _c("div", { staticClass: "col-sm-6" }, [
-        _c("h3", { staticClass: "m-0 text-dark" }, [_vm._v("Users")])
+        _c("h3", { staticClass: "m-0 text-dark" }, [
+          _vm._v("\n                Users\n            ")
+        ])
       ])
     ])
   },
