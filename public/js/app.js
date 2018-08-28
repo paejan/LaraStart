@@ -52785,17 +52785,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     // console.log("Component mounted.");
   },
+  created: function created() {
+    this.getUser();
+  },
   data: function data() {
     return {
       loadingLastOnline: true,
       loadingLastModified: true,
-      loadingUserCreated: true
+      loadingUserCreated: true,
+      user: []
     };
+  },
+
+
+  methods: {
+    getUser: function getUser(id) {
+      var _this = this;
+
+      axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.user = data;
+      }).catch(function (errors) {
+        console.log(errors);
+      });
+    }
   }
 });
 
@@ -52868,6 +52895,16 @@ var render = function() {
                 ])
               : _c("span", { staticClass: "info-box-number" })
           ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-2" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("h3", { staticClass: "m-0 text-dark" }, [
+          _vm._v(
+            "\n                " + _vm._s(_vm.user.name) + "\n            "
+          )
         ])
       ])
     ])

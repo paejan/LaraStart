@@ -61,6 +61,14 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h3 class="m-0 text-dark">
+                    {{ user.name }}
+                </h3>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -70,12 +78,30 @@ export default {
     // console.log("Component mounted.");
   },
 
+  created() {
+    this.getUser();
+  },
+
   data() {
     return {
       loadingLastOnline: true,
       loadingLastModified: true,
-      loadingUserCreated: true
+      loadingUserCreated: true,
+      user: []
     };
+  },
+
+  methods: {
+    getUser(id) {
+      axios
+        .get("/api/user/" + this.$route.params.id)
+        .then(({ data }) => {
+          this.user = data;
+        })
+        .catch(errors => {
+          console.log(errors);
+        });
+    }
   }
 };
 </script>
