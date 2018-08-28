@@ -90,11 +90,11 @@
                         </div>
                         <div class="form-group">
                             <label for="password">New Password </label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="password_confirm">Confirm New Password</label>
-                            <input type="password_confirm" required class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm New Password">
+                            <input type="password_confirm" required class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm New Password" autocomplete="off">
                         </div>
                          <div class="row">
                             <div class="col-md-4">

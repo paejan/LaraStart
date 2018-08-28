@@ -53141,7 +53141,8 @@ var staticRenderFns = [
           type: "password",
           id: "password",
           name: "password",
-          placeholder: "Enter New Password"
+          placeholder: "Enter New Password",
+          autocomplete: "off"
         }
       })
     ])
@@ -53162,7 +53163,8 @@ var staticRenderFns = [
           required: "",
           id: "password_confirm",
           name: "password_confirm",
-          placeholder: "Confirm New Password"
+          placeholder: "Confirm New Password",
+          autocomplete: "off"
         }
       })
     ])
