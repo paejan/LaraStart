@@ -53086,11 +53086,41 @@ var render = function() {
               _vm._m(7)
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-footer" })
+            _c("div", { staticClass: "card-footer" }, [
+              _vm.user
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                : _vm._e()
+            ])
           ])
         ]),
         _vm._v(" "),
-        _vm._m(8)
+        _c("div", { staticClass: "col-6" }, [
+          _c("div", { staticClass: "card card-danger" }, [
+            _vm._m(8),
+            _vm._v(" "),
+            _vm._m(9),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _vm.user
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                : _vm._e()
+            ])
+          ])
+        ])
       ])
     ],
     1
@@ -53231,41 +53261,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6" }, [
-      _c("div", { staticClass: "card card-danger" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h3", { staticClass: "card-title col-12" }, [
-            _c("i", { staticClass: "fa fa-key" }),
-            _vm._v(" Permissions\n                    ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-tools" })
-        ]),
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title col-12" }, [
+        _c("i", { staticClass: "fa fa-key" }),
+        _vm._v(" Permissions\n                    ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "user_group" } }),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "user_group" } }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "user_group" } }, [
-              _vm._v("User Group")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "form-control",
-                attrs: { id: "user_group", name: "user_group" }
-              },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v(" User Disabled ")
-                ])
-              ]
-            )
-          ])
-        ]),
+        _c("label", { attrs: { for: "user_group" } }, [_vm._v("User Group")]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-footer" })
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { id: "user_group", name: "user_group" }
+          },
+          [_c("option", { attrs: { value: "" } }, [_vm._v(" User Disabled ")])]
+        )
       ])
     ])
   }

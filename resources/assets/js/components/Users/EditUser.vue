@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        
+                        <button v-if="user" type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        
+                        <button v-if="user" type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
