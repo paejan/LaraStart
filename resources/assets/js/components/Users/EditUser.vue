@@ -75,48 +75,50 @@
         <div class="row">
             <div class="col-6">
                 <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title col-12">
-                            <i class="fa fa-user-edit"></i> Modify User
-                        </h3>
-                        <div class="card-tools">
-                           
-                        </div>
-                    </div>
-                    <div class="card-body">   
-                        <div class="form-group">
-                            <label for="name">Name (*)</label>
-                            <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" :value="user.name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail (*)</label>
-                            <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" :value="user.email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">New Password </label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <label for="password_confirm">Confirm New Password</label>
-                            <input type="password_confirm" required class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm New Password" autocomplete="off">
-                        </div>
-                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="image text-center">
-                                    <img src="/img/profile.png" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label for="profile_photo">Profile Photo </label>
-                                    <input type="file" required class="form-control" id="profile_photo" name="profile_photo">
-                                </div>
+                    <form v-on:submit="saveForm()">
+                        <div class="card-header">
+                            <h3 class="card-title col-12">
+                                <i class="fa fa-user-edit"></i> Modify User
+                            </h3>
+                            <div class="card-tools">
+                            
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <button v-if="user" type="submit" class="btn btn-primary">Save</button>
-                    </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="name">Name (*)</label>
+                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" :value="user.name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail (*)</label>
+                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" :value="user.email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">New Password </label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="password_confirm">Confirm New Password</label>
+                                <input type="password_confirm" class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm New Password" autocomplete="off">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="image text-center">
+                                        <img src="/img/profile.png" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="profile_photo">Profile Photo </label>
+                                        <input type="file" class="form-control" id="profile_photo" name="profile_photo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button v-if="user" type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="col-6">
@@ -167,7 +169,7 @@ export default {
   },
 
   methods: {
-    getUser(id) {
+    getUser() {
       this.loadingUser = true;
       axios
         .get("/api/user/" + this.$route.params.id)
@@ -192,6 +194,24 @@ export default {
         .toISOString()
         .slice(0, 19)
         .replace("T", " ");
+    },
+    saveForm() {
+      event.preventDefault();
+      var app = this;
+      axios
+        .put("/api/users/" + this.$route.params.id)
+        .then(function(resp) {
+          app.$router.push({ path: "/" });
+        })
+        .catch(function(resp) {
+          console.log(resp);
+          this.$notify({
+            group: "errors",
+            title: "Unable to update user data",
+            type: "error",
+            text: "Whoops..  We were unable to update the user data."
+          });
+        });
     }
   }
 };

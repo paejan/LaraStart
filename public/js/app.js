@@ -55394,6 +55394,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55413,7 +55415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
-    getUser: function getUser(id) {
+    getUser: function getUser() {
       var _this = this;
 
       this.loadingUser = true;
@@ -55437,6 +55439,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     formatDateTime: function formatDateTime(datetime) {
       // Formats a MySQL datetime to JS Datetime
       return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
+    },
+    saveForm: function saveForm() {
+      event.preventDefault();
+      var app = this;
+      axios.put("/api/users/" + this.$route.params.id).then(function (resp) {
+        app.$router.push({ path: "/" });
+      }).catch(function (resp) {
+        console.log(resp);
+        this.$notify({
+          group: "errors",
+          title: "Unable to update user data",
+          type: "error",
+          text: "Whoops..  We were unable to update the user data."
+        });
+      });
     }
   }
 });
@@ -59782,62 +59799,76 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-6" }, [
           _c("div", { staticClass: "card card-primary" }, [
-            _vm._m(4),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "name" } }, [_vm._v("Name (*)")]),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    _vm.saveForm()
+                  }
+                }
+              },
+              [
+                _vm._m(4),
                 _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    required: "",
-                    id: "name",
-                    name: "name",
-                    placeholder: "Enter Name"
-                  },
-                  domProps: { value: _vm.user.name }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "email" } }, [
-                  _vm._v("E-mail (*)")
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Name (*)")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        required: "",
+                        id: "name",
+                        name: "name",
+                        placeholder: "Enter Name"
+                      },
+                      domProps: { value: _vm.user.name }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "email" } }, [
+                      _vm._v("E-mail (*)")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "email",
+                        required: "",
+                        id: "email",
+                        name: "email",
+                        placeholder: "Enter E-mail"
+                      },
+                      domProps: { value: _vm.user.email }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _vm._m(7)
                 ]),
                 _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "email",
-                    required: "",
-                    id: "email",
-                    name: "email",
-                    placeholder: "Enter E-mail"
-                  },
-                  domProps: { value: _vm.user.email }
-                })
-              ]),
-              _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
-              _vm._m(6),
-              _vm._v(" "),
-              _vm._m(7)
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _vm.user
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit" }
-                    },
-                    [_vm._v("Save")]
-                  )
-                : _vm._e()
-            ])
+                _c("div", { staticClass: "card-footer" }, [
+                  _vm.user
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Save")]
+                      )
+                    : _vm._e()
+                ])
+              ]
+            )
           ])
         ]),
         _vm._v(" "),
@@ -59916,7 +59947,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title col-12" }, [
         _c("i", { staticClass: "fa fa-user-edit" }),
-        _vm._v(" Modify User\n                    ")
+        _vm._v(" Modify User\n                        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })
@@ -59954,7 +59985,6 @@ var staticRenderFns = [
         staticClass: "form-control",
         attrs: {
           type: "password_confirm",
-          required: "",
           id: "password_confirm",
           name: "password_confirm",
           placeholder: "Confirm New Password",
@@ -59986,12 +60016,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
-            attrs: {
-              type: "file",
-              required: "",
-              id: "profile_photo",
-              name: "profile_photo"
-            }
+            attrs: { type: "file", id: "profile_photo", name: "profile_photo" }
           })
         ])
       ])
