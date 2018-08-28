@@ -73,7 +73,7 @@
 
         <div class="row">
             <div class="col-6">
-                <div class="card">
+                <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title col-12">
                             <i class="fa fa-user-edit"></i> Modify User
@@ -86,6 +86,23 @@
                         <div class="form-group">
                             <label for="name">Name (*)</label>
                             <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" :value="user.name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail (*)</label>
+                            <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" :value="user.email">
+                        </div>
+                         <div class="row">
+                            <div class="col-md-4">
+                                <div class="image text-center">
+                                    <img src="/img/profile.png" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="profile_photo">Profile Photo </label>
+                                    <input type="file" required class="form-control" id="profile_photo" name="profile_photo" :value="user.email">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">

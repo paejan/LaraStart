@@ -52818,6 +52818,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -52949,7 +52966,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-6" }, [
-          _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card card-primary" }, [
             _vm._m(5),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
@@ -52967,6 +52984,47 @@ var render = function() {
                   },
                   domProps: { value: _vm.user.name }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "email" } }, [
+                  _vm._v("E-mail (*)")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "email",
+                    required: "",
+                    id: "email",
+                    name: "email",
+                    placeholder: "Enter E-mail"
+                  },
+                  domProps: { value: _vm.user.email }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _vm._m(6),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-8" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "profile_photo" } }, [
+                      _vm._v("Profile Photo ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "file",
+                        required: "",
+                        id: "profile_photo",
+                        name: "profile_photo"
+                      },
+                      domProps: { value: _vm.user.email }
+                    })
+                  ])
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -53034,6 +53092,20 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "image text-center" }, [
+        _c("img", {
+          staticClass: "img-circle elevation-2",
+          staticStyle: { height: "2.7rem" },
+          attrs: { src: "/img/profile.png", alt: "User Image" }
+        })
+      ])
     ])
   }
 ]
