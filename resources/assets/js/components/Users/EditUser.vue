@@ -118,6 +118,30 @@
                     </div>
                 </div>
             </div>
+            <div class="col-6">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title col-12">
+                            <i class="fa fa-user-edit"></i> Permissions
+                        </h3>
+                        <div class="card-tools">
+                           
+                        </div>
+                    </div>
+                    <div class="card-body">   
+                        <div class="form-group">
+                            <label for="user_group"></label>
+                            <label for="user_group">User Group</label>
+                            <select class="form-control" id="user_group" name="user_group">
+                                <option value=""> User Disabled </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -134,9 +158,7 @@ export default {
 
   data() {
     return {
-      loadingLastOnline: true,
-      loadingLastModified: true,
-      loadingUserCreated: true,
+      loadingUser: true,
       user: []
     };
   },
@@ -147,9 +169,11 @@ export default {
         .get("/api/user/" + this.$route.params.id)
         .then(({ data }) => {
           this.user = data;
+          this.loadingUser = false;
         })
         .catch(errors => {
           console.log(errors);
+          this.loadingUser = false;
           this.$notify({
             group: "errors",
             title: "Unable to load user data",
