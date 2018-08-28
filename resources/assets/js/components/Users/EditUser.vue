@@ -70,6 +70,30 @@
                 </h3>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title col-12">
+                            <i class="fa fa-user-edit"></i> Modify User
+                        </h3>
+                        <div class="card-tools">
+                           
+                        </div>
+                    </div>
+                    <div class="card-body">   
+                        <div class="form-group">
+                            <label for="name">Name (*)</label>
+                            <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" :value="user.name">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
