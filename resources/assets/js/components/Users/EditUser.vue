@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <notifications group="errors" position="bottom right" :speed="2000"/>
         <div class="row">
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="info-box">
@@ -100,6 +101,12 @@ export default {
         })
         .catch(errors => {
           console.log(errors);
+          this.$notify({
+            group: "errors",
+            title: "Unable to load user data",
+            type: "error",
+            text: "Whoops..  We were unable to load that user."
+          });
         });
     }
   }

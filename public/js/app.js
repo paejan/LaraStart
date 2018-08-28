@@ -52793,6 +52793,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -52821,6 +52822,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.user = data;
       }).catch(function (errors) {
         console.log(errors);
+        _this.$notify({
+          group: "errors",
+          title: "Unable to load user data",
+          type: "error",
+          text: "Whoops..  We were unable to load that user."
+        });
       });
     }
   }
@@ -52834,81 +52841,90 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
-        _c("div", { staticClass: "info-box" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "info-box-content" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm.loadingLastOnline
-              ? _c("span", { staticClass: "info-box-number" }, [
-                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                ])
-              : _c("span", { staticClass: "info-box-number" })
-          ])
-        ])
-      ]),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("notifications", {
+        attrs: { group: "errors", position: "bottom right", speed: 2000 }
+      }),
       _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
-        _c("div", { staticClass: "info-box mb-3" }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _c("div", { staticClass: "info-box-content" }, [
-            _c("span", { staticClass: "info-box-text" }, [
-              _vm._v(
-                "\n                        Last Modified\n                        "
-              ),
-              _c("i", {
-                staticClass: "fa fa-sync",
-                on: {
-                  click: function($event) {
-                    _vm.getNewUserCount()
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
+          _c("div", { staticClass: "info-box" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "info-box-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm.loadingLastOnline
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
+                : _c("span", { staticClass: "info-box-number" })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
+          _c("div", { staticClass: "info-box mb-3" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "info-box-content" }, [
+              _c("span", { staticClass: "info-box-text" }, [
+                _vm._v(
+                  "\n                        Last Modified\n                        "
+                ),
+                _c("i", {
+                  staticClass: "fa fa-sync",
+                  on: {
+                    click: function($event) {
+                      _vm.getNewUserCount()
+                    }
                   }
-                }
-              })
-            ]),
+                })
+              ]),
+              _vm._v(" "),
+              _vm.loadingLastModified
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
+                : _c("span", { staticClass: "info-box-number" })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "clearfix hidden-md-up" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
+          _c("div", { staticClass: "info-box mb-3" }, [
+            _vm._m(3),
             _vm._v(" "),
-            _vm.loadingLastModified
-              ? _c("span", { staticClass: "info-box-number" }, [
-                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                ])
-              : _c("span", { staticClass: "info-box-number" })
+            _c("div", { staticClass: "info-box-content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _vm.loadingUserCreated
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
+                : _c("span", { staticClass: "info-box-number" })
+            ])
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "clearfix hidden-md-up" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
-        _c("div", { staticClass: "info-box mb-3" }, [
-          _vm._m(3),
-          _vm._v(" "),
-          _c("div", { staticClass: "info-box-content" }, [
-            _vm._m(4),
-            _vm._v(" "),
-            _vm.loadingUserCreated
-              ? _c("span", { staticClass: "info-box-number" }, [
-                  _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                ])
-              : _c("span", { staticClass: "info-box-number" })
+      _c("div", { staticClass: "row mb-2" }, [
+        _c("div", { staticClass: "col-sm-6" }, [
+          _c("h3", { staticClass: "m-0 text-dark" }, [
+            _vm._v(
+              "\n                " + _vm._s(_vm.user.name) + "\n            "
+            )
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row mb-2" }, [
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("h3", { staticClass: "m-0 text-dark" }, [
-          _vm._v(
-            "\n                " + _vm._s(_vm.user.name) + "\n            "
-          )
-        ])
-      ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
