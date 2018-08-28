@@ -36,6 +36,44 @@ class UserController extends Controller
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
 
+
+    /**
+     * Updates the user information.
+     *
+     * @param Request $request
+     * @param Integer $id
+     * @return void
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Returns a users data by the specified id.
+     *
+     * @param  integer  $user
+     * @return Collection
+     */
+    public function show(User $user)
+    {
+        return $user;
+    }
+
+
+    /**
+     * Deletes a user by the specified id.
+     *
+     * @param  integer  $user
+     * @return mixed
+     */
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return $user;
+    }
+
     /**
      * Return a count of all registered users.
      *
@@ -74,29 +112,5 @@ class UserController extends Controller
     public function online()
     {
         return User::where('login_at', '>', Carbon::now()->subHour())->count();
-    }
-
-    /**
-     * Returns a users data by the specified id.
-     *
-     * @param  integer  $user
-     * @return Collection
-     */
-    public function user(User $user)
-    {
-        return $user;
-    }
-
-    /**
-     * Deletes a user by the specified id.
-     *
-     * @param  integer  $user
-     * @return mixed
-     */
-    public function destroy(User $user)
-    {
-        $user->delete();
-
-        return $user;
     }
 }
