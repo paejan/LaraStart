@@ -52858,15 +52858,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -52887,6 +52878,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getUser: function getUser(id) {
       var _this = this;
 
+      this.loadingUser = true;
       axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
         var data = _ref.data;
 
@@ -52928,41 +52920,47 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
-              _vm._m(1),
+              _c("span", { staticClass: "info-box-text" }, [
+                _vm._v(
+                  "\n                        Last Online\n                    "
+                )
+              ]),
               _vm._v(" "),
-              _vm.loadingLastOnline
+              _vm.user.login_at
                 ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                    _vm._v(
+                      "                       \n                       " +
+                        _vm._s(_vm.user.login_at) +
+                        "\n                    "
+                    )
                   ])
-                : _c("span", { staticClass: "info-box-number" })
+                : _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "                       \n                       Never Logged In\n                    "
+                    )
+                  ])
             ])
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
           _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
                 _vm._v(
-                  "\n                        Last Modified\n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getNewUserCount()
-                    }
-                  }
-                })
+                  "\n                        Last Modified\n                    "
+                )
               ]),
               _vm._v(" "),
-              _vm.loadingLastModified
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" })
+              _c("span", { staticClass: "info-box-number" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.user.updated_at) +
+                    "\n                    "
+                )
+              ])
             ])
           ])
         ]),
@@ -52971,16 +52969,22 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
           _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
-              _vm._m(4),
+              _c("span", { staticClass: "info-box-text" }, [
+                _vm._v(
+                  "\n                        User Created\n                    "
+                )
+              ]),
               _vm._v(" "),
-              _vm.loadingUserCreated
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" })
+              _c("span", { staticClass: "info-box-number" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.user.created_at) +
+                    "\n                    "
+                )
+              ])
             ])
           ])
         ])
@@ -52999,7 +53003,7 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-6" }, [
           _c("div", { staticClass: "card card-primary" }, [
-            _vm._m(5),
+            _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "form-group" }, [
@@ -53036,18 +53040,18 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(6),
+              _vm._m(4),
               _vm._v(" "),
-              _vm._m(7),
+              _vm._m(5),
               _vm._v(" "),
-              _vm._m(8)
+              _vm._m(6)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-footer" })
           ])
         ]),
         _vm._v(" "),
-        _vm._m(9)
+        _vm._m(7)
       ])
     ],
     1
@@ -53066,15 +53070,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-text" }, [
-      _vm._v("\n                        Last Online\n                        "),
-      _c("i", { staticClass: "fa fa-sync" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
       _c("i", { staticClass: "fa fa-user-edit" })
     ])
@@ -53085,17 +53080,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
       _c("i", { staticClass: "fa fa-user-plus" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-text" }, [
-      _vm._v(
-        "\n                        User Created\n                        "
-      ),
-      _c("i", { staticClass: "fa fa-sync" })
     ])
   },
   function() {

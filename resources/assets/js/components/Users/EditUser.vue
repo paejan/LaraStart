@@ -10,13 +10,12 @@
                     <div class="info-box-content">
                         <span class="info-box-text">
                             Last Online
-                            <i class="fa fa-sync"></i>
                         </span>
-                        <span class="info-box-number" v-if="loadingLastOnline">
-                            <i class="fa fa-spinner fa-spin"></i>
+                        <span class="info-box-number" v-if="user.login_at">                       
+                           {{ user.login_at }}
                         </span>
-                        <span class="info-box-number" v-else>
-                           
+                        <span class="info-box-number" v-else>                       
+                           Never Logged In
                         </span>
                     </div>
                 </div>
@@ -29,13 +28,9 @@
                     <div class="info-box-content">
                         <span class="info-box-text">
                             Last Modified
-                            <i @click="getNewUserCount()" class="fa fa-sync"></i>
                         </span>
-                        <span class="info-box-number" v-if="loadingLastModified">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            
+                        <span class="info-box-number">
+                            {{ user.updated_at }}
                         </span>
                     </div>
                 </div>
@@ -50,13 +45,9 @@
                     <div class="info-box-content">
                         <span class="info-box-text">
                             User Created
-                            <i class="fa fa-sync"></i>
                         </span>
-                        <span class="info-box-number" v-if="loadingUserCreated">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-
+                        <span class="info-box-number">
+                            {{ user.created_at }}
                         </span>
                     </div>
                 </div>
@@ -165,6 +156,7 @@ export default {
 
   methods: {
     getUser(id) {
+      this.loadingUser = true;
       axios
         .get("/api/user/" + this.$route.params.id)
         .then(({ data }) => {
