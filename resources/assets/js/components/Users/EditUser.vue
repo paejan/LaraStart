@@ -66,6 +66,10 @@
                     {{ user.name }}
                 </h3>
             </div>
+            <div class="col-sm-6 text-right">
+                <button type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash-alt"></i> Delete User </button>
+                <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
+            </div>
         </div>
 
         <div class="row">
@@ -119,7 +123,7 @@
                 <div class="card card-danger">
                     <div class="card-header">
                         <h3 class="card-title col-12">
-                            <i class="fa fa-user-edit"></i> Permissions
+                            <i class="fa fa-key"></i> Permissions
                         </h3>
                         <div class="card-tools">
                            

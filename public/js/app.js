@@ -52866,6 +52866,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53030,13 +53034,15 @@ var render = function() {
               "\n                " + _vm._s(_vm.user.name) + "\n            "
             )
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _vm._m(3)
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-6" }, [
           _c("div", { staticClass: "card card-primary" }, [
-            _vm._m(3),
+            _vm._m(4),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "form-group" }, [
@@ -53073,18 +53079,18 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(4),
-              _vm._v(" "),
               _vm._m(5),
               _vm._v(" "),
-              _vm._m(6)
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-footer" })
           ])
         ]),
         _vm._v(" "),
-        _vm._m(7)
+        _vm._m(8)
       ])
     ],
     1
@@ -53113,6 +53119,24 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
       _c("i", { staticClass: "fa fa-user-plus" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-6 text-right" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-danger btn-lg", attrs: { type: "button" } },
+        [_c("i", { staticClass: "fa fa-trash-alt" }), _vm._v(" Delete User ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-lg", attrs: { type: "button" } },
+        [_c("i", { staticClass: "fa fa-user-plus" }), _vm._v(" New User ")]
+      )
     ])
   },
   function() {
@@ -53211,7 +53235,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "card card-danger" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("h3", { staticClass: "card-title col-12" }, [
-            _c("i", { staticClass: "fa fa-user-edit" }),
+            _c("i", { staticClass: "fa fa-key" }),
             _vm._v(" Permissions\n                    ")
           ]),
           _vm._v(" "),
