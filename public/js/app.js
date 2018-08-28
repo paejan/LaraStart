@@ -52863,6 +52863,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -52980,9 +52983,7 @@ var render = function() {
                     )
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        Loading..\n                    "
-                    )
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
                   ])
             ])
           ])
@@ -53001,13 +53002,22 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("span", { staticClass: "info-box-number" }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.user.created_at) +
-                    "\n                    "
-                )
-              ])
+              _vm.user.created_at
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(
+                          _vm.format(
+                            _vm.formatDateTime(_vm.user.created_at),
+                            "MMM Do YYYY h:mm a"
+                          )
+                        ) +
+                        "\n                    "
+                    )
+                  ])
+                : _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
             ])
           ])
         ])

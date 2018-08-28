@@ -33,7 +33,7 @@
                             {{ format(formatDateTime(user.updated_at), 'MMM Do YYYY h:mm a') }}
                         </span>
                         <span class="info-box-number" v-else>
-                            Loading..
+                            <i class="fa fa-spinner fa-spin"></i>
                         </span>
                     </div>
                 </div>
@@ -49,8 +49,11 @@
                         <span class="info-box-text">
                             User Created
                         </span>
-                        <span class="info-box-number">
-                            {{ user.created_at }}
+                        <span class="info-box-number" v-if="user.created_at">
+                            {{ format(formatDateTime(user.created_at), 'MMM Do YYYY h:mm a') }}
+                        </span>
+                        <span class="info-box-number" v-else>
+                            <i class="fa fa-spinner fa-spin"></i>
                         </span>
                     </div>
                 </div>
