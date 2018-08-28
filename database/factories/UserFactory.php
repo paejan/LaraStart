@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
 
-    $filepath = storage_path('profile_photos');
+    $filepath = storage_path('app/public/profile_photos');
     if (!File::exists($filepath)) {
         File::makeDirectory($filepath);
     }
