@@ -26080,7 +26080,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(61);
+module.exports = __webpack_require__(64);
 
 
 /***/ }),
@@ -26109,7 +26109,7 @@ window.Vue = __webpack_require__(7);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ path: '/dashboard', component: __webpack_require__(43) }, { path: '/profile', component: __webpack_require__(46) }, { path: '/users', component: __webpack_require__(78) }];
+var routes = [{ path: '/dashboard', component: __webpack_require__(43) }, { path: '/profile', component: __webpack_require__(46) }, { path: '/users', component: __webpack_require__(49) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(61) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
@@ -51313,8 +51313,418 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */,
-/* 50 */,
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(50)
+/* template */
+var __vue_template__ = __webpack_require__(60)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Users/Users.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-37a7738c", Component.options)
+  } else {
+    hotAPI.reload("data-v-37a7738c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DataTable_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
+    pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
+    modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a
+  },
+
+  created: function created() {
+    this.getUsers();
+    this.getUserCount();
+    this.getNewUserCount();
+    this.getActiveUserCount();
+    this.getUsersOnlineCount();
+  },
+  data: function data() {
+    var sortOrders = {};
+    var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "Email", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
+    columns.forEach(function (column) {
+      sortOrders[column.name] = -1;
+    });
+    return {
+      showDeleteUserModal: false,
+      user: [],
+      users: [],
+      loadingTable: true,
+      loadingDeleteUser: false,
+      loadingUsers: true,
+      userCount: 0,
+      loadingUserCount: true,
+      newUserCount: 0,
+      loadingNewUserCount: true,
+      activeUserCount: 0,
+      loadingActiveUserCount: true,
+      usersOnlineCount: 0,
+      loadingUsersOnlineCount: true,
+      columns: columns,
+      sortKey: "deadline",
+      sortOrders: sortOrders,
+      perPage: ["10", "20", "30"],
+      tableData: {
+        draw: 0,
+        length: 10,
+        search: "",
+        column: 0,
+        dir: "asc"
+      },
+      pagination: {
+        lastPage: "",
+        currentPage: "",
+        total: "",
+        lastPageUrl: "",
+        nextPageUrl: "",
+        prevPageUrl: "",
+        from: "",
+        to: ""
+      }
+    };
+  },
+
+
+  methods: {
+    getUsers: function getUsers() {
+      var _this = this;
+
+      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/users";
+
+      this.loadingUsers = true;
+      this.loadingTable = true;
+      this.tableData.draw++;
+      axios.get(url, { params: this.tableData }).then(function (response) {
+        var data = response.data;
+        if (_this.tableData.draw == data.draw) {
+          _this.users = data.data.data;
+          _this.configPagination(data.data);
+          _this.loadingUsers = false;
+          _this.loadingTable = false;
+        }
+      }).catch(function (errors) {
+        console.log(errors);
+      });
+    },
+    refresh: function refresh() {
+      this.getUsers();
+      this.getUserCount();
+      this.getNewUserCount();
+      this.getActiveUserCount();
+      this.getUsersOnlineCount();
+    },
+    getUserCount: function getUserCount() {
+      var _this2 = this;
+
+      this.loadingUserCount = true;
+      axios.get("api/count/users").then(function (_ref) {
+        var data = _ref.data;
+
+        _this2.userCount = data;
+        _this2.loadingUserCount = false;
+      });
+    },
+    getUser: function getUser(id) {
+      var _this3 = this;
+
+      axios.get("api/user/" + id).then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this3.user = data;
+      });
+    },
+    getNewUserCount: function getNewUserCount() {
+      var _this4 = this;
+
+      this.loadingNewUserCount = true;
+      axios.get("api/count/users/new").then(function (_ref3) {
+        var data = _ref3.data;
+
+        _this4.newUserCount = data;
+        _this4.loadingNewUserCount = false;
+      });
+    },
+    getActiveUserCount: function getActiveUserCount() {
+      var _this5 = this;
+
+      this.loadingActiveUserCount = true;
+      axios.get("api/count/users/active").then(function (_ref4) {
+        var data = _ref4.data;
+
+        _this5.activeUserCount = data;
+        _this5.loadingActiveUserCount = false;
+      });
+    },
+    getUsersOnlineCount: function getUsersOnlineCount() {
+      var _this6 = this;
+
+      this.loadingUsersOnlineCount = true;
+      axios.get("api/count/users/online").then(function (_ref5) {
+        var data = _ref5.data;
+
+        _this6.usersOnlineCount = data;
+        _this6.loadingUsersOnlineCount = false;
+      });
+    },
+    deleteUser: function deleteUser(user) {
+      var _this7 = this;
+
+      this.loadingDeleteUser = true;
+      axios.get("api/user/delete/" + user.id).then(function (response) {
+        _this7.loadingDeleteUser = false;
+        _this7.refresh();
+        _this7.showDeleteUserModal = false;
+        _this7.$notify({
+          group: "users",
+          title: "User Successfully Deleted",
+          type: "success",
+          text: user.name + " was successfully deleted."
+        });
+      }).catch(function (errors) {
+        console.log(errors);
+      });
+    },
+    configPagination: function configPagination(data) {
+      this.pagination.lastPage = data.last_page;
+      this.pagination.currentPage = data.current_page;
+      this.pagination.total = data.total;
+      this.pagination.lastPageUrl = data.last_page_url;
+      this.pagination.nextPageUrl = data.next_page_url;
+      this.pagination.prevPageUrl = data.prev_page_url;
+      this.pagination.from = data.from;
+      this.pagination.to = data.to;
+    },
+    sortBy: function sortBy(key) {
+      this.sortKey = key;
+      this.sortOrders[key] = this.sortOrders[key] * -1;
+      this.tableData.column = this.getIndex(this.columns, "name", key);
+      this.tableData.dir = this.sortOrders[key] === 1 ? "asc" : "desc";
+      this.getUsers();
+      this.loadingUsers = false;
+    },
+    getIndex: function getIndex(array, key, value) {
+      return array.findIndex(function (i) {
+        return i[key] == value;
+      });
+    }
+  }
+});
+
+/***/ }),
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51744,440 +52154,7 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */,
-/* 61 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(79)
-/* template */
-var __vue_template__ = __webpack_require__(80)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/Users/Users.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-37a7738c", Component.options)
-  } else {
-    hotAPI.reload("data-v-37a7738c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 79 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DataTable_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
-    pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
-    modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a
-  },
-
-  created: function created() {
-    this.getUsers();
-    this.getUserCount();
-    this.getNewUserCount();
-    this.getActiveUserCount();
-    this.getUsersOnlineCount();
-  },
-  data: function data() {
-    var sortOrders = {};
-    var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "Email", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
-    columns.forEach(function (column) {
-      sortOrders[column.name] = -1;
-    });
-    return {
-      showDeleteUserModal: false,
-      user: [],
-      users: [],
-      loadingTable: true,
-      loadingDeleteUser: false,
-      loadingUsers: true,
-      userCount: 0,
-      loadingUserCount: true,
-      newUserCount: 0,
-      loadingNewUserCount: true,
-      activeUserCount: 0,
-      loadingActiveUserCount: true,
-      usersOnlineCount: 0,
-      loadingUsersOnlineCount: true,
-      columns: columns,
-      sortKey: "deadline",
-      sortOrders: sortOrders,
-      perPage: ["10", "20", "30"],
-      tableData: {
-        draw: 0,
-        length: 10,
-        search: "",
-        column: 0,
-        dir: "asc"
-      },
-      pagination: {
-        lastPage: "",
-        currentPage: "",
-        total: "",
-        lastPageUrl: "",
-        nextPageUrl: "",
-        prevPageUrl: "",
-        from: "",
-        to: ""
-      }
-    };
-  },
-
-
-  methods: {
-    getUsers: function getUsers() {
-      var _this = this;
-
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/users";
-
-      this.loadingUsers = true;
-      this.loadingTable = true;
-      this.tableData.draw++;
-      axios.get(url, { params: this.tableData }).then(function (response) {
-        var data = response.data;
-        if (_this.tableData.draw == data.draw) {
-          _this.users = data.data.data;
-          _this.configPagination(data.data);
-          _this.loadingUsers = false;
-          _this.loadingTable = false;
-        }
-      }).catch(function (errors) {
-        console.log(errors);
-      });
-    },
-    refresh: function refresh() {
-      this.getUsers();
-      this.getUserCount();
-      this.getNewUserCount();
-      this.getActiveUserCount();
-      this.getUsersOnlineCount();
-    },
-    getUserCount: function getUserCount() {
-      var _this2 = this;
-
-      this.loadingUserCount = true;
-      axios.get("api/count/users").then(function (_ref) {
-        var data = _ref.data;
-
-        _this2.userCount = data;
-        _this2.loadingUserCount = false;
-      });
-    },
-    getUser: function getUser(id) {
-      var _this3 = this;
-
-      axios.get("api/user/" + id).then(function (_ref2) {
-        var data = _ref2.data;
-
-        _this3.user = data;
-      });
-    },
-    getNewUserCount: function getNewUserCount() {
-      var _this4 = this;
-
-      this.loadingNewUserCount = true;
-      axios.get("api/count/users/new").then(function (_ref3) {
-        var data = _ref3.data;
-
-        _this4.newUserCount = data;
-        _this4.loadingNewUserCount = false;
-      });
-    },
-    getActiveUserCount: function getActiveUserCount() {
-      var _this5 = this;
-
-      this.loadingActiveUserCount = true;
-      axios.get("api/count/users/active").then(function (_ref4) {
-        var data = _ref4.data;
-
-        _this5.activeUserCount = data;
-        _this5.loadingActiveUserCount = false;
-      });
-    },
-    getUsersOnlineCount: function getUsersOnlineCount() {
-      var _this6 = this;
-
-      this.loadingUsersOnlineCount = true;
-      axios.get("api/count/users/online").then(function (_ref5) {
-        var data = _ref5.data;
-
-        _this6.usersOnlineCount = data;
-        _this6.loadingUsersOnlineCount = false;
-      });
-    },
-    deleteUser: function deleteUser(user) {
-      var _this7 = this;
-
-      this.loadingDeleteUser = true;
-      axios.get("api/user/delete/" + user.id).then(function (response) {
-        _this7.loadingDeleteUser = false;
-        _this7.refresh();
-        _this7.showDeleteUserModal = false;
-        _this7.$notify({
-          group: "users",
-          title: "User Successfully Deleted",
-          type: "success",
-          text: user.name + " was successfully deleted."
-        });
-      }).catch(function (errors) {
-        console.log(errors);
-      });
-    },
-    configPagination: function configPagination(data) {
-      this.pagination.lastPage = data.last_page;
-      this.pagination.currentPage = data.current_page;
-      this.pagination.total = data.total;
-      this.pagination.lastPageUrl = data.last_page_url;
-      this.pagination.nextPageUrl = data.next_page_url;
-      this.pagination.prevPageUrl = data.prev_page_url;
-      this.pagination.from = data.from;
-      this.pagination.to = data.to;
-    },
-    sortBy: function sortBy(key) {
-      this.sortKey = key;
-      this.sortOrders[key] = this.sortOrders[key] * -1;
-      this.tableData.column = this.getIndex(this.columns, "name", key);
-      this.tableData.dir = this.sortOrders[key] === 1 ? "asc" : "desc";
-      this.getUsers();
-      this.loadingUsers = false;
-    },
-    getIndex: function getIndex(array, key, value) {
-      return array.findIndex(function (i) {
-        return i[key] == value;
-      });
-    }
-  }
-});
-
-/***/ }),
-/* 80 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52445,33 +52422,58 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(user.email))]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-outline-primary btn-sm",
-                                    attrs: { type: "button" }
-                                  },
-                                  [_c("i", { staticClass: "fa fa-user-edit" })]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-outline-danger btn-sm",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.getUser(user.id)
-                                        _vm.showDeleteUserModal = true
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          name: "edit_user",
+                                          params: { id: user.id }
+                                        }
                                       }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fa fa-trash-alt" })]
-                                )
-                              ])
+                                    },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-outline-primary btn-sm",
+                                          attrs: { type: "button" }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-user-edit"
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-outline-danger btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.getUser(user.id)
+                                          _vm.showDeleteUserModal = true
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-trash-alt"
+                                      })
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
                             ])
                           })
                         )
@@ -52663,6 +52665,131 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-37a7738c", module.exports)
   }
 }
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(62)
+/* template */
+var __vue_template__ = __webpack_require__(63)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Users/EditUser.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-79d50133", Component.options)
+  } else {
+    hotAPI.reload("data-v-79d50133", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    }
+});
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card card-default" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("Dashboard Component")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _vm._v(
+                "\n                    I'm an example component.\n                "
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-79d50133", module.exports)
+  }
+}
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
