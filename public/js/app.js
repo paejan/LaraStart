@@ -52835,6 +52835,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -53004,28 +53012,11 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _vm._m(6),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-8" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "profile_photo" } }, [
-                      _vm._v("Profile Photo ")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "file",
-                        required: "",
-                        id: "profile_photo",
-                        name: "profile_photo"
-                      },
-                      domProps: { value: _vm.user.email }
-                    })
-                  ])
-                ])
-              ])
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7),
+              _vm._v(" "),
+              _vm._m(8)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-footer" })
@@ -53098,13 +53089,72 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "image text-center" }, [
-        _c("img", {
-          staticClass: "img-circle elevation-2",
-          staticStyle: { height: "2.7rem" },
-          attrs: { src: "/img/profile.png", alt: "User Image" }
-        })
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "password" } }, [_vm._v("New Password ")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "password",
+          id: "password",
+          name: "password",
+          placeholder: "Enter New Password"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "password_confirm" } }, [
+        _vm._v("Confirm New Password")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "password_confirm",
+          required: "",
+          id: "password_confirm",
+          name: "password_confirm",
+          placeholder: "Confirm New Password"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "image text-center" }, [
+          _c("img", {
+            staticClass: "img-circle elevation-2",
+            staticStyle: { height: "2.7rem" },
+            attrs: { src: "/img/profile.png", alt: "User Image" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "profile_photo" } }, [
+            _vm._v("Profile Photo ")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "file",
+              required: "",
+              id: "profile_photo",
+              name: "profile_photo"
+            }
+          })
+        ])
       ])
     ])
   }
