@@ -30,7 +30,7 @@
                             Last Modified
                         </span>
                         <span class="info-box-number">
-                            {{ user.updated_at }}
+                            {{ formatDateTime(user.updated_at) }}
                         </span>
                     </div>
                 </div>
@@ -84,11 +84,11 @@
                         </div>
                         <div class="form-group">
                             <label for="password">New Password </label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password">
                         </div>
                         <div class="form-group">
                             <label for="password_confirm">Confirm New Password</label>
-                            <input type="password_confirm" required class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm New Password" autocomplete="off">
+                            <input type="password_confirm" required class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm New Password">
                         </div>
                          <div class="row">
                             <div class="col-md-4">
@@ -138,6 +138,7 @@
 </template>
 
 <script>
+import { format, formatDistance, formatRelative, subDays } from "date-fns";
 export default {
   mounted() {
     // console.log("Component mounted.");
@@ -173,6 +174,12 @@ export default {
             text: "Whoops..  We were unable to load that user."
           });
         });
+    },
+    formatDateTime: function(datetime) {
+      return new Date(datetime)
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
     }
   }
 };
