@@ -23,7 +23,7 @@
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <div class="image navbar-image">
-            <img src="./img/profile.png" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
+            <img src="{{ url('/img/profile.png') }}" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
         </div>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
