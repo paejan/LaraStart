@@ -26109,7 +26109,7 @@ window.Vue = __webpack_require__(7);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ path: '/dashboard', component: __webpack_require__(43) }, { path: '/profile', component: __webpack_require__(46) }, { path: '/users', component: __webpack_require__(49) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(61) }];
+var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(43) }, { name: 'profile', path: '/profile', component: __webpack_require__(46) }, { name: 'all_users', path: '/users', component: __webpack_require__(49) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(61) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',

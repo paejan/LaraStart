@@ -17,9 +17,9 @@ Vue.use(Notifications)
 
 
 let routes = [
-  { path: '/dashboard', component: require('./components/Dashboard.vue') },
-  { path: '/profile', component: require('./components/Profile.vue') },
-  { path: '/users', component: require('./components/Users/Users.vue') },
+  { name: 'dashboard', path: '/dashboard', component: require('./components/Dashboard.vue') },
+  { name: 'profile', path: '/profile', component: require('./components/Profile.vue') },
+  { name: 'all_users', path: '/users', component: require('./components/Users/Users.vue') },
   { name: 'edit_user', path: '/users/:id', component: require('./components/Users/EditUser.vue') }
 ]
 
