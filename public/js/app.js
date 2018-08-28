@@ -52860,6 +52860,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -52872,7 +52875,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       loadingUser: true,
-      user: []
+      user: [],
+      format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"]
     };
   },
 
@@ -52900,6 +52904,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     formatDateTime: function formatDateTime(datetime) {
+      // Formats a MySQL datetime to JS Datetime
       return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
     }
   }
@@ -52961,13 +52966,24 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("span", { staticClass: "info-box-number" }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm.formatDateTime(_vm.user.updated_at)) +
-                    "\n                    "
-                )
-              ])
+              _vm.user.updated_at
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(
+                          _vm.format(
+                            _vm.formatDateTime(_vm.user.updated_at),
+                            "MMM Do YYYY h:mm a"
+                          )
+                        ) +
+                        "\n                    "
+                    )
+                  ])
+                : _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "\n                        Loading..\n                    "
+                    )
+                  ])
             ])
           ])
         ]),

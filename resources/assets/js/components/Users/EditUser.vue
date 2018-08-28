@@ -29,8 +29,11 @@
                         <span class="info-box-text">
                             Last Modified
                         </span>
-                        <span class="info-box-number">
-                            {{ formatDateTime(user.updated_at) }}
+                        <span class="info-box-number" v-if="user.updated_at">
+                            {{ format(formatDateTime(user.updated_at), 'MMM Do YYYY h:mm a') }}
+                        </span>
+                        <span class="info-box-number" v-else>
+                            Loading..
                         </span>
                     </div>
                 </div>
@@ -151,7 +154,8 @@ export default {
   data() {
     return {
       loadingUser: true,
-      user: []
+      user: [],
+      format
     };
   },
 
@@ -176,6 +180,7 @@ export default {
         });
     },
     formatDateTime: function(datetime) {
+      // Formats a MySQL datetime to JS Datetime
       return new Date(datetime)
         .toISOString()
         .slice(0, 19)
