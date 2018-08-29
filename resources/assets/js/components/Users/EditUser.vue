@@ -85,6 +85,9 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="alert alert-danger" v-if="errors.length > 0">
+                                <ul><li v-for="error in errors">{{ error }}</li></ul>
+                            </div>
                             <div class="form-group">
                                 <label for="name">Name (*)</label>
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="user.name">
@@ -164,7 +167,8 @@ export default {
     return {
       loadingUser: true,
       user: [],
-      format
+      format,
+      errors: []
     };
   },
 
@@ -212,8 +216,15 @@ export default {
             text: "This user has been updated."
           });
         })
-        .catch(function(resp) {
-          console.log(resp);
+        .catch(error => {
+          this.errors = [];
+          if (error.response.data.errors.name) {
+            this.errors.push(error.response.data.errors.name[0]);
+          }
+
+          if (error.response.data.errors.email) {
+            this.errors.push(error.response.data.errors.email[0]);
+          }
           Vue.notify({
             group: "notifications",
             title: "Failed",

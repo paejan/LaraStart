@@ -55396,6 +55396,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55409,7 +55412,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       loadingUser: true,
       user: [],
-      format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"]
+      format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"],
+      errors: []
     };
   },
 
@@ -55441,6 +55445,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
     },
     saveForm: function saveForm() {
+      var _this2 = this;
+
       event.preventDefault();
       var app = this;
       axios.patch("/api/users/" + this.$route.params.id, {
@@ -55454,8 +55460,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: "success",
           text: "This user has been updated."
         });
-      }).catch(function (resp) {
-        console.log(resp);
+      }).catch(function (error) {
+        _this2.errors = [];
+        if (error.response.data.errors.name) {
+          _this2.errors.push(error.response.data.errors.name[0]);
+        }
+
+        if (error.response.data.errors.email) {
+          _this2.errors.push(error.response.data.errors.email[0]);
+        }
         Vue.notify({
           group: "notifications",
           title: "Failed",
@@ -59707,21 +59720,21 @@ var render = function() {
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
                 _vm._v(
-                  "\n                        Last Online\n                    "
+                  "\n                            Last Online\n                        "
                 )
               ]),
               _vm._v(" "),
               _vm.user.login_at
                 ? _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "                       \n                       " +
+                      "                       \n                           " +
                         _vm._s(_vm.user.login_at) +
-                        "\n                    "
+                        "\n                        "
                     )
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "                       \n                       Never Logged In\n                    "
+                      "                       \n                           Never Logged In\n                        "
                     )
                   ])
             ])
@@ -59735,21 +59748,21 @@ var render = function() {
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
                 _vm._v(
-                  "\n                        Last Modified\n                    "
+                  "\n                            Last Modified\n                        "
                 )
               ]),
               _vm._v(" "),
               _vm.user.updated_at
                 ? _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "\n                        " +
+                      "\n                            " +
                         _vm._s(
                           _vm.format(
                             _vm.formatDateTime(_vm.user.updated_at),
                             "MMM Do YYYY h:mm a"
                           )
                         ) +
-                        "\n                    "
+                        "\n                        "
                     )
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
@@ -59768,21 +59781,21 @@ var render = function() {
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
                 _vm._v(
-                  "\n                        User Created\n                    "
+                  "\n                            User Created\n                        "
                 )
               ]),
               _vm._v(" "),
               _vm.user.created_at
                 ? _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
-                      "\n                        " +
+                      "\n                            " +
                         _vm._s(
                           _vm.format(
                             _vm.formatDateTime(_vm.user.created_at),
                             "MMM Do YYYY h:mm a"
                           )
                         ) +
-                        "\n                    "
+                        "\n                        "
                     )
                   ])
                 : _c("span", { staticClass: "info-box-number" }, [
@@ -59797,7 +59810,9 @@ var render = function() {
         _c("div", { staticClass: "col-sm-6" }, [
           _c("h3", { staticClass: "m-0 text-dark" }, [
             _vm._v(
-              "\n                " + _vm._s(_vm.user.name) + "\n            "
+              "\n                    " +
+                _vm._s(_vm.user.name) +
+                "\n                "
             )
           ])
         ]),
@@ -59821,6 +59836,17 @@ var render = function() {
                 _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
+                  _vm.errors.length > 0
+                    ? _c("div", { staticClass: "alert alert-danger" }, [
+                        _c(
+                          "ul",
+                          _vm._l(_vm.errors, function(error) {
+                            return _c("li", [_vm._v(_vm._s(error))])
+                          })
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "name" } }, [
                       _vm._v("Name (*)")
@@ -59988,7 +60014,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title col-12" }, [
         _c("i", { staticClass: "fa fa-user-edit" }),
-        _vm._v(" Modify User\n                        ")
+        _vm._v(" Modify User\n                            ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })
@@ -60070,7 +60096,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title col-12" }, [
         _c("i", { staticClass: "fa fa-key" }),
-        _vm._v(" Permissions\n                    ")
+        _vm._v(" Permissions\n                        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })

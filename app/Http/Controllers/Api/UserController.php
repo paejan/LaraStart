@@ -47,9 +47,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:191',
-            'email' => 'required|email|max:191',
-            'password' => 'nullable|min:6|max:191|confirmed',
+            'name' => 'required|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|file|mimes:jpeg,jpg,png|max:5000',
         ]);
 
