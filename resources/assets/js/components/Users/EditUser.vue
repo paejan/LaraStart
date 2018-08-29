@@ -87,19 +87,19 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Name (*)</label>
-                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" :value="user.name">
+                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="user.name">
                             </div>
                             <div class="form-group">
                                 <label for="email">E-mail (*)</label>
-                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" :value="user.email">
+                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="user.email">
                             </div>
                             <div class="form-group">
                                 <label for="password">New Password </label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <label for="password_confirm">Confirm New Password</label>
-                                <input type="password_confirm" class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm New Password" autocomplete="off">
+                                <label for="password_confirmation">Confirm New Password</label>
+                                <input type="password_confirmation" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm New Password" autocomplete="off">
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -180,7 +180,7 @@ export default {
         .catch(errors => {
           console.log(errors);
           this.loadingUser = false;
-          this.$notify({
+          Vue.notify({
             group: "notifications",
             title: "Unable to load user data",
             type: "error",
@@ -199,7 +199,10 @@ export default {
       event.preventDefault();
       var app = this;
       axios
-        .put("/api/users/" + this.$route.params.id)
+        .patch("/api/users/" + this.$route.params.id, {
+          name: this.user.name,
+          email: this.user.email
+        })
         .then(function(resp) {
           // app.$router.push({ path: "/" });
           Vue.notify({
@@ -211,11 +214,11 @@ export default {
         })
         .catch(function(resp) {
           console.log(resp);
-          this.$notify({
-            group: "errors",
-            title: "Unable to update user data",
+          Vue.notify({
+            group: "notifications",
+            title: "Failed",
             type: "error",
-            text: "Whoops..  We were unable to update the user data."
+            text: "Whoops..  We were unable to update the user data. Try again?"
           });
         });
     }

@@ -55427,7 +55427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (errors) {
         console.log(errors);
         _this.loadingUser = false;
-        _this.$notify({
+        Vue.notify({
           group: "notifications",
           title: "Unable to load user data",
           type: "error",
@@ -55443,7 +55443,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     saveForm: function saveForm() {
       event.preventDefault();
       var app = this;
-      axios.put("/api/users/" + this.$route.params.id).then(function (resp) {
+      axios.patch("/api/users/" + this.$route.params.id, {
+        name: this.user.name,
+        email: this.user.email
+      }).then(function (resp) {
         // app.$router.push({ path: "/" });
         Vue.notify({
           group: "notifications",
@@ -55453,11 +55456,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       }).catch(function (resp) {
         console.log(resp);
-        this.$notify({
-          group: "errors",
-          title: "Unable to update user data",
+        Vue.notify({
+          group: "notifications",
+          title: "Failed",
           type: "error",
-          text: "Whoops..  We were unable to update the user data."
+          text: "Whoops..  We were unable to update the user data. Try again?"
         });
       });
     }
@@ -59824,6 +59827,14 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.name,
+                          expression: "user.name"
+                        }
+                      ],
                       staticClass: "form-control",
                       attrs: {
                         type: "text",
@@ -59832,7 +59843,15 @@ var render = function() {
                         name: "name",
                         placeholder: "Enter Name"
                       },
-                      domProps: { value: _vm.user.name }
+                      domProps: { value: _vm.user.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.user, "name", $event.target.value)
+                        }
+                      }
                     })
                   ]),
                   _vm._v(" "),
@@ -59842,6 +59861,14 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.email,
+                          expression: "user.email"
+                        }
+                      ],
                       staticClass: "form-control",
                       attrs: {
                         type: "email",
@@ -59850,7 +59877,15 @@ var render = function() {
                         name: "email",
                         placeholder: "Enter E-mail"
                       },
-                      domProps: { value: _vm.user.email }
+                      domProps: { value: _vm.user.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.user, "email", $event.target.value)
+                        }
+                      }
                     })
                   ]),
                   _vm._v(" "),
@@ -59983,16 +60018,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "password_confirm" } }, [
+      _c("label", { attrs: { for: "password_confirmation" } }, [
         _vm._v("Confirm New Password")
       ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
         attrs: {
-          type: "password_confirm",
-          id: "password_confirm",
-          name: "password_confirm",
+          type: "password_confirmation",
+          id: "password_confirmation",
+          name: "password_confirmation",
           placeholder: "Confirm New Password",
           autocomplete: "off"
         }

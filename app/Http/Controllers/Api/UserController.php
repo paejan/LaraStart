@@ -46,7 +46,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:191',
+            'email' => 'required|email|max:191',
+            'password' => 'nullable|min:6|max:191|confirmed',
+            'profile_photo' => 'nullable|file|mimes:jpeg,jpg,png|max:5000',
+        ]);
+
+        $user = User::where('id', $id)
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+
+        return $user;
     }
 
     /**
