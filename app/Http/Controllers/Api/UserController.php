@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -47,9 +48,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'password' => 'nullable|min:6|max:255|confirmed',
+            'password' => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|file|mimes:jpeg,jpg,png|max:5000',
         ]);
 
@@ -57,6 +58,7 @@ class UserController extends Controller
             ->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'password' => Hash::make($request->password),
             ]);
 
         return $user;

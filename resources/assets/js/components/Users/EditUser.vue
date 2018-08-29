@@ -103,13 +103,18 @@
                                 <label for="email">E-mail (*)</label>
                                 <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="user.email">
                             </div>
-                            <div class="form-group">
-                                <label for="password">New Password </label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off">
+                            <div class="form-group has-error" v-if="errors.password">
+                                <label for="password">New Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off" v-model="user.new_password">
+                                <span class="help-block">{{ errors.password }}</span>
+                            </div>
+                            <div class="form-group" v-else>
+                                <label for="password">New Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off" v-model="user.new_password">
                             </div>
                             <div class="form-group">
                                 <label for="password_confirmation">Confirm New Password</label>
-                                <input type="password_confirmation" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm New Password" autocomplete="off">
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm New Password" autocomplete="off" v-model="user.password_confirmation">
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -178,7 +183,8 @@ export default {
       format,
       errors: {
         name: "",
-        email: ""
+        email: "",
+        password: ""
       },
       loadingSaveUser: true
     };
@@ -218,19 +224,21 @@ export default {
       this.errors = {
         // Clear any previous errors.
         name: "",
-        email: ""
+        email: "",
+        password: ""
       };
 
       var app = this;
       axios
         .patch("/api/users/" + this.$route.params.id, {
           name: this.user.name,
-          email: this.user.email
+          email: this.user.email,
+          password: this.user.new_password,
+          password_confirmation: this.user.password_confirmation
         })
         .then(response => {
           // app.$router.push({ path: "/" });
           this.getUser();
-          this.loadingSaveUser = false;
           Vue.notify({
             group: "notifications",
             title: "User Updated",
@@ -247,12 +255,17 @@ export default {
             if (error.response.data.errors.email) {
               this.errors.email = error.response.data.errors.email[0];
             }
+
+            if (error.response.data.errors.password) {
+              this.errors.password = error.response.data.errors.password[0];
+            }
           } else {
             console.log(error);
           }
+          this.loadingUser = false;
           Vue.notify({
             group: "notifications",
-            title: "Failed To Update",
+            title: "Failed To Update!",
             type: "error",
             text: "There was a problem with your input."
           });

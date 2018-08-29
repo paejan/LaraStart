@@ -55407,6 +55407,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55423,7 +55428,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"],
       errors: {
         name: "",
-        email: ""
+        email: "",
+        password: ""
       },
       loadingSaveUser: true
     };
@@ -55465,17 +55471,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.errors = {
         // Clear any previous errors.
         name: "",
-        email: ""
+        email: "",
+        password: ""
       };
 
       var app = this;
       axios.patch("/api/users/" + this.$route.params.id, {
         name: this.user.name,
-        email: this.user.email
+        email: this.user.email,
+        password: this.user.new_password,
+        password_confirmation: this.user.password_confirmation
       }).then(function (response) {
         // app.$router.push({ path: "/" });
         _this2.getUser();
-        _this2.loadingSaveUser = false;
         Vue.notify({
           group: "notifications",
           title: "User Updated",
@@ -55491,12 +55499,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (error.response.data.errors.email) {
             _this2.errors.email = error.response.data.errors.email[0];
           }
+
+          if (error.response.data.errors.password) {
+            _this2.errors.password = error.response.data.errors.password[0];
+          }
         } else {
           console.log(error);
         }
+        _this2.loadingUser = false;
         Vue.notify({
           group: "notifications",
-          title: "Failed To Update",
+          title: "Failed To Update!",
           type: "error",
           text: "There was a problem with your input."
         });
@@ -60003,11 +60016,125 @@ var render = function() {
                         })
                       ]),
                   _vm._v(" "),
-                  _vm._m(5),
+                  _vm.errors.password
+                    ? _c("div", { staticClass: "form-group has-error" }, [
+                        _c("label", { attrs: { for: "password" } }, [
+                          _vm._v("New Password")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.new_password,
+                              expression: "user.new_password"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "password",
+                            id: "password",
+                            name: "password",
+                            placeholder: "Enter New Password",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.user.new_password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "new_password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "help-block" }, [
+                          _vm._v(_vm._s(_vm.errors.password))
+                        ])
+                      ])
+                    : _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "password" } }, [
+                          _vm._v("New Password")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.new_password,
+                              expression: "user.new_password"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "password",
+                            id: "password",
+                            name: "password",
+                            placeholder: "Enter New Password",
+                            autocomplete: "off"
+                          },
+                          domProps: { value: _vm.user.new_password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "new_password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
                   _vm._v(" "),
-                  _vm._m(6),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "password_confirmation" } }, [
+                      _vm._v("Confirm New Password")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.password_confirmation,
+                          expression: "user.password_confirmation"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "password",
+                        id: "password_confirmation",
+                        name: "password_confirmation",
+                        placeholder: "Confirm New Password",
+                        autocomplete: "off"
+                      },
+                      domProps: { value: _vm.user.password_confirmation },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.user,
+                            "password_confirmation",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
                   _vm._v(" "),
-                  _vm._m(7)
+                  _vm._m(5)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-footer" }, [
@@ -60037,7 +60164,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(8)
+        _vm._m(6)
       ])
     ],
     1
@@ -60097,46 +60224,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "password" } }, [_vm._v("New Password ")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "password",
-          id: "password",
-          name: "password",
-          placeholder: "Enter New Password",
-          autocomplete: "off"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "password_confirmation" } }, [
-        _vm._v("Confirm New Password")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "password_confirmation",
-          id: "password_confirmation",
-          name: "password_confirmation",
-          placeholder: "Confirm New Password",
-          autocomplete: "off"
-        }
-      })
     ])
   },
   function() {
