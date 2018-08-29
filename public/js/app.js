@@ -54687,7 +54687,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "users" },
+    { staticClass: "users container" },
     [
       _c("notifications", {
         attrs: { group: "users", position: "bottom right", speed: 2000 }
@@ -55428,7 +55428,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log(errors);
         _this.loadingUser = false;
         _this.$notify({
-          group: "errors",
+          group: "notifications",
           title: "Unable to load user data",
           type: "error",
           text: "Whoops..  We were unable to load that user."
@@ -55444,7 +55444,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       event.preventDefault();
       var app = this;
       axios.put("/api/users/" + this.$route.params.id).then(function (resp) {
-        app.$router.push({ path: "/" });
+        // app.$router.push({ path: "/" });
+        Vue.notify({
+          group: "notifications",
+          title: "User Updated",
+          type: "success",
+          text: "This user has been updated."
+        });
       }).catch(function (resp) {
         console.log(resp);
         this.$notify({
@@ -59687,7 +59693,7 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("notifications", {
-        attrs: { group: "errors", position: "bottom right", speed: 2000 }
+        attrs: { group: "notifications", position: "bottom right", speed: 2000 }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [

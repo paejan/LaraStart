@@ -1,5 +1,5 @@
 <template>
-    <div class="users">
+    <div class="users container">
         <notifications group="users" position="bottom right" :speed="2000"/>
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3">

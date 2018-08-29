@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <notifications group="errors" position="bottom right" :speed="2000"/>
+        <notifications group="notifications" position="bottom right" :speed="2000"/>
         <div class="row">
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="info-box">
@@ -181,7 +181,7 @@ export default {
           console.log(errors);
           this.loadingUser = false;
           this.$notify({
-            group: "errors",
+            group: "notifications",
             title: "Unable to load user data",
             type: "error",
             text: "Whoops..  We were unable to load that user."
@@ -201,7 +201,13 @@ export default {
       axios
         .put("/api/users/" + this.$route.params.id)
         .then(function(resp) {
-          app.$router.push({ path: "/" });
+          // app.$router.push({ path: "/" });
+          Vue.notify({
+            group: "notifications",
+            title: "User Updated",
+            type: "success",
+            text: "This user has been updated."
+          });
         })
         .catch(function(resp) {
           console.log(resp);
