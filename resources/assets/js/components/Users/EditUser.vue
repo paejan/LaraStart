@@ -229,6 +229,7 @@ export default {
         })
         .then(response => {
           // app.$router.push({ path: "/" });
+          this.getUser();
           this.loadingSaveUser = false;
           Vue.notify({
             group: "notifications",

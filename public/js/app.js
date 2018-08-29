@@ -55474,6 +55474,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         email: this.user.email
       }).then(function (response) {
         // app.$router.push({ path: "/" });
+        _this2.getUser();
         _this2.loadingSaveUser = false;
         Vue.notify({
           group: "notifications",
