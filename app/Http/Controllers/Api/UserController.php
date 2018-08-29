@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Storage;
+use File;
 use Image;
 
 class UserController extends Controller
@@ -55,17 +57,23 @@ class UserController extends Controller
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
+        if (!empty($request->profile_photo)) {
+            // Create a new directory if it doesn't exist.
+            $filepath = storage_path('app/public/profile_photos');
+            if (!File::exists($filepath)) {
+                File::makeDirectory($filepath);
+            }
+
+            $image = Image::make($request->profile_photo);
+            $profilePhoto = Storage::put('public/profile_photos/image_1.png', $image->encode());
+        }
+
         $user = User::where('id', $id)
             ->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-
-        $imageData = $request->get('profile_photo');
-        $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-        Image::make($request->get('image'))->save(public_path('images/profile_images') . $fileName);
-
 
         return $user;
     }

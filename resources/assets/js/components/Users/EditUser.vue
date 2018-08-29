@@ -268,6 +268,7 @@ export default {
         })
         .catch(error => {
           console.log(error.response);
+          console.log(this.profile_photo);
           this.loadingSaveUser = false;
           if (error.response) {
             if (error.response.data.errors.name) {

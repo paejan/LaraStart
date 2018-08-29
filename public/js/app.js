@@ -55512,6 +55512,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       }).catch(function (error) {
         console.log(error.response);
+        console.log(_this2.profile_photo);
         _this2.loadingSaveUser = false;
         if (error.response) {
           if (error.response.data.errors.name) {
