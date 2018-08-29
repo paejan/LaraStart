@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Image;
 
 class UserController extends Controller
 {
@@ -51,7 +52,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'nullable|string|min:6|max:255|confirmed',
-            'profile_photo' => 'nullable|file|mimes:jpeg,jpg,png|max:5000',
+            'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
         $user = User::where('id', $id)

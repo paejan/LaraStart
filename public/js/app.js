@@ -55466,7 +55466,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     onImageChange: function onImageChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
-      console.log(files[0]);
       this.createImage(files[0]);
     },
     createImage: function createImage(file) {
@@ -55512,6 +55511,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           text: "This user has been updated."
         });
       }).catch(function (error) {
+        console.log(error.response);
         _this2.loadingSaveUser = false;
         if (error.response) {
           if (error.response.data.errors.name) {
@@ -55525,7 +55525,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (error.response.data.errors.password) {
             _this2.errors.password = error.response.data.errors.password[0];
           }
-          console.log(error.response);
         } else {
           console.log(error);
         }

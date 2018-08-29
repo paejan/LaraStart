@@ -219,7 +219,6 @@ export default {
     onImageChange(e) {
       let files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
-      console.log(files[0]);
       this.createImage(files[0]);
     },
     createImage(file) {
@@ -268,6 +267,7 @@ export default {
           });
         })
         .catch(error => {
+          console.log(error.response);
           this.loadingSaveUser = false;
           if (error.response) {
             if (error.response.data.errors.name) {
@@ -281,7 +281,6 @@ export default {
             if (error.response.data.errors.password) {
               this.errors.password = error.response.data.errors.password[0];
             }
-            console.log(error.response);
           } else {
             console.log(error);
           }
