@@ -85,14 +85,21 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="alert alert-danger" v-if="errors.length > 0">
-                                <ul><li v-for="error in errors">{{ error }}</li></ul>
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group has-error" v-if="errors.name">
+                                <label for="name">Name (*)</label>
+                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="user.name">
+                                <span class="help-block">{{ errors.name }}</span>
+                            </div>
+                            <div class="form-group" v-else>
                                 <label for="name">Name (*)</label>
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="user.name">
                             </div>
-                            <div class="form-group has-error">
+                            <div class="form-group has-error" v-if="errors.email">
+                                <label for="email">E-mail (*)</label>
+                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="user.email">
+                                <span class="help-block">{{ errors.email }}</span>
+                            </div>
+                            <div class="form-group" v-else>
                                 <label for="email">E-mail (*)</label>
                                 <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="user.email">
                             </div>
@@ -168,7 +175,10 @@ export default {
       loadingUser: true,
       user: [],
       format,
-      errors: []
+      errors: {
+        name: "",
+        email: ""
+      }
     };
   },
 
@@ -201,6 +211,12 @@ export default {
     },
     saveForm() {
       event.preventDefault();
+      this.errors = {
+        // Clear any previous errors.
+        name: "",
+        email: ""
+      };
+
       var app = this;
       axios
         .patch("/api/users/" + this.$route.params.id, {
@@ -209,6 +225,7 @@ export default {
         })
         .then(function(resp) {
           // app.$router.push({ path: "/" });
+          this.getUser();
           Vue.notify({
             group: "notifications",
             title: "User Updated",
@@ -217,13 +234,12 @@ export default {
           });
         })
         .catch(error => {
-          this.errors = [];
           if (error.response.data.errors.name) {
-            this.errors.push(error.response.data.errors.name[0]);
+            this.errors.name = error.response.data.errors.name[0];
           }
 
           if (error.response.data.errors.email) {
-            this.errors.push(error.response.data.errors.email[0]);
+            this.errors.email = error.response.data.errors.email[0];
           }
           Vue.notify({
             group: "notifications",
