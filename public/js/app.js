@@ -55406,6 +55406,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55423,7 +55424,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       errors: {
         name: "",
         email: ""
-      }
+      },
+      loadingSaveUser: true
     };
   },
 
@@ -55438,6 +55440,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         _this.user = data;
         _this.loadingUser = false;
+        _this.loadingSaveUser = false;
       }).catch(function (errors) {
         console.log(errors);
         _this.loadingUser = false;
@@ -55458,6 +55461,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this2 = this;
 
       event.preventDefault();
+      this.loadingSaveUser = true;
       this.errors = {
         // Clear any previous errors.
         name: "",
@@ -55468,9 +55472,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.patch("/api/users/" + this.$route.params.id, {
         name: this.user.name,
         email: this.user.email
-      }).then(function (resp) {
+      }).then(function (response) {
         // app.$router.push({ path: "/" });
-        this.getUser();
+        _this2.loadingSaveUser = false;
         Vue.notify({
           group: "notifications",
           title: "User Updated",
@@ -55478,18 +55482,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           text: "This user has been updated."
         });
       }).catch(function (error) {
-        if (error.response.data.errors.name) {
-          _this2.errors.name = error.response.data.errors.name[0];
-        }
+        if (error.response) {
+          if (error.response.data.errors.name) {
+            _this2.errors.name = error.response.data.errors.name[0];
+          }
 
-        if (error.response.data.errors.email) {
-          _this2.errors.email = error.response.data.errors.email[0];
+          if (error.response.data.errors.email) {
+            _this2.errors.email = error.response.data.errors.email[0];
+          }
+        } else {
+          console.log(error);
         }
         Vue.notify({
           group: "notifications",
-          title: "Failed",
+          title: "Failed To Update",
           type: "error",
-          text: "Whoops..  We were unable to update the user data. Try again?"
+          text: "There was a problem with your input."
         });
       });
     }
@@ -60002,8 +60010,19 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-footer" }, [
-                  _vm.user
+                  _vm.loadingSaveUser
                     ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { disabled: "", type: "submit" }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-spinner fa-spin" }),
+                          _vm._v(" Save")
+                        ]
+                      )
+                    : _c(
                         "button",
                         {
                           staticClass: "btn btn-primary",
@@ -60011,33 +60030,13 @@ var render = function() {
                         },
                         [_vm._v("Save")]
                       )
-                    : _vm._e()
                 ])
               ]
             )
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-6" }, [
-          _c("div", { staticClass: "card card-danger" }, [
-            _vm._m(8),
-            _vm._v(" "),
-            _vm._m(9),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _vm.user
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit" }
-                    },
-                    [_vm._v("Save")]
-                  )
-                : _vm._e()
-            ])
-          ])
-        ])
+        _vm._m(8)
       ])
     ],
     1
@@ -60172,33 +60171,47 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title col-12" }, [
-        _c("i", { staticClass: "fa fa-key" }),
-        _vm._v(" Permissions\n                    ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "user_group" } }),
+    return _c("div", { staticClass: "col-6" }, [
+      _c("div", { staticClass: "card card-danger" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h3", { staticClass: "card-title col-12" }, [
+            _c("i", { staticClass: "fa fa-key" }),
+            _vm._v(" Permissions\n                    ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-tools" })
+        ]),
         _vm._v(" "),
-        _c("label", { attrs: { for: "user_group" } }, [_vm._v("User Group")]),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "user_group" } }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "user_group" } }, [
+              _vm._v("User Group")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                staticClass: "form-control",
+                attrs: { id: "user_group", name: "user_group" }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v(" User Disabled ")
+                ])
+              ]
+            )
+          ])
+        ]),
         _vm._v(" "),
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: { id: "user_group", name: "user_group" }
-          },
-          [_c("option", { attrs: { value: "" } }, [_vm._v(" User Disabled ")])]
-        )
+        _c("div", { staticClass: "card-footer" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Save")]
+          )
+        ])
       ])
     ])
   }

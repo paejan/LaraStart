@@ -126,7 +126,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button v-if="user" type="submit" class="btn btn-primary">Save</button>
+                            <button v-if="loadingSaveUser" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
+                            <button v-else type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -151,7 +152,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button v-if="user" type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
@@ -178,7 +179,8 @@ export default {
       errors: {
         name: "",
         email: ""
-      }
+      },
+      loadingSaveUser: true
     };
   },
 
@@ -190,6 +192,7 @@ export default {
         .then(({ data }) => {
           this.user = data;
           this.loadingUser = false;
+          this.loadingSaveUser = false;
         })
         .catch(errors => {
           console.log(errors);
@@ -211,6 +214,7 @@ export default {
     },
     saveForm() {
       event.preventDefault();
+      this.loadingSaveUser = true;
       this.errors = {
         // Clear any previous errors.
         name: "",
@@ -223,9 +227,9 @@ export default {
           name: this.user.name,
           email: this.user.email
         })
-        .then(function(resp) {
+        .then(response => {
           // app.$router.push({ path: "/" });
-          this.getUser();
+          this.loadingSaveUser = false;
           Vue.notify({
             group: "notifications",
             title: "User Updated",
@@ -234,18 +238,22 @@ export default {
           });
         })
         .catch(error => {
-          if (error.response.data.errors.name) {
-            this.errors.name = error.response.data.errors.name[0];
-          }
+          if (error.response) {
+            if (error.response.data.errors.name) {
+              this.errors.name = error.response.data.errors.name[0];
+            }
 
-          if (error.response.data.errors.email) {
-            this.errors.email = error.response.data.errors.email[0];
+            if (error.response.data.errors.email) {
+              this.errors.email = error.response.data.errors.email[0];
+            }
+          } else {
+            console.log(error);
           }
           Vue.notify({
             group: "notifications",
-            title: "Failed",
+            title: "Failed To Update",
             type: "error",
-            text: "Whoops..  We were unable to update the user data. Try again?"
+            text: "There was a problem with your input."
           });
         });
     }
