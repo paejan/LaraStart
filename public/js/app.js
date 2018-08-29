@@ -55412,6 +55412,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55429,9 +55432,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       errors: {
         name: "",
         email: "",
-        password: ""
+        password: "",
+        profile_photo: ""
       },
-      loadingSaveUser: true
+      loadingSaveUser: true,
+      profile_photo: ""
     };
   },
 
@@ -55458,6 +55463,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       });
     },
+    onImageChange: function onImageChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      console.log(files[0]);
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var reader = new FileReader();
+      var vm = this;
+      reader.onload = function (e) {
+        vm.profile_photo = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
 
     formatDateTime: function formatDateTime(datetime) {
       // Formats a MySQL datetime to JS Datetime
@@ -55472,7 +55491,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Clear any previous errors.
         name: "",
         email: "",
-        password: ""
+        password: "",
+        profile_photo: ""
       };
 
       var app = this;
@@ -55480,7 +55500,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         name: this.user.name,
         email: this.user.email,
         password: this.user.new_password,
-        password_confirmation: this.user.password_confirmation
+        password_confirmation: this.user.password_confirmation,
+        profile_photo: this.profile_photo
       }).then(function (response) {
         // app.$router.push({ path: "/" });
         _this2.getUser();
@@ -55491,6 +55512,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           text: "This user has been updated."
         });
       }).catch(function (error) {
+        _this2.loadingSaveUser = false;
         if (error.response) {
           if (error.response.data.errors.name) {
             _this2.errors.name = error.response.data.errors.name[0];
@@ -55503,10 +55525,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (error.response.data.errors.password) {
             _this2.errors.password = error.response.data.errors.password[0];
           }
+          console.log(error.response);
         } else {
           console.log(error);
         }
-        _this2.loadingUser = false;
         Vue.notify({
           group: "notifications",
           title: "Failed To Update!",
@@ -60134,7 +60156,49 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _vm.profile_photo
+                        ? _c("div", { staticClass: "image text-center" }, [
+                            _c("img", {
+                              staticClass: "img-circle elevation-2",
+                              staticStyle: { height: "2.7rem" },
+                              attrs: {
+                                src: _vm.profile_photo,
+                                alt: "User Image"
+                              }
+                            })
+                          ])
+                        : _c("div", { staticClass: "image text-center" }, [
+                            _c("img", {
+                              staticClass: "img-circle elevation-2",
+                              staticStyle: { height: "2.7rem" },
+                              attrs: {
+                                src: "/img/profile.png",
+                                alt: "User Image"
+                              }
+                            })
+                          ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "profile_photo" } }, [
+                          _vm._v("Profile Photo ")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "file",
+                            id: "profile_photo",
+                            name: "profile_photo"
+                          },
+                          on: { change: _vm.onImageChange }
+                        })
+                      ])
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-footer" }, [
@@ -60164,7 +60228,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(6)
+        _vm._m(5)
       ])
     ],
     1
@@ -60224,35 +60288,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "image text-center" }, [
-          _c("img", {
-            staticClass: "img-circle elevation-2",
-            staticStyle: { height: "2.7rem" },
-            attrs: { src: "/img/profile.png", alt: "User Image" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "profile_photo" } }, [
-            _vm._v("Profile Photo ")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "file", id: "profile_photo", name: "profile_photo" }
-          })
-        ])
-      ])
     ])
   },
   function() {

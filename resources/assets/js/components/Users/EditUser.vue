@@ -118,14 +118,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="image text-center">
+                                    <div class="image text-center" v-if="profile_photo">
+                                        <img :src="profile_photo" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
+                                    </div>
+                                    <div class="image text-center" v-else>
                                         <img src="/img/profile.png" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="profile_photo">Profile Photo </label>
-                                        <input type="file" class="form-control" id="profile_photo" name="profile_photo">
+                                        <input type="file" class="form-control" id="profile_photo" name="profile_photo"  v-on:change="onImageChange">
                                     </div>
                                 </div>
                             </div>
@@ -184,9 +187,11 @@ export default {
       errors: {
         name: "",
         email: "",
-        password: ""
+        password: "",
+        profile_photo: ""
       },
-      loadingSaveUser: true
+      loadingSaveUser: true,
+      profile_photo: ""
     };
   },
 
@@ -211,6 +216,20 @@ export default {
           });
         });
     },
+    onImageChange(e) {
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      console.log(files[0]);
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      let reader = new FileReader();
+      let vm = this;
+      reader.onload = e => {
+        vm.profile_photo = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
     formatDateTime: function(datetime) {
       // Formats a MySQL datetime to JS Datetime
       return new Date(datetime)
@@ -225,7 +244,8 @@ export default {
         // Clear any previous errors.
         name: "",
         email: "",
-        password: ""
+        password: "",
+        profile_photo: ""
       };
 
       var app = this;
@@ -234,7 +254,8 @@ export default {
           name: this.user.name,
           email: this.user.email,
           password: this.user.new_password,
-          password_confirmation: this.user.password_confirmation
+          password_confirmation: this.user.password_confirmation,
+          profile_photo: this.profile_photo
         })
         .then(response => {
           // app.$router.push({ path: "/" });
@@ -247,6 +268,7 @@ export default {
           });
         })
         .catch(error => {
+          this.loadingSaveUser = false;
           if (error.response) {
             if (error.response.data.errors.name) {
               this.errors.name = error.response.data.errors.name[0];
@@ -259,10 +281,10 @@ export default {
             if (error.response.data.errors.password) {
               this.errors.password = error.response.data.errors.password[0];
             }
+            console.log(error.response);
           } else {
             console.log(error);
           }
-          this.loadingUser = false;
           Vue.notify({
             group: "notifications",
             title: "Failed To Update!",

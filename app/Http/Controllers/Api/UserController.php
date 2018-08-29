@@ -61,6 +61,11 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
+        $imageData = $request->get('profile_photo');
+        $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        Image::make($request->get('image'))->save(public_path('images/profile_images') . $fileName);
+
+
         return $user;
     }
 
