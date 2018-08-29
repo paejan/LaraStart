@@ -59881,7 +59881,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group has-error" }, [
                     _c("label", { attrs: { for: "email" } }, [
                       _vm._v("E-mail (*)")
                     ]),

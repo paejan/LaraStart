@@ -49,3 +49,16 @@ $fa-font-path: "../webfonts";
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+.form-group.has-error .form-control, .form-group.has-error .input-group-addon {
+    border-color: #dd4b39;
+    box-shadow: none;
+}
+
+.form-group.has-error label {
+    color: #dd4b39;
+}
+
+.form-group.has-error .help-block {
+    color: #dd4b39;
+}

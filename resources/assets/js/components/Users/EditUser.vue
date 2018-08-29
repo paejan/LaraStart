@@ -92,7 +92,7 @@
                                 <label for="name">Name (*)</label>
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="user.name">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group has-error">
                                 <label for="email">E-mail (*)</label>
                                 <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="user.email">
                             </div>

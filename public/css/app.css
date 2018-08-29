@@ -29528,3 +29528,18 @@ readers do not read off random characters that represent icons */
   opacity: 0;
 }
 
+.form-group.has-error .form-control,
+.form-group.has-error .input-group-addon {
+  border-color: #dd4b39;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.form-group.has-error label {
+  color: #dd4b39;
+}
+
+.form-group.has-error .help-block {
+  color: #dd4b39;
+}
+
