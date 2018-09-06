@@ -64,8 +64,9 @@ class UserController extends Controller
                 File::makeDirectory($filepath);
             }
 
+            // Convert Base64 -> png. Store and save.
             $image = Image::make($request->profile_photo);
-            $profilePhoto = Storage::put('public/profile_photos/image_' . $id .'.png', $image->encode());
+            $profilePhoto = Storage::put('public/profile_photos/image_'. $id .'.png', $image->encode());
         }
 
         $user = User::where('id', $id)
@@ -73,6 +74,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'profile_photo' => 'profile_photos/image_'. $id .'.png',
             ]);
 
         return $user;
