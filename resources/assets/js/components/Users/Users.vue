@@ -128,6 +128,7 @@
                                         <router-link :to="{ name : 'edit_user', params : { id : user.id } }">
                                             <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit User</button>
                                         </router-link>
+                                        <button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-unlock"></i> Reset Password</button>
                                         <button @click="getUser(user.id); showDeleteUserModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete User</button>
                                     </td>
                                 </tr>

@@ -54059,6 +54059,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -54985,6 +54986,19 @@ var render = function() {
                                           _vm._v(" Edit User")
                                         ]
                                       )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-outline-success btn-sm",
+                                      attrs: { type: "button" }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fa fa-unlock" }),
+                                      _vm._v(" Reset Password")
                                     ]
                                   ),
                                   _vm._v(" "),
