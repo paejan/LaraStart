@@ -122,7 +122,7 @@ class UserController extends Controller
      */
     public function active()
     {
-        return User::where('login_at', '>', Carbon::now()->subWeek())->count();
+        return User::active()->count();
     }
 
     /**
