@@ -142,6 +142,6 @@ class UserController extends Controller
      */
     public function online()
     {
-        return User::where('login_at', '>', Carbon::now()->subHour())->count();
+        return User::online()->count();
     }
 }

@@ -50,4 +50,15 @@ class User extends Authenticatable
         return $query->where('login_at', '>', Carbon::now()->subWeek());
     }
 
+    /**
+     * Scope a query to only include online users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnline($query)
+    {
+        return $query->where('login_at', '>', Carbon::now()->subHour());
+    }
+
 }
