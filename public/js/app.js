@@ -54970,7 +54970,8 @@ var render = function() {
                                         [
                                           _c("i", {
                                             staticClass: "fa fa-user-edit"
-                                          })
+                                          }),
+                                          _vm._v(" Edit User")
                                         ]
                                       )
                                     ]
@@ -54992,7 +54993,8 @@ var render = function() {
                                     [
                                       _c("i", {
                                         staticClass: "fa fa-trash-alt"
-                                      })
+                                      }),
+                                      _vm._v(" Delete User")
                                     ]
                                   )
                                 ],

@@ -126,9 +126,9 @@
                                     <td>{{user.email}}</td>
                                     <td>
                                         <router-link :to="{ name : 'edit_user', params : { id : user.id } }">
-                                            <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i></button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit User</button>
                                         </router-link>
-                                        <button @click="getUser(user.id); showDeleteUserModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
+                                        <button @click="getUser(user.id); showDeleteUserModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete User</button>
                                     </td>
                                 </tr>
                             </tbody>
