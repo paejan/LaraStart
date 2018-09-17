@@ -122,7 +122,7 @@
                             </tbody>
                             <tbody v-else>
                                 <tr v-for="user in users" :key="user.id">
-                                    <td>{{user.name}}</td>
+                                    <td><img :src="user.profile_photo" class="img-circle" style="height: 4rem; width: 4rem;"> {{user.name}}</td>
                                     <td>{{user.email}}</td>
                                     <td>
                                         <router-link :to="{ name : 'edit_user', params : { id : user.id } }">

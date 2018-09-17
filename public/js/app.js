@@ -54942,7 +54942,17 @@ var render = function() {
                           "tbody",
                           _vm._l(_vm.users, function(user) {
                             return _c("tr", { key: user.id }, [
-                              _c("td", [_vm._v(_vm._s(user.name))]),
+                              _c("td", [
+                                _c("img", {
+                                  staticClass: "img-circle",
+                                  staticStyle: {
+                                    height: "4rem",
+                                    width: "4rem"
+                                  },
+                                  attrs: { src: user.profile_photo }
+                                }),
+                                _vm._v(" " + _vm._s(user.name))
+                              ]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(user.email))]),
                               _vm._v(" "),
