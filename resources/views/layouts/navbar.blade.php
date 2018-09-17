@@ -23,7 +23,7 @@
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <div class="image navbar-image">
-            <img src="{{ url('/img/profile.png') }}" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
+            <img src="{{ Auth::user()->profile_photo }}" class="img-circle elevation-2" style="height: 2.7rem; width: 2.7rem;" alt="User Image">
         </div>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -33,7 +33,7 @@
             <ul class="dropdown-menu" style="right: 0;left: auto; width: 15rem;">
                 <!-- User image -->
                 <li class="user-header" style="text-align: center">
-                    <img src="./img/profile.png" class="img-circle" alt="User Image">
+                    <img src="{{ Auth::user()->profile_photo }}" style="height: 10.7rem; width: 9.7rem;" class="img-circle" alt="User Image">
                     <p>{{ Auth::user()->name }}</p>
                     <p><small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small></p>
                 </li>
