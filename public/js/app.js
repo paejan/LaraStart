@@ -55500,7 +55500,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         email: this.user.email,
         password: this.user.new_password,
         password_confirmation: this.user.password_confirmation,
-        profile_photo: this.profile_photo
+        profile_photo: app.profile_photo
       }).then(function (response) {
         // app.$router.push({ path: "/" });
         _this2.getUser();

@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="card card-primary">
-                    <form v-on:submit="saveForm()">
+                    <form v-on:submit="saveForm()" >
                         <div class="card-header">
                             <h3 class="card-title col-12">
                                 <i class="fa fa-user-edit"></i> Modify User
@@ -254,7 +254,7 @@ export default {
           email: this.user.email,
           password: this.user.new_password,
           password_confirmation: this.user.password_confirmation,
-          profile_photo: this.profile_photo
+          profile_photo: app.profile_photo,
         })
         .then(response => {
           // app.$router.push({ path: "/" });

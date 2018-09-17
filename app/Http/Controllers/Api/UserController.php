@@ -51,9 +51,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'password' => 'nullable|string|min:6|max:255|confirmed',
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|string|email|max:255',
+            'password'      => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
@@ -71,10 +71,10 @@ class UserController extends Controller
 
         $user = User::where('id', $id)
             ->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'profile_photo' => 'profile_photos/image_'. $id .'.png',
+                'name'          => $request->name,
+                'email'         => $request->email,
+                'password'      => Hash::make($request->password),
+                'profile_photo' => $request->profile_photo,
             ]);
 
         return $user;
