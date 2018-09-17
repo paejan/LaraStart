@@ -14,17 +14,11 @@ use Faker\Generator as Faker;
  */
 
 $factory->define(App\User::class, function (Faker $faker) {
-
-    $filepath = storage_path('app/public/profile_photos');
-    if (!File::exists($filepath)) {
-        File::makeDirectory($filepath);
-    }
-
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'profile_photo' => $faker->image($filepath, 400, 300),
+        'profile_photo' => '',
         'remember_token' => str_random(10),
     ];
 });
