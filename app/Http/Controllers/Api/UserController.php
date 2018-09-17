@@ -132,7 +132,7 @@ class UserController extends Controller
      */
     public function newUsers()
     {
-        return User::where('created_at', '>', Carbon::now()->subWeeks(2))->count();
+        return User::new()->count();
     }
 
     /**

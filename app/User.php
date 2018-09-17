@@ -61,4 +61,15 @@ class User extends Authenticatable
         return $query->where('login_at', '>', Carbon::now()->subHour());
     }
 
+    /**
+     * Scope a query to only include new users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNew($query)
+    {
+        return $query->where('created_at', '>', Carbon::now()->subWeeks(2));
+    }
+
 }
