@@ -8,6 +8,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     /**
@@ -18,22 +19,20 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // Return all if unspecified conditions.
-        if ($request->input('client') || !$request->input()) {
+        // Return all users if request isn't a search.
+        if (!$request->input()) {
             return User::get();
         }
-        
+
         // Return the specified results.
         $columns = ['id', 'name', 'email'];
-        $searchValue = $request->input('search');
-        $query = User::orderBy($columns[$request->input('column')], $request->input('dir'));
-        if ($searchValue) {
-            $query->where(function ($query) use ($searchValue) {
-                $query->where('name', 'like', '%' . $searchValue . '%')
-                    ->orWhere('email', 'like', '%' . $searchValue . '%');
-            });
-        }
-        $users = $query->paginate($request->input('length'));
+        $users = User::orderBy($columns[$request->column], $request->dir)
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
+            })
+            ->paginate($request->length);
+
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
 
