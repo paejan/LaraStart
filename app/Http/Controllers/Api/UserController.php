@@ -7,9 +7,6 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-use Storage;
-use File;
-use Image;
 
 class UserController extends Controller
 {
@@ -56,18 +53,6 @@ class UserController extends Controller
             'password'      => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
-
-        if (!empty($request->profile_photo)) {
-            // Create a new directory if it doesn't exist.
-            $filepath = storage_path('app/public/profile_photos');
-            if (!File::exists($filepath)) {
-                File::makeDirectory($filepath);
-            }
-
-            // Convert Base64 -> png. Store and save.
-            $image = Image::make($request->profile_photo);
-            $profilePhoto = Storage::put('public/profile_photos/image_'. $id .'.png', $image->encode());
-        }
 
         $user = User::where('id', $id)
             ->update([
