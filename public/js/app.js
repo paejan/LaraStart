@@ -54947,7 +54947,8 @@ var render = function() {
                                   staticClass: "img-circle",
                                   staticStyle: {
                                     height: "4rem",
-                                    width: "4rem"
+                                    width: "4rem",
+                                    "margin-right": "10px"
                                   },
                                   attrs: { src: user.profile_photo }
                                 }),
@@ -60172,20 +60173,25 @@ var render = function() {
                       _vm.profile_photo
                         ? _c("div", { staticClass: "image text-center" }, [
                             _c("img", {
-                              staticClass: "img-circle elevation-2",
-                              staticStyle: { height: "2.7rem" },
-                              attrs: {
-                                src: _vm.profile_photo,
-                                alt: "User Image"
-                              }
+                              staticClass: "img-circle",
+                              staticStyle: {
+                                height: "4rem",
+                                width: "4rem",
+                                "margin-right": "10px"
+                              },
+                              attrs: { src: _vm.profile_photo }
                             })
                           ])
                         : _c("div", { staticClass: "image text-center" }, [
                             _c("img", {
                               staticClass: "img-circle elevation-2",
-                              staticStyle: { height: "2.7rem" },
+                              staticStyle: {
+                                height: "4rem",
+                                width: "4rem",
+                                "margin-right": "10px"
+                              },
                               attrs: {
-                                src: "/img/profile.png",
+                                src: _vm.user.profile_photo,
                                 alt: "User Image"
                               }
                             })

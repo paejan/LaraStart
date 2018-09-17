@@ -119,10 +119,10 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="image text-center" v-if="profile_photo">
-                                        <img :src="profile_photo" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
+                                        <img :src="profile_photo" class="img-circle" style="height: 4rem; width: 4rem; margin-right: 10px;">
                                     </div>
                                     <div class="image text-center" v-else>
-                                        <img src="/img/profile.png" class="img-circle elevation-2" style="height: 2.7rem;" alt="User Image">
+                                        <img :src="user.profile_photo" class="img-circle elevation-2" style="height: 4rem; width: 4rem; margin-right: 10px;" alt="User Image">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
