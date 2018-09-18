@@ -76,15 +76,13 @@ class UserController extends Controller
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
-        $user = User::where('id', $id)
+        return User::where('id', $id)
             ->update([
                 'name'          => $request->name,
                 'email'         => $request->email,
                 'password'      => Hash::make($request->password),
                 'profile_photo' => $request->profile_photo,
-            ]);
-
-        return $user;
+        ]);
     }
 
     /**
