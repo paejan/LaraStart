@@ -24,7 +24,7 @@ class UserController extends Controller
             return User::get();
         }
 
-        // Return the specified results.
+        // Return the results based on the search criteria.
         $columns = ['id', 'name', 'email'];
         $users = User::orderBy($columns[$request->column], $request->dir)
             ->when($request->search, function ($query) use ($request) {
@@ -82,7 +82,7 @@ class UserController extends Controller
                 'email'         => $request->email,
                 'password'      => Hash::make($request->password),
                 'profile_photo' => $request->profile_photo,
-        ]);
+        S]);
     }
 
     /**
