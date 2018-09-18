@@ -106,129 +106,101 @@
 </template>
 
 <script>
-import { format, formatDistance, formatRelative, subDays } from "date-fns";
 export default {
-  mounted() {
+    mounted() {
     // console.log("Component mounted.");
-  },
-
-  created() {
-    this.getUser();
-  },
-
-  data() {
-    return {
-      loadingUser: true,
-      user: [],
-      format,
-      errors: {
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      },
-      loadingSaveUser: true,
-      profile_photo: ""
-    };
-  },
-
-  methods: {
-    getUser() {
-      this.loadingUser = true;
-      axios
-        .get("/api/user/" + this.$route.params.id)
-        .then(({ data }) => {
-          this.user = data;
-          this.loadingUser = false;
-          this.loadingSaveUser = false;
-        })
-        .catch(errors => {
-          console.log(errors);
-          this.loadingUser = false;
-          Vue.notify({
-            group: "notifications",
-            title: "Unable to load user data",
-            type: "error",
-            text: "Whoops..  We were unable to load that user."
-          });
-        });
     },
-    onImageChange(e) {
-      let files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      let reader = new FileReader();
-      let vm = this;
-      reader.onload = e => {
-        vm.profile_photo = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    formatDateTime: function(datetime) {
-      // Formats a MySQL datetime to JS Datetime
-      return new Date(datetime)
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " ");
-    },
-    saveForm() {
-      event.preventDefault();
-      this.loadingSaveUser = true;
-      this.errors = {
-        // Clear any previous errors.
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      };
 
-      var app = this;
-      axios
-        .patch("/api/users/" + this.$route.params.id, {
-          name: this.user.name,
-          email: this.user.email,
-          password: this.user.new_password,
-          password_confirmation: this.user.password_confirmation,
-          profile_photo: app.profile_photo,
-        })
-        .then(response => {
-          // app.$router.push({ path: "/" });
-          this.getUser();
-          Vue.notify({
-            group: "notifications",
-            title: "User Updated",
-            type: "success",
-            text: "This user has been updated."
-          });
-        })
-        .catch(error => {
-          this.loadingSaveUser = false;
-          if (error.response) {
-            if (error.response.data.errors.name) {
-              this.errors.name = error.response.data.errors.name[0];
-            }
+    created() {
+    //
+    },
 
-            if (error.response.data.errors.email) {
-              this.errors.email = error.response.data.errors.email[0];
-            }
+    data() {
+        return {
+            user: {
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            },
+            errors: {
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            },
+            loadingSaveUser: false,
+            profile_photo: ""
+        };
+    },
 
-            if (error.response.data.errors.password) {
-              this.errors.password = error.response.data.errors.password[0];
-            }
-            console.log(error.response);
-          } else {
-            console.log(error);
-          }
-          Vue.notify({
-            group: "notifications",
-            title: "Failed To Update!",
-            type: "error",
-            text: "There was a problem with your input."
-          });
-        });
+    methods: {
+        onImageChange(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            let reader = new FileReader();
+            let vm = this;
+            reader.onload = e => {
+                vm.profile_photo = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+        saveForm() {
+            event.preventDefault();
+            this.loadingSaveUser = true;
+            this.errors = { // Clear any previous errors.
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            };
+
+            var app = this;
+            axios.post("/api/users", {
+                name: this.user.name,
+                email: this.user.email,
+                password: this.user.new_password,
+                password_confirmation: this.user.password_confirmation,
+                profile_photo: app.profile_photo,
+            })
+            .then(response => {
+                Vue.notify({
+                    group: "notifications",
+                    title: "User Created",
+                    type: "success",
+                    text: "This user has been created."
+                });
+                app.$router.push({ path: "/users/" + response.data.id});
+            })
+            .catch(error => {
+                this.loadingSaveUser = false;
+                if (error.response) {
+                    if (error.response.data.errors.name) {
+                        this.errors.name = error.response.data.errors.name[0];
+                    }
+
+                    if (error.response.data.errors.email) {
+                        this.errors.email = error.response.data.errors.email[0];
+                    }
+
+                    if (error.response.data.errors.password) {
+                        this.errors.password = error.response.data.errors.password[0];
+                    }
+                    console.log(error.response);
+                } else {
+                    console.log(error);
+                }
+                Vue.notify({
+                    group: "notifications",
+                    title: "Failed To Create User!",
+                    type: "error",
+                    text: "There was a problem with your input."
+                });
+            });
+        }
     }
-  }
 };
 </script>

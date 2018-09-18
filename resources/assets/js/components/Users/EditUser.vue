@@ -68,7 +68,9 @@
             </div>
             <div class="col-sm-6 text-right">
                 <button type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash-alt"></i> Delete User </button>
-                <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
+                <router-link :to="{ name : 'new_user' }">
+                    <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
+                </router-link>
             </div>
         </div>
 

@@ -36,6 +36,29 @@ class UserController extends Controller
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
 
+    /**
+     * Creates a new user account.
+     * 
+     * @param  Request  Request
+     * @return Collection
+     */
+    public function store(Request $request) {
+        $request->validate([
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|string|email|max:255|unique:users',
+            'password'      => 'nullable|string|min:6|max:255|confirmed',
+            'profile_photo' => 'nullable|image64:jpeg,jpg,png',
+        ]);
+
+        return User::create([
+                'name'          => $request->name,
+                'email'         => $request->email,
+                'password'      => Hash::make($request->password),
+                'profile_photo' => $request->profile_photo,
+        ]);
+
+    }
+
 
     /**
      * Updates the user information.

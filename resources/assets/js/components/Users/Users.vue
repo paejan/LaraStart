@@ -108,7 +108,9 @@
                             </div>
                         </h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
+                            <router-link :to="{ name : 'new_user' }">
+                                <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
+                            </router-link>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">   

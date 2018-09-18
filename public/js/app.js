@@ -28633,7 +28633,7 @@ window.Vue = __webpack_require__(29);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(100) }, { name: 'profile', path: '/profile', component: __webpack_require__(103) }, { name: 'all_users', path: '/users', component: __webpack_require__(106) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(118) }, { name: 'new', path: '/users/new', component: __webpack_require__(240) }];
+var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(100) }, { name: 'profile', path: '/profile', component: __webpack_require__(103) }, { name: 'all_users', path: '/users', component: __webpack_require__(106) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(118) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(240) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
@@ -54060,6 +54060,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -54911,7 +54913,26 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(6)
+              _c(
+                "div",
+                { staticClass: "card-tools" },
+                [
+                  _c("router-link", { attrs: { to: { name: "new_user" } } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-lg",
+                        attrs: { type: "button" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-user-plus" }),
+                        _vm._v(" New User ")
+                      ]
+                    )
+                  ])
+                ],
+                1
+              )
             ]),
             _vm._v(" "),
             _c(
@@ -55194,18 +55215,6 @@ var staticRenderFns = [
         [_c("i", { staticClass: "fa fa-search" })]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-tools" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary btn-lg", attrs: { type: "button" } },
-        [_c("i", { staticClass: "fa fa-user-plus" }), _vm._v(" New User ")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -55272,6 +55281,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_date_fns__);
+//
+//
 //
 //
 //
@@ -59901,7 +59912,28 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(3)
+        _c(
+          "div",
+          { staticClass: "col-sm-6 text-right" },
+          [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("router-link", { attrs: { to: { name: "new_user" } } }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-lg",
+                  attrs: { type: "button" }
+                },
+                [
+                  _c("i", { staticClass: "fa fa-user-plus" }),
+                  _vm._v(" New User ")
+                ]
+              )
+            ])
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
@@ -60294,19 +60326,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6 text-right" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-danger btn-lg", attrs: { type: "button" } },
-        [_c("i", { staticClass: "fa fa-trash-alt" }), _vm._v(" Delete User ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary btn-lg", attrs: { type: "button" } },
-        [_c("i", { staticClass: "fa fa-user-plus" }), _vm._v(" New User ")]
-      )
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-danger btn-lg", attrs: { type: "button" } },
+      [_c("i", { staticClass: "fa fa-trash-alt" }), _vm._v(" Delete User ")]
+    )
   },
   function() {
     var _vm = this
@@ -60454,8 +60478,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_date_fns__);
 //
 //
 //
@@ -60563,128 +60585,102 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    // console.log("Component mounted.");
-  },
-  created: function created() {
-    this.getUser();
-  },
-  data: function data() {
-    return {
-      loadingUser: true,
-      user: [],
-      format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"],
-      errors: {
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      },
-      loadingSaveUser: true,
-      profile_photo: ""
-    };
-  },
-
-
-  methods: {
-    getUser: function getUser() {
-      var _this = this;
-
-      this.loadingUser = true;
-      axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
-        var data = _ref.data;
-
-        _this.user = data;
-        _this.loadingUser = false;
-        _this.loadingSaveUser = false;
-      }).catch(function (errors) {
-        console.log(errors);
-        _this.loadingUser = false;
-        Vue.notify({
-          group: "notifications",
-          title: "Unable to load user data",
-          type: "error",
-          text: "Whoops..  We were unable to load that user."
-        });
-      });
+    mounted: function mounted() {
+        // console.log("Component mounted.");
     },
-    onImageChange: function onImageChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
+    created: function created() {
+        //
     },
-    createImage: function createImage(file) {
-      var reader = new FileReader();
-      var vm = this;
-      reader.onload = function (e) {
-        vm.profile_photo = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    data: function data() {
+        return {
+            user: {
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            },
+            errors: {
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            },
+            loadingSaveUser: false,
+            profile_photo: ""
+        };
     },
 
-    formatDateTime: function formatDateTime(datetime) {
-      // Formats a MySQL datetime to JS Datetime
-      return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
-    },
-    saveForm: function saveForm() {
-      var _this2 = this;
 
-      event.preventDefault();
-      this.loadingSaveUser = true;
-      this.errors = {
-        // Clear any previous errors.
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      };
+    methods: {
+        onImageChange: function onImageChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.createImage(files[0]);
+        },
+        createImage: function createImage(file) {
+            var reader = new FileReader();
+            var vm = this;
+            reader.onload = function (e) {
+                vm.profile_photo = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+        saveForm: function saveForm() {
+            var _this = this;
 
-      var app = this;
-      axios.patch("/api/users/" + this.$route.params.id, {
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.new_password,
-        password_confirmation: this.user.password_confirmation,
-        profile_photo: app.profile_photo
-      }).then(function (response) {
-        // app.$router.push({ path: "/" });
-        _this2.getUser();
-        Vue.notify({
-          group: "notifications",
-          title: "User Updated",
-          type: "success",
-          text: "This user has been updated."
-        });
-      }).catch(function (error) {
-        _this2.loadingSaveUser = false;
-        if (error.response) {
-          if (error.response.data.errors.name) {
-            _this2.errors.name = error.response.data.errors.name[0];
-          }
+            event.preventDefault();
+            this.loadingSaveUser = true;
+            this.errors = { // Clear any previous errors.
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            };
 
-          if (error.response.data.errors.email) {
-            _this2.errors.email = error.response.data.errors.email[0];
-          }
+            var app = this;
+            axios.post("/api/users", {
+                name: this.user.name,
+                email: this.user.email,
+                password: this.user.new_password,
+                password_confirmation: this.user.password_confirmation,
+                profile_photo: app.profile_photo
+            }).then(function (response) {
+                Vue.notify({
+                    group: "notifications",
+                    title: "User Created",
+                    type: "success",
+                    text: "This user has been created."
+                });
+                app.$router.push({ path: "/users/" + response.data.id });
+            }).catch(function (error) {
+                _this.loadingSaveUser = false;
+                if (error.response) {
+                    if (error.response.data.errors.name) {
+                        _this.errors.name = error.response.data.errors.name[0];
+                    }
 
-          if (error.response.data.errors.password) {
-            _this2.errors.password = error.response.data.errors.password[0];
-          }
-          console.log(error.response);
-        } else {
-          console.log(error);
+                    if (error.response.data.errors.email) {
+                        _this.errors.email = error.response.data.errors.email[0];
+                    }
+
+                    if (error.response.data.errors.password) {
+                        _this.errors.password = error.response.data.errors.password[0];
+                    }
+                    console.log(error.response);
+                } else {
+                    console.log(error);
+                }
+                Vue.notify({
+                    group: "notifications",
+                    title: "Failed To Create User!",
+                    type: "error",
+                    text: "There was a problem with your input."
+                });
+            });
         }
-        Vue.notify({
-          group: "notifications",
-          title: "Failed To Update!",
-          type: "error",
-          text: "There was a problem with your input."
-        });
-      });
     }
-  }
 });
 
 /***/ }),
