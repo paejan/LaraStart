@@ -28604,7 +28604,7 @@ module.exports = setMonth
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(72);
-module.exports = __webpack_require__(223);
+module.exports = __webpack_require__(226);
 
 
 /***/ }),
@@ -28633,7 +28633,7 @@ window.Vue = __webpack_require__(29);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(100) }, { name: 'profile', path: '/profile', component: __webpack_require__(103) }, { name: 'all_users', path: '/users', component: __webpack_require__(106) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(118) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(240) }];
+var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(100) }, { name: 'profile', path: '/profile', component: __webpack_require__(103) }, { name: 'all_users', path: '/users', component: __webpack_require__(106) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(118) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(223) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
@@ -60405,36 +60405,14 @@ if (false) {
 
 /***/ }),
 /* 223 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */,
-/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(241)
+var __vue_script__ = __webpack_require__(224)
 /* template */
-var __vue_template__ = __webpack_require__(242)
+var __vue_template__ = __webpack_require__(225)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -60473,7 +60451,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 241 */
+/* 224 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60684,7 +60662,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 242 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -61145,6 +61123,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-21be79bd", module.exports)
   }
 }
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -38,8 +37,8 @@ class UserController extends Controller
 
     /**
      * Creates a new user account.
-     * 
-     * @param  Request  Request
+     *
+     * @param Request $request
      * @return Collection
      */
     public function store(Request $request) {
@@ -65,7 +64,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param Integer $id
-     * @return void
+     * @return Collection
      */
     public function update(Request $request, $id)
     {
@@ -82,14 +81,14 @@ class UserController extends Controller
                 'email'         => $request->email,
                 'password'      => Hash::make($request->password),
                 'profile_photo' => $request->profile_photo,
-        S]);
+        ]);
     }
 
     /**
      * Returns a users data by the specified id.
      *
-     * @param  integer  $user
-     * @return Collection
+     * @param User $user
+     * @return User|int
      */
     public function show(User $user)
     {
@@ -100,8 +99,9 @@ class UserController extends Controller
     /**
      * Deletes a user by the specified id.
      *
-     * @param  integer  $user
+     * @param User $user
      * @return mixed
+     * @throws \Exception
      */
     public function destroy(User $user)
     {
