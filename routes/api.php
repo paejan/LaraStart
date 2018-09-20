@@ -24,3 +24,4 @@ Route::get('count/users/new', 'Api\UserController@newUsers');
 Route::get('count/users/online', 'Api\UserController@online');
 Route::get('user/{user}', 'Api\UserController@show');
 Route::get('user/delete/{user}', 'Api\UserController@destroy');
+Route::get('permissions/roles', 'Api\UserController@roles');

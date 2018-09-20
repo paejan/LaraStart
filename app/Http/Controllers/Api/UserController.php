@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 class UserController extends Controller
@@ -148,5 +150,13 @@ class UserController extends Controller
     public function online()
     {
         return User::online()->count();
+    }
+
+    /**
+     * Returns all Permission Roles associated with the Users.
+     *
+     */
+    public function roles() {
+        return Role::all();
     }
 }
