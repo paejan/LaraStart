@@ -77,7 +77,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="card card-primary">
-                    <form v-on:submit="saveForm()" >
+                    <form v-on:submit="saveUserForm()" >
                         <div class="card-header">
                             <h3 class="card-title col-12">
                                 <i class="fa fa-user-edit"></i> Modify User
@@ -144,27 +144,30 @@
             </div>
             <div class="col-6">
                 <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title col-12">
-                            <i class="fa fa-key"></i> Permissions
-                        </h3>
-                        <div class="card-tools">
-                           
+                    <form v-on:submit="saveRoleForm()" >
+                        <div class="card-header">
+                            <h3 class="card-title col-12">
+                                <i class="fa fa-key"></i> Permissions
+                            </h3>
+                            <div class="card-tools">
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">   
-                        <div class="form-group">
-                            <label for="user_group"></label>
-                            <label for="user_group">User Group</label>
-                            <select class="form-control" id="user_group" required name="user_group">
-                                <option value="">None</option>
-                                <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
-                            </select>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="user_group"></label>
+                                <label for="user_group">User Group</label>
+                                <select class="form-control" id="user_group" required name="user_group">
+                                    <option value="">None</option>
+                                    <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
+                        <div class="card-footer">
+                            <button v-if="loadingSaveRole" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
+                            <button v-else type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -193,9 +196,11 @@ export default {
                 name: "",
                 email: "",
                 password: "",
-                profile_photo: ""
+                profile_photo: "",
+                role: ""
             },
             loadingSaveUser: true,
+            loadingSaveRole: true,
             profile_photo: ""
         };
     },
@@ -224,7 +229,8 @@ export default {
         getRoles() {
             axios.get("/api/permissions")
                 .then(({ data }) => {
-                    this.roles = data;
+                    this.roles = data
+                    this.loadingSaveRole = false;
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -256,7 +262,7 @@ export default {
                 .slice(0, 19)
                 .replace("T", " ");
          },
-        saveForm() {
+        saveUserForm() {
             event.preventDefault();
             this.loadingSaveUser = true;
             this.errors = { // Clear any previous errors.
@@ -306,6 +312,42 @@ export default {
                     text: "There was a problem with your input."
                 });
             });
+        },
+        saveRoleForm() {
+            event.preventDefault();
+            this.loadingSaveRole = true;
+            this.errors = { // Clear any previous errors.
+                role: ""
+            };
+            axios
+                .patch("/api/permissions/" + this.$route.params.id, {
+                    user_group: this.user_group,
+                })
+                .then(response => {
+                    // app.$router.push({ path: "/" });
+                    this.getUser();
+                    this.getRoles();
+                    Vue.notify({
+                        group: "notifications",
+                        title: "User Role Updated.",
+                        type: "success",
+                        text: "This user's User Role has been updated."
+                    });
+                })
+                .catch(error => {
+                    this.loadingSaveRole = false;
+                    if (error.response) {
+                        console.log(error.response);
+                    } else {
+                        console.log(error);
+                    }
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Failed To Update!",
+                        type: "error",
+                        text: "There was a problem with your input."
+                    });
+                });
         }
     }
 };

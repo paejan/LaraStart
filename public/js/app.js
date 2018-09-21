@@ -55454,6 +55454,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55474,9 +55477,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: "",
                 email: "",
                 password: "",
-                profile_photo: ""
+                profile_photo: "",
+                role: ""
             },
             loadingSaveUser: true,
+            loadingSaveRole: true,
             profile_photo: ""
         };
     },
@@ -55511,6 +55516,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = _ref2.data;
 
                 _this2.roles = data;
+                _this2.loadingSaveRole = false;
             }).catch(function (errors) {
                 console.log(errors);
                 Vue.notify({
@@ -55539,7 +55545,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // Formats a MySQL datetime to JS Datetime
             return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
         },
-        saveForm: function saveForm() {
+        saveUserForm: function saveUserForm() {
             var _this3 = this;
 
             event.preventDefault();
@@ -55578,6 +55584,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (error.response.data.errors.password) {
                         _this3.errors.password = error.response.data.errors.password[0];
                     }
+                    console.log(error.response);
+                } else {
+                    console.log(error);
+                }
+                Vue.notify({
+                    group: "notifications",
+                    title: "Failed To Update!",
+                    type: "error",
+                    text: "There was a problem with your input."
+                });
+            });
+        },
+        saveRoleForm: function saveRoleForm() {
+            var _this4 = this;
+
+            event.preventDefault();
+            this.loadingSaveRole = true;
+            this.errors = { // Clear any previous errors.
+                role: ""
+            };
+            axios.patch("/api/permissions/" + this.$route.params.id, {
+                user_group: this.user_group
+            }).then(function (response) {
+                // app.$router.push({ path: "/" });
+                _this4.getUser();
+                _this4.getRoles();
+                Vue.notify({
+                    group: "notifications",
+                    title: "User Role Updated.",
+                    type: "success",
+                    text: "This user's User Role has been updated."
+                });
+            }).catch(function (error) {
+                _this4.loadingSaveRole = false;
+                if (error.response) {
                     console.log(error.response);
                 } else {
                     console.log(error);
@@ -59965,7 +60006,7 @@ var render = function() {
               {
                 on: {
                   submit: function($event) {
-                    _vm.saveForm()
+                    _vm.saveUserForm()
                   }
                 }
               },
@@ -60314,41 +60355,78 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-6" }, [
           _c("div", { staticClass: "card card-danger" }, [
-            _vm._m(5),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "user_group" } }),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    _vm.saveRoleForm()
+                  }
+                }
+              },
+              [
+                _vm._m(5),
                 _vm._v(" "),
-                _c("label", { attrs: { for: "user_group" } }, [
-                  _vm._v("User Group")
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "user_group" } }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "user_group" } }, [
+                      _vm._v("User Group")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "user_group",
+                          required: "",
+                          name: "user_group"
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("None")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.roles, function(role) {
+                          return _c(
+                            "option",
+                            { domProps: { value: role.id } },
+                            [_vm._v(_vm._s(role.name))]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-control",
-                    attrs: {
-                      id: "user_group",
-                      required: "",
-                      name: "user_group"
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("None")]),
-                    _vm._v(" "),
-                    _vm._l(_vm.roles, function(role) {
-                      return _c("option", { domProps: { value: role.id } }, [
-                        _vm._v(_vm._s(role.name))
-                      ])
-                    })
-                  ],
-                  2
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _vm._m(6)
+                _c("div", { staticClass: "card-footer" }, [
+                  _vm.loadingSaveRole
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { disabled: "", type: "submit" }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-spinner fa-spin" }),
+                          _vm._v(" Save")
+                        ]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Save")]
+                      )
+                ])
+              ]
+            )
           ])
         ])
       ])
@@ -60411,22 +60489,10 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title col-12" }, [
         _c("i", { staticClass: "fa fa-key" }),
-        _vm._v(" Permissions\n                    ")
+        _vm._v(" Permissions\n                        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Save")]
-      )
     ])
   }
 ]
