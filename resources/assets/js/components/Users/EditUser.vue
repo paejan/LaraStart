@@ -157,7 +157,7 @@
                             <label for="user_group"></label>
                             <label for="user_group">User Group</label>
                             <select class="form-control" id="user_group" name="user_group">
-                                <option value=""> User Disabled </option>
+                                <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -173,127 +173,139 @@
 <script>
 import { format, formatDistance, formatRelative, subDays } from "date-fns";
 export default {
-  mounted() {
-    // console.log("Component mounted.");
-  },
-
-  created() {
-    this.getUser();
-  },
-
-  data() {
-    return {
-      loadingUser: true,
-      user: [],
-      format,
-      errors: {
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      },
-      loadingSaveUser: true,
-      profile_photo: ""
-    };
-  },
-
-  methods: {
-    getUser() {
-      this.loadingUser = true;
-      axios
-        .get("/api/user/" + this.$route.params.id)
-        .then(({ data }) => {
-          this.user = data;
-          this.loadingUser = false;
-          this.loadingSaveUser = false;
-        })
-        .catch(errors => {
-          console.log(errors);
-          this.loadingUser = false;
-          Vue.notify({
-            group: "notifications",
-            title: "Unable to load user data",
-            type: "error",
-            text: "Whoops..  We were unable to load that user."
-          });
-        });
+    mounted() {
+        // console.log("Component mounted.");
     },
-    onImageChange(e) {
-      let files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      let reader = new FileReader();
-      let vm = this;
-      reader.onload = e => {
-        vm.profile_photo = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    formatDateTime: function(datetime) {
-      // Formats a MySQL datetime to JS Datetime
-      return new Date(datetime)
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " ");
-    },
-    saveForm() {
-      event.preventDefault();
-      this.loadingSaveUser = true;
-      this.errors = {
-        // Clear any previous errors.
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      };
 
-      var app = this;
-      axios
-        .patch("/api/users/" + this.$route.params.id, {
-          name: this.user.name,
-          email: this.user.email,
-          password: this.user.new_password,
-          password_confirmation: this.user.password_confirmation,
-          profile_photo: app.profile_photo,
-        })
-        .then(response => {
-          // app.$router.push({ path: "/" });
-          this.getUser();
-          Vue.notify({
-            group: "notifications",
-            title: "User Updated",
-            type: "success",
-            text: "This user has been updated."
-          });
-        })
-        .catch(error => {
-          this.loadingSaveUser = false;
-          if (error.response) {
-            if (error.response.data.errors.name) {
-              this.errors.name = error.response.data.errors.name[0];
-            }
+    created() {
+        this.getUser();
+        this.getRoles();
+    },
 
-            if (error.response.data.errors.email) {
-              this.errors.email = error.response.data.errors.email[0];
-            }
+    data() {
+        return {
+            loadingUser: true,
+            user: [],
+            roles: [],
+            format,
+            errors: {
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            },
+            loadingSaveUser: true,
+            profile_photo: ""
+        };
+    },
 
-            if (error.response.data.errors.password) {
-              this.errors.password = error.response.data.errors.password[0];
-            }
-            console.log(error.response);
-          } else {
-            console.log(error);
-          }
-          Vue.notify({
-            group: "notifications",
-            title: "Failed To Update!",
-            type: "error",
-            text: "There was a problem with your input."
-          });
-        });
+    methods: {
+        getUser() {
+            this.loadingUser = true;
+            axios
+            .get("/api/user/" + this.$route.params.id)
+            .then(({ data }) => {
+                this.user = data;
+                this.loadingUser = false;
+                this.loadingSaveUser = false;
+            })
+            .catch(errors => {
+                console.log(errors);
+                this.loadingUser = false;
+                Vue.notify({
+                    group: "notifications",
+                    title: "Unable to load user data",
+                    type: "error",
+                    text: "Whoops..  We were unable to load that user."
+                });
+            });
+        },
+        getRoles() {
+            axios.get("/api/permissions")
+                .then(({ data }) => {
+                    this.roles = data;
+                })
+                .catch(errors => {
+                    console.log(errors);
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Unable to User Roles",
+                        type: "error",
+                        text: "Whoops..  We were unable to load user roles."
+                    });
+                })
+        },
+        onImageChange(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            let reader = new FileReader();
+            let vm = this;
+            reader.onload = e => {
+                vm.profile_photo = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+        formatDateTime: function(datetime) {
+            // Formats a MySQL datetime to JS Datetime
+            return new Date(datetime)
+                .toISOString()
+                .slice(0, 19)
+                .replace("T", " ");
+         },
+        saveForm() {
+            event.preventDefault();
+            this.loadingSaveUser = true;
+            this.errors = { // Clear any previous errors.
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            };
+            var app = this;
+            axios.patch("/api/users/" + this.$route.params.id, {
+                name: this.user.name,
+                email: this.user.email,
+                password: this.user.new_password,
+                password_confirmation: this.user.password_confirmation,
+                profile_photo: app.profile_photo,
+            })
+            .then(response => {
+                // app.$router.push({ path: "/" });
+                this.getUser();
+                Vue.notify({
+                    group: "notifications",
+                    title: "User Updated",
+                    type: "success",
+                    text: "This user has been updated."
+                });
+            })
+            .catch(error => {
+                this.loadingSaveUser = false;
+                if (error.response) {
+                    if (error.response.data.errors.name) {
+                        this.errors.name = error.response.data.errors.name[0];
+                    }
+                    if (error.response.data.errors.email) {
+                        this.errors.email = error.response.data.errors.email[0];
+                    }
+                    if (error.response.data.errors.password) {
+                        this.errors.password = error.response.data.errors.password[0];
+                    }
+                    console.log(error.response);
+                } else {
+                    console.log(error);
+                }
+                Vue.notify({
+                    group: "notifications",
+                    title: "Failed To Update!",
+                    type: "error",
+                    text: "There was a problem with your input."
+                });
+            });
+        }
     }
-  }
 };
 </script>

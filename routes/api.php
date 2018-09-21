@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,10 +11,6 @@ use Illuminate\Http\Request;
 |
  */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::resource('users', 'Api\UserController');
 Route::resource('permissions', 'PermissionsController');
 
@@ -27,3 +21,4 @@ Route::get('count/users/online', 'Api\UserController@online');
 Route::get('user/{user}', 'Api\UserController@show');
 Route::get('user/delete/{user}', 'Api\UserController@destroy');
 Route::get('permissions/roles', 'Api\UserController@roles');
+

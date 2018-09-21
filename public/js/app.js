@@ -55456,125 +55456,140 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    // console.log("Component mounted.");
-  },
-  created: function created() {
-    this.getUser();
-  },
-  data: function data() {
-    return {
-      loadingUser: true,
-      user: [],
-      format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"],
-      errors: {
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      },
-      loadingSaveUser: true,
-      profile_photo: ""
-    };
-  },
-
-
-  methods: {
-    getUser: function getUser() {
-      var _this = this;
-
-      this.loadingUser = true;
-      axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
-        var data = _ref.data;
-
-        _this.user = data;
-        _this.loadingUser = false;
-        _this.loadingSaveUser = false;
-      }).catch(function (errors) {
-        console.log(errors);
-        _this.loadingUser = false;
-        Vue.notify({
-          group: "notifications",
-          title: "Unable to load user data",
-          type: "error",
-          text: "Whoops..  We were unable to load that user."
-        });
-      });
+    mounted: function mounted() {
+        // console.log("Component mounted.");
     },
-    onImageChange: function onImageChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
+    created: function created() {
+        this.getUser();
+        this.getRoles();
     },
-    createImage: function createImage(file) {
-      var reader = new FileReader();
-      var vm = this;
-      reader.onload = function (e) {
-        vm.profile_photo = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    data: function data() {
+        return {
+            loadingUser: true,
+            user: [],
+            roles: [],
+            format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"],
+            errors: {
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            },
+            loadingSaveUser: true,
+            profile_photo: ""
+        };
     },
 
-    formatDateTime: function formatDateTime(datetime) {
-      // Formats a MySQL datetime to JS Datetime
-      return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
-    },
-    saveForm: function saveForm() {
-      var _this2 = this;
 
-      event.preventDefault();
-      this.loadingSaveUser = true;
-      this.errors = {
-        // Clear any previous errors.
-        name: "",
-        email: "",
-        password: "",
-        profile_photo: ""
-      };
+    methods: {
+        getUser: function getUser() {
+            var _this = this;
 
-      var app = this;
-      axios.patch("/api/users/" + this.$route.params.id, {
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.new_password,
-        password_confirmation: this.user.password_confirmation,
-        profile_photo: app.profile_photo
-      }).then(function (response) {
-        // app.$router.push({ path: "/" });
-        _this2.getUser();
-        Vue.notify({
-          group: "notifications",
-          title: "User Updated",
-          type: "success",
-          text: "This user has been updated."
-        });
-      }).catch(function (error) {
-        _this2.loadingSaveUser = false;
-        if (error.response) {
-          if (error.response.data.errors.name) {
-            _this2.errors.name = error.response.data.errors.name[0];
-          }
+            this.loadingUser = true;
+            axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
+                var data = _ref.data;
 
-          if (error.response.data.errors.email) {
-            _this2.errors.email = error.response.data.errors.email[0];
-          }
+                _this.user = data;
+                _this.loadingUser = false;
+                _this.loadingSaveUser = false;
+            }).catch(function (errors) {
+                console.log(errors);
+                _this.loadingUser = false;
+                Vue.notify({
+                    group: "notifications",
+                    title: "Unable to load user data",
+                    type: "error",
+                    text: "Whoops..  We were unable to load that user."
+                });
+            });
+        },
+        getRoles: function getRoles() {
+            var _this2 = this;
 
-          if (error.response.data.errors.password) {
-            _this2.errors.password = error.response.data.errors.password[0];
-          }
-          console.log(error.response);
-        } else {
-          console.log(error);
+            axios.get("/api/permissions").then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this2.roles = data;
+            }).catch(function (errors) {
+                console.log(errors);
+                Vue.notify({
+                    group: "notifications",
+                    title: "Unable to User Roles",
+                    type: "error",
+                    text: "Whoops..  We were unable to load user roles."
+                });
+            });
+        },
+        onImageChange: function onImageChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.createImage(files[0]);
+        },
+        createImage: function createImage(file) {
+            var reader = new FileReader();
+            var vm = this;
+            reader.onload = function (e) {
+                vm.profile_photo = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+
+        formatDateTime: function formatDateTime(datetime) {
+            // Formats a MySQL datetime to JS Datetime
+            return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
+        },
+        saveForm: function saveForm() {
+            var _this3 = this;
+
+            event.preventDefault();
+            this.loadingSaveUser = true;
+            this.errors = { // Clear any previous errors.
+                name: "",
+                email: "",
+                password: "",
+                profile_photo: ""
+            };
+            var app = this;
+            axios.patch("/api/users/" + this.$route.params.id, {
+                name: this.user.name,
+                email: this.user.email,
+                password: this.user.new_password,
+                password_confirmation: this.user.password_confirmation,
+                profile_photo: app.profile_photo
+            }).then(function (response) {
+                // app.$router.push({ path: "/" });
+                _this3.getUser();
+                Vue.notify({
+                    group: "notifications",
+                    title: "User Updated",
+                    type: "success",
+                    text: "This user has been updated."
+                });
+            }).catch(function (error) {
+                _this3.loadingSaveUser = false;
+                if (error.response) {
+                    if (error.response.data.errors.name) {
+                        _this3.errors.name = error.response.data.errors.name[0];
+                    }
+                    if (error.response.data.errors.email) {
+                        _this3.errors.email = error.response.data.errors.email[0];
+                    }
+                    if (error.response.data.errors.password) {
+                        _this3.errors.password = error.response.data.errors.password[0];
+                    }
+                    console.log(error.response);
+                } else {
+                    console.log(error);
+                }
+                Vue.notify({
+                    group: "notifications",
+                    title: "Failed To Update!",
+                    type: "error",
+                    text: "There was a problem with your input."
+                });
+            });
         }
-        Vue.notify({
-          group: "notifications",
-          title: "Failed To Update!",
-          type: "error",
-          text: "There was a problem with your input."
-        });
-      });
     }
-  }
 });
 
 /***/ }),
@@ -60291,7 +60306,36 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(5)
+        _c("div", { staticClass: "col-6" }, [
+          _c("div", { staticClass: "card card-danger" }, [
+            _vm._m(5),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "user_group" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "user_group" } }, [
+                  _vm._v("User Group")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control",
+                    attrs: { id: "user_group", name: "user_group" }
+                  },
+                  _vm._l(_vm.roles, function(role) {
+                    return _c("option", { domProps: { value: role.id } }, [
+                      _vm._v(_vm._s(role.name))
+                    ])
+                  })
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(6)
+          ])
+        ])
       ])
     ],
     1
@@ -60349,48 +60393,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6" }, [
-      _c("div", { staticClass: "card card-danger" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h3", { staticClass: "card-title col-12" }, [
-            _c("i", { staticClass: "fa fa-key" }),
-            _vm._v(" Permissions\n                    ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-tools" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "user_group" } }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "user_group" } }, [
-              _vm._v("User Group")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "form-control",
-                attrs: { id: "user_group", name: "user_group" }
-              },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v(" User Disabled ")
-                ])
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-footer" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("Save")]
-          )
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title col-12" }, [
+        _c("i", { staticClass: "fa fa-key" }),
+        _vm._v(" Permissions\n                    ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Save")]
+      )
     ])
   }
 ]
