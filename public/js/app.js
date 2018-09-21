@@ -55453,6 +55453,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -59840,7 +59841,12 @@ var render = function() {
                 ? _c("span", { staticClass: "info-box-number" }, [
                     _vm._v(
                       "                       \n                       " +
-                        _vm._s(_vm.user.login_at) +
+                        _vm._s(
+                          _vm.format(
+                            _vm.formatDateTime(_vm.user.login_at),
+                            "MMM Do YYYY h:mm a"
+                          )
+                        ) +
                         "\n                    "
                     )
                   ])
@@ -60322,13 +60328,22 @@ var render = function() {
                   "select",
                   {
                     staticClass: "form-control",
-                    attrs: { id: "user_group", name: "user_group" }
+                    attrs: {
+                      id: "user_group",
+                      required: "",
+                      name: "user_group"
+                    }
                   },
-                  _vm._l(_vm.roles, function(role) {
-                    return _c("option", { domProps: { value: role.id } }, [
-                      _vm._v(_vm._s(role.name))
-                    ])
-                  })
+                  [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("None")]),
+                    _vm._v(" "),
+                    _vm._l(_vm.roles, function(role) {
+                      return _c("option", { domProps: { value: role.id } }, [
+                        _vm._v(_vm._s(role.name))
+                      ])
+                    })
+                  ],
+                  2
                 )
               ])
             ]),

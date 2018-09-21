@@ -12,7 +12,7 @@
                             Last Online
                         </span>
                         <span class="info-box-number" v-if="user.login_at">                       
-                           {{ user.login_at }}
+                           {{ format(formatDateTime(user.login_at), 'MMM Do YYYY h:mm a') }}
                         </span>
                         <span class="info-box-number" v-else>                       
                            Never Logged In
@@ -156,7 +156,8 @@
                         <div class="form-group">
                             <label for="user_group"></label>
                             <label for="user_group">User Group</label>
-                            <select class="form-control" id="user_group" name="user_group">
+                            <select class="form-control" id="user_group" required name="user_group">
+                                <option value="">None</option>
                                 <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
                             </select>
                         </div>
