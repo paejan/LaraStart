@@ -74,13 +74,23 @@ class UserController extends Controller
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
-        return User::where('id', $id)
-            ->update([
-                'name'          => $request->name,
-                'email'         => $request->email,
-                'password'      => Hash::make($request->password),
-                'profile_photo' => $request->profile_photo,
-        ]);
+        // Check if the password needs to be updated.
+        if (empty($request->password)) {
+            return User::where('id', $id)
+                ->update([
+                    'name'          => $request->name,
+                    'email'         => $request->email,
+                    'profile_photo' => $request->profile_photo,
+                ]);
+        } else {
+            return User::where('id', $id)
+                ->update([
+                    'name'          => $request->name,
+                    'email'         => $request->email,
+                    'password'      => Hash::make($request->password),
+                    'profile_photo' => $request->profile_photo,
+                ]);
+        }
     }
 
     /**
