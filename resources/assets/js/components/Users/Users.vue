@@ -56,7 +56,7 @@
                             <i class="fa fa-spinner fa-spin"></i>
                         </span>
                         <span class="info-box-number" v-else>
-                            {{ (activeUserCount = 0 ? ((activeUserCount / userCount) * 100).toFixed() : 0) }}
+                            {{ ((activeUserCount / userCount) * 100).toFixed() }}
                             <small>%</small>
                         </span>
                     </div>

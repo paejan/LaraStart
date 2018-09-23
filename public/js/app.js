@@ -54794,12 +54794,10 @@ var render = function() {
                     _vm._v(
                       "\n                        " +
                         _vm._s(
-                          (_vm.activeUserCount = 0
-                            ? (
-                                (_vm.activeUserCount / _vm.userCount) *
-                                100
-                              ).toFixed()
-                            : 0)
+                          (
+                            (_vm.activeUserCount / _vm.userCount) *
+                            100
+                          ).toFixed()
                         ) +
                         "\n                        "
                     ),
