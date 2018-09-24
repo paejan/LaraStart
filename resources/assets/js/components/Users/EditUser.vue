@@ -219,7 +219,7 @@ export default {
                 } else {
                     Vue.notify({
                         group: "notifications",
-                        title: "User Currently Disabled",
+                        title: "User Account Disabled",
                         type: "error",
                         text: "Please assign a user role to enable this user account."
                     });

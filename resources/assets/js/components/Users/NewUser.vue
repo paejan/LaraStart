@@ -10,7 +10,7 @@
         </div>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <div class="card card-primary">
                     <form v-on:submit="saveForm()" >
                         <div class="card-header">
@@ -75,30 +75,6 @@
                             <button v-else type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title col-12">
-                            <i class="fa fa-key"></i> Permissions
-                        </h3>
-                        <div class="card-tools">
-                           
-                        </div>
-                    </div>
-                    <div class="card-body">   
-                        <div class="form-group">
-                            <label for="user_group"></label>
-                            <label for="user_group">User Group</label>
-                            <select class="form-control" id="user_group" name="user_group">
-                                <option value=""> User Disabled </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
                 </div>
             </div>
         </div>
