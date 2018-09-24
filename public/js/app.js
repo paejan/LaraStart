@@ -55496,7 +55496,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.user = data;
                 _this.loadingUser = false;
                 _this.loadingSaveUser = false;
-                _this.user_group = data.roles[0].id;
+                if (data.roles[0]) {
+                    _this.user_group = data.roles[0].id;
+                } else {
+                    Vue.notify({
+                        group: "notifications",
+                        title: "User Currently Disabled",
+                        type: "error",
+                        text: "Please assign a user role to enable this user account."
+                    });
+                }
             }).catch(function (errors) {
                 console.log(errors);
                 _this.loadingUser = false;

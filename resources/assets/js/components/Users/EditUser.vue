@@ -214,7 +214,16 @@ export default {
                 this.user = data;
                 this.loadingUser = false;
                 this.loadingSaveUser = false;
-                this.user_group = data.roles[0].id;
+                if (data.roles[0]) {
+                    this.user_group = data.roles[0].id;
+                } else {
+                    Vue.notify({
+                        group: "notifications",
+                        title: "User Currently Disabled",
+                        type: "error",
+                        text: "Please assign a user role to enable this user account."
+                    });
+                }
             })
             .catch(errors => {
                 console.log(errors);
