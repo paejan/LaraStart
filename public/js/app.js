@@ -55454,7 +55454,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55480,7 +55479,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             loadingSaveUser: true,
             loadingSaveRole: true,
-            profile_photo: ""
+            profile_photo: "",
+            user_group: ""
         };
     },
 
@@ -55602,6 +55602,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.errors = { // Clear any previous errors.
                 role: ""
             };
+            console.log(this.user_group);
             axios.patch("/api/permissions/" + this.$route.params.id, {
                 user_group: this.user_group
             }).then(function (response) {
@@ -60367,8 +60368,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "user_group" } }),
-                    _vm._v(" "),
                     _c("label", { attrs: { for: "user_group" } }, [
                       _vm._v("User Group")
                     ]),
@@ -60376,11 +60375,34 @@ var render = function() {
                     _c(
                       "select",
                       {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.user_group,
+                            expression: "user_group"
+                          }
+                        ],
                         staticClass: "form-control",
                         attrs: {
                           id: "user_group",
                           required: "",
                           name: "user_group"
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.user_group = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
                         }
                       },
                       [

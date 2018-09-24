@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\Types\Integer;
 
 class UserController extends Controller
 {
@@ -88,14 +89,15 @@ class UserController extends Controller
     }
 
     /**
-     * Returns a users data by the specified id.
+     * Returns a users data with roles by the specified id.
      *
-     * @param User $user
+     * @param Integer $user
      * @return User|int
      */
-    public function show(User $user)
+    public function show($user)
     {
-        return $user;
+        return User::with('Roles')
+            ->find($user);
     }
 
 

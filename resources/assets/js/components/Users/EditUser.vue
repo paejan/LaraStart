@@ -155,9 +155,8 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="user_group"></label>
                                 <label for="user_group">User Group</label>
-                                <select class="form-control" id="user_group" required name="user_group">
+                                <select class="form-control" id="user_group" required name="user_group" v-model="user_group">
                                     <option value="">None</option>
                                     <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
                                 </select>
@@ -201,7 +200,8 @@ export default {
             },
             loadingSaveUser: true,
             loadingSaveRole: true,
-            profile_photo: ""
+            profile_photo: "",
+            user_group: ""
         };
     },
 
@@ -319,6 +319,7 @@ export default {
             this.errors = { // Clear any previous errors.
                 role: ""
             };
+            console.log(this.user_group);
             axios
                 .patch("/api/permissions/" + this.$route.params.id, {
                     user_group: this.user_group,
