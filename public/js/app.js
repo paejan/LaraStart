@@ -55496,6 +55496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.user = data;
                 _this.loadingUser = false;
                 _this.loadingSaveUser = false;
+                _this.user_group = data.roles[0].id;
             }).catch(function (errors) {
                 console.log(errors);
                 _this.loadingUser = false;

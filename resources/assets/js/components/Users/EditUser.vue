@@ -214,6 +214,7 @@ export default {
                 this.user = data;
                 this.loadingUser = false;
                 this.loadingSaveUser = false;
+                this.user_group = data.roles[0].id;
             })
             .catch(errors => {
                 console.log(errors);
