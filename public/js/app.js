@@ -55279,6 +55279,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_date_fns__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Modal_vue__);
 //
 //
 //
@@ -55454,9 +55456,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        modal: __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default.a
+    },
+
     mounted: function mounted() {
         // console.log("Component mounted.");
     },
@@ -55480,7 +55504,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loadingSaveUser: true,
             loadingSaveRole: true,
             profile_photo: "",
-            user_group: ""
+            user_group: "",
+            showDeleteUserModal: false,
+            loadingDeleteUser: false
         };
     },
 
@@ -55572,7 +55598,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password_confirmation: this.user.password_confirmation,
                 profile_photo: app.profile_photo
             }).then(function (response) {
-                // app.$router.push({ path: "/" });
                 _this3.getUser();
                 Vue.notify({
                     group: "notifications",
@@ -55638,6 +55663,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: "error",
                     text: "There was a problem with your input."
                 });
+            });
+        },
+        deleteUser: function deleteUser(user) {
+            var _this5 = this;
+
+            this.loadingDeleteUser = true;
+            axios.get("/api/user/delete/" + user.id).then(function (response) {
+                _this5.loadingDeleteUser = false;
+                _this5.showDeleteUserModal = false;
+                _this5.$notify({
+                    group: "users",
+                    title: "User Successfully Deleted",
+                    type: "success",
+                    text: user.name + " was successfully deleted."
+                });
+                _this5.$router.push({ path: "/users" });
+            }).catch(function (errors) {
+                console.log(errors);
             });
         }
     }
@@ -59987,7 +60030,22 @@ var render = function() {
           "div",
           { staticClass: "col-sm-6 text-right" },
           [
-            _vm._m(3),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger btn-lg",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.showDeleteUserModal = true
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "fa fa-trash-alt" }),
+                _vm._v(" Delete User ")
+              ]
+            ),
             _vm._v(" "),
             _c("router-link", { attrs: { to: { name: "new_user" } } }, [
               _c(
@@ -60020,7 +60078,7 @@ var render = function() {
                 }
               },
               [
-                _vm._m(4),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _vm.errors.name
@@ -60374,7 +60432,7 @@ var render = function() {
                 }
               },
               [
-                _vm._m(5),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "form-group" }, [
@@ -60459,7 +60517,86 @@ var render = function() {
             )
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.showDeleteUserModal
+        ? _c(
+            "modal",
+            [
+              _c("template", { slot: "modal-title" }, [
+                _vm._v("Deleting: " + _vm._s(_vm.user.name))
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-close" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteUserModal = false
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-body" }, [
+                _vm._v(
+                  "Are you sure you want to delete " +
+                    _vm._s(_vm.user.name) +
+                    "?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteUserModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _vm.loadingDeleteUser
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { disabled: "", type: "button" }
+                      },
+                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteUser(_vm.user)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete User")]
+                    )
+              ])
+            ],
+            2
+          )
+        : _vm._e()
     ],
     1
   )
@@ -60488,16 +60625,6 @@ var staticRenderFns = [
     return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
       _c("i", { staticClass: "fa fa-user-plus" })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-danger btn-lg", attrs: { type: "button" } },
-      [_c("i", { staticClass: "fa fa-trash-alt" }), _vm._v(" Delete User ")]
-    )
   },
   function() {
     var _vm = this

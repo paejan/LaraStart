@@ -67,7 +67,7 @@
                 </h3>
             </div>
             <div class="col-sm-6 text-right">
-                <button type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash-alt"></i> Delete User </button>
+                <button @click="showDeleteUserModal = true" type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash-alt"></i> Delete User </button>
                 <router-link :to="{ name : 'new_user' }">
                     <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
                 </router-link>
@@ -170,12 +170,34 @@
                 </div>
             </div>
         </div>
+        <!-- Delete User Modal -->
+        <modal v-if="showDeleteUserModal">
+            <template slot="modal-title">Deleting: {{ user.name }}</template>
+            <template slot="modal-close">
+                <button type="button" class="close" @click="showDeleteUserModal = false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </template>
+            <template slot="modal-body">Are you sure you want to delete {{ user.name }}?</template>
+            <template slot="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showDeleteUserModal = false">Close</button>
+                <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
+            </template>
+        </modal>
+        <!-- /.Delete User Modal -->
     </div>
 </template>
 
 <script>
 import { format, formatDistance, formatRelative, subDays } from "date-fns";
+import Modal from "../Modal.vue";
+
 export default {
+    components: {
+        modal: Modal
+    },
+
     mounted() {
         // console.log("Component mounted.");
     },
@@ -201,7 +223,9 @@ export default {
             loadingSaveUser: true,
             loadingSaveRole: true,
             profile_photo: "",
-            user_group: ""
+            user_group: "",
+            showDeleteUserModal: false,
+            loadingDeleteUser: false,
         };
     },
 
@@ -290,7 +314,6 @@ export default {
                 profile_photo: app.profile_photo,
             })
             .then(response => {
-                // app.$router.push({ path: "/" });
                 this.getUser();
                 Vue.notify({
                     group: "notifications",
@@ -331,35 +354,54 @@ export default {
             };
             console.log(this.user_group);
             axios
-                .patch("/api/permissions/" + this.$route.params.id, {
-                    user_group: this.user_group,
-                })
-                .then(response => {
-                    // app.$router.push({ path: "/" });
-                    this.getUser();
-                    this.getRoles();
-                    Vue.notify({
-                        group: "notifications",
-                        title: "User Role Updated.",
-                        type: "success",
-                        text: "This user's User Role has been updated."
-                    });
-                })
-                .catch(error => {
-                    this.loadingSaveRole = false;
-                    if (error.response) {
-                        console.log(error.response);
-                    } else {
-                        console.log(error);
-                    }
-                    Vue.notify({
-                        group: "notifications",
-                        title: "Failed To Update!",
-                        type: "error",
-                        text: "There was a problem with your input."
-                    });
+            .patch("/api/permissions/" + this.$route.params.id, {
+                user_group: this.user_group,
+            })
+            .then(response => {
+                // app.$router.push({ path: "/" });
+                this.getUser();
+                this.getRoles();
+                Vue.notify({
+                    group: "notifications",
+                    title: "User Role Updated.",
+                    type: "success",
+                    text: "This user's User Role has been updated."
                 });
-        }
+            })
+            .catch(error => {
+                this.loadingSaveRole = false;
+                if (error.response) {
+                    console.log(error.response);
+                } else {
+                    console.log(error);
+                }
+                Vue.notify({
+                    group: "notifications",
+                    title: "Failed To Update!",
+                    type: "error",
+                    text: "There was a problem with your input."
+                });
+            });
+        },
+        deleteUser(user) {
+            this.loadingDeleteUser = true;
+            axios
+            .get("/api/user/delete/" + user.id)
+            .then(response => {
+                this.loadingDeleteUser = false;
+                this.showDeleteUserModal = false;
+                this.$notify({
+                    group: "users",
+                    title: "User Successfully Deleted",
+                    type: "success",
+                    text: user.name + " was successfully deleted."
+                });
+                this.$router.push({ path: "/users" });
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+        },
     }
 };
 </script>
