@@ -87,8 +87,8 @@ class UserController extends Controller
                 ]);
             })
             ->update([
-                'name'          => $request->name,
-                'email'         => $request->email,
+                'name'  => $request->name,
+                'email' => $request->email,
             ]);
     }
 
