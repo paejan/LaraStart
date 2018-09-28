@@ -54062,6 +54062,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -54082,7 +54085,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     var sortOrders = {};
-    var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "Email", name: "email" }, { width: "33%", label: "Actions", name: "actions" }];
+    var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "Email", name: "email" }, { width: "33%", label: "Role", name: "roles" }, { width: "33%", label: "Actions", name: "actions" }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
     });
@@ -54955,6 +54958,8 @@ var render = function() {
                             _vm._v(" "),
                             _c("td"),
                             _vm._v(" "),
+                            _c("td"),
+                            _vm._v(" "),
                             _c("td")
                           ])
                         ])
@@ -54976,6 +54981,10 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(user.email))]),
+                              _vm._v(" "),
+                              user.roles[0]
+                                ? _c("td", [_vm._v(_vm._s(user.roles[0].name))])
+                                : _c("td", [_vm._v("None (User Disabled)")]),
                               _vm._v(" "),
                               _c(
                                 "td",

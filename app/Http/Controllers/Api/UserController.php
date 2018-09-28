@@ -20,12 +20,14 @@ class UserController extends Controller
     {
         // Return all users if request isn't a search.
         if (!$request->input()) {
-            return User::get();
+            return User::with('Roles')
+                ->get();
         }
 
         // Return the results based on the search criteria.
         $columns = ['id', 'name', 'email'];
-        $users = User::orderBy($columns[$request->column], $request->dir)
+        $users = User::with('Roles')
+            ->orderBy($columns[$request->column], $request->dir)
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->search . '%')
                     ->orWhere('email', 'like', '%' . $request->search . '%');
@@ -50,10 +52,10 @@ class UserController extends Controller
         ]);
 
         return User::create([
-                'name'          => $request->name,
-                'email'         => $request->email,
-                'password'      => Hash::make($request->password),
-                'profile_photo' => $request->profile_photo,
+            'name'          => $request->name,
+            'email'         => $request->email,
+            'password'      => Hash::make($request->password),
+            'profile_photo' => $request->profile_photo,
         ]);
 
     }

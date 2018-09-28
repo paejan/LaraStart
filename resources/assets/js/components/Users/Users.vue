@@ -120,12 +120,15 @@
                                     <td>Loading ... </td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                             <tbody v-else>
                                 <tr v-for="user in users" :key="user.id">
                                     <td><img :src="user.profile_photo" class="img-circle" style="height: 4rem; width: 4rem; margin-right: 10px;"> {{user.name}}</td>
                                     <td>{{user.email}}</td>
+                                    <td v-if="user.roles[0]">{{user.roles[0].name}}</td>
+                                    <td v-else>None (User Disabled)</td>
                                     <td>
                                         <router-link :to="{ name : 'edit_user', params : { id : user.id } }">
                                             <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit User</button>
@@ -189,6 +192,7 @@ export default {
     let columns = [
       { width: "33%", label: "Name", name: "name" },
       { width: "33%", label: "Email", name: "email" },
+        { width: "33%", label: "Role", name: "roles" },
       { width: "33%", label: "Actions", name: "actions" }
     ];
     columns.forEach(column => {
