@@ -81,10 +81,14 @@ class UserController extends Controller
                     'password' => Hash::make($request->password),
                 ]);
             })
+            ->when(!empty($request->profile_photo), function ($query) use ($request) {
+                $query->update([
+                    'profile_photo' => $request->profile_photo,
+                ]);
+            })
             ->update([
                 'name'          => $request->name,
                 'email'         => $request->email,
-                'profile_photo' => $request->profile_photo,
             ]);
     }
 
