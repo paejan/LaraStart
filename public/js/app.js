@@ -54080,6 +54080,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.tableData.draw++;
       axios.get(url, { params: this.tableData }).then(function (response) {
         var data = response.data;
+        console.log(data);
         if (_this.tableData.draw == data.draw) {
           _this.users = data.data.data;
           _this.configPagination(data.data);
@@ -61145,14 +61146,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__ = __webpack_require__(246);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue__ = __webpack_require__(249);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__ = __webpack_require__(252);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue__ = __webpack_require__(255);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue__);
 //
 //
 //
@@ -61232,10 +61225,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
-
-
 
 
 
@@ -61245,15 +61234,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
         pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
-        modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a,
-        'user-count': __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default.a,
-        'new-users': __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default.a,
-        'active-users': __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default.a,
-        'online-users': __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue___default.a
+        modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a
     },
 
     created: function created() {
-        this.getUsers();
+        this.getRoles();
     },
     data: function data() {
         var sortOrders = {};
@@ -61262,12 +61247,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sortOrders[column.name] = -1;
         });
         return {
-            showDeleteUserModal: false,
-            user: [],
-            users: [],
+            showDeleteRoleModal: false,
+            role: [],
+            roles: [],
             loadingTable: true,
-            loadingDeleteUser: false,
-            loadingUsers: true,
+            loadingDeleteRole: false,
+            loadingRoles: true,
             columns: columns,
             sortKey: "deadline",
             sortOrders: sortOrders,
@@ -61297,17 +61282,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getRoles: function getRoles() {
             var _this = this;
 
-            var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/permissions";
+            var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/roles";
 
-            this.loadingUsers = true;
+            this.loadingRoles = true;
             this.loadingTable = true;
             this.tableData.draw++;
             axios.get(url, { params: this.tableData }).then(function (response) {
                 var data = response.data;
                 if (_this.tableData.draw == data.draw) {
-                    _this.users = data.data.data;
+                    _this.roles = data.data.data;
                     _this.configPagination(data.data);
-                    _this.loadingUsers = false;
+                    _this.loadingRoles = false;
                     _this.loadingTable = false;
                 }
             }).catch(function (errors) {
@@ -61315,34 +61300,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         refresh: function refresh() {
-            this.getUsers();
-        },
-        getUser: function getUser(id) {
-            var _this2 = this;
-
-            axios.get("api/user/" + id).then(function (_ref) {
-                var data = _ref.data;
-
-                _this2.user = data;
-            });
-        },
-        deleteUser: function deleteUser(user) {
-            var _this3 = this;
-
-            this.loadingDeleteUser = true;
-            axios.get("api/user/delete/" + user.id).then(function (response) {
-                _this3.loadingDeleteUser = false;
-                _this3.refresh();
-                _this3.showDeleteUserModal = false;
-                _this3.$notify({
-                    group: "users",
-                    title: "User Successfully Deleted",
-                    type: "success",
-                    text: user.name + " was successfully deleted."
-                });
-            }).catch(function (errors) {
-                console.log(errors);
-            });
+            this.getRoles();
         },
         configPagination: function configPagination(data) {
             this.pagination.lastPage = data.last_page;
@@ -61359,8 +61317,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.sortOrders[key] = this.sortOrders[key] * -1;
             this.tableData.column = this.getIndex(this.columns, "name", key);
             this.tableData.dir = this.sortOrders[key] === 1 ? "asc" : "desc";
-            this.getUsers();
-            this.loadingUsers = false;
+            this.getRoles();
+            this.loadingRoles = false;
         },
         getIndex: function getIndex(array, key, value) {
             return array.findIndex(function (i) {
@@ -61380,7 +61338,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "users container" },
+    { staticClass: "roles container" },
     [
       _c("notifications", {
         attrs: { group: "permissions", position: "bottom right", speed: 2000 }
@@ -61421,7 +61379,7 @@ var render = function() {
                           _vm.$set(_vm.tableData, "search", $event.target.value)
                         },
                         function($event) {
-                          _vm.getUsers()
+                          _vm.getRoles()
                         }
                       ]
                     }
@@ -61430,12 +61388,12 @@ var render = function() {
                   _vm._m(0),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group-prepend" }, [
-                    _vm.loadingUsers
+                    _vm.loadingRoles
                       ? _c(
                           "div",
                           {
                             staticClass: "input-group-text",
-                            attrs: { id: "userSearch" }
+                            attrs: { id: "roleSearch" }
                           },
                           [_c("i", { staticClass: "fa fa-sync fa-spin" })]
                         )
@@ -61443,10 +61401,10 @@ var render = function() {
                           "div",
                           {
                             staticClass: "input-group-text",
-                            attrs: { id: "userSearch" },
+                            attrs: { id: "roleSearch" },
                             on: {
                               click: function($event) {
-                                _vm.getUsers()
+                                _vm.getRoles()
                               }
                             }
                           },
@@ -61460,7 +61418,7 @@ var render = function() {
                 "div",
                 { staticClass: "card-tools" },
                 [
-                  _c("router-link", { attrs: { to: { name: "new_user" } } }, [
+                  _c("router-link", { attrs: { to: { name: "new_role" } } }, [
                     _c(
                       "button",
                       {
@@ -61505,22 +61463,11 @@ var render = function() {
                         ])
                       : _c(
                           "tbody",
-                          _vm._l(_vm.users, function(user) {
-                            return _c("tr", { key: user.id }, [
-                              _c("td", [
-                                _c("img", {
-                                  staticClass: "img-circle",
-                                  staticStyle: {
-                                    height: "4rem",
-                                    width: "4rem",
-                                    "margin-right": "10px"
-                                  },
-                                  attrs: { src: user.profile_photo }
-                                }),
-                                _vm._v(" " + _vm._s(user.name))
-                              ]),
+                          _vm._l(_vm.roles, function(role) {
+                            return _c("tr", { key: role.id }, [
+                              _c("td", [_vm._v(_vm._s(role.name))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(user.email))]),
+                              _c("td", [_vm._v("0")]),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -61530,8 +61477,8 @@ var render = function() {
                                     {
                                       attrs: {
                                         to: {
-                                          name: "edit_user",
-                                          params: { id: user.id }
+                                          name: "edit_role",
+                                          params: { id: role.id }
                                         }
                                       }
                                     },
@@ -61547,7 +61494,7 @@ var render = function() {
                                           _c("i", {
                                             staticClass: "fa fa-user-edit"
                                           }),
-                                          _vm._v(" Edit User")
+                                          _vm._v(" Edit Role")
                                         ]
                                       )
                                     ]
@@ -61574,8 +61521,8 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          _vm.getUser(user.id)
-                                          _vm.showDeleteUserModal = true
+                                          _vm.getRole(role.id)
+                                          _vm.showDeleteRoleModal = true
                                         }
                                       }
                                     },
@@ -61583,7 +61530,7 @@ var render = function() {
                                       _c("i", {
                                         staticClass: "fa fa-trash-alt"
                                       }),
-                                      _vm._v(" Delete User")
+                                      _vm._v(" Delete Role")
                                     ]
                                   )
                                 ],
@@ -61606,10 +61553,10 @@ var render = function() {
                   attrs: { pagination: _vm.pagination },
                   on: {
                     prev: function($event) {
-                      _vm.getUsers(_vm.pagination.prevPageUrl)
+                      _vm.getRoles(_vm.pagination.prevPageUrl)
                     },
                     next: function($event) {
-                      _vm.getUsers(_vm.pagination.nextPageUrl)
+                      _vm.getRoles(_vm.pagination.nextPageUrl)
                     }
                   }
                 })
@@ -61620,12 +61567,12 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.showDeleteUserModal
+      _vm.showDeleteRoleModal
         ? _c(
             "modal",
             [
               _c("template", { slot: "modal-title" }, [
-                _vm._v("Deleting: " + _vm._s(_vm.user.name))
+                _vm._v("Deleting: " + _vm._s(_vm.role.name))
               ]),
               _vm._v(" "),
               _c("template", { slot: "modal-close" }, [
@@ -61636,7 +61583,7 @@ var render = function() {
                     attrs: { type: "button", "aria-label": "Close" },
                     on: {
                       click: function($event) {
-                        _vm.showDeleteUserModal = false
+                        _vm.showDeleteRoleModal = false
                       }
                     }
                   },
@@ -61651,7 +61598,7 @@ var render = function() {
               _c("template", { slot: "modal-body" }, [
                 _vm._v(
                   "Are you sure you want to delete " +
-                    _vm._s(_vm.user.name) +
+                    _vm._s(_vm.role.name) +
                     "?"
                 )
               ]),
@@ -61664,14 +61611,14 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        _vm.showDeleteUserModal = false
+                        _vm.showDeleteRoleModal = false
                       }
                     }
                   },
                   [_vm._v("Close")]
                 ),
                 _vm._v(" "),
-                _vm.loadingDeleteUser
+                _vm.loadingDeleteRole
                   ? _c(
                       "button",
                       {
@@ -61687,11 +61634,11 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            _vm.deleteUser(_vm.user)
+                            _vm.deleteRole(_vm.role)
                           }
                         }
                       },
-                      [_vm._v("Delete User")]
+                      [_vm._v("Delete Role")]
                     )
               ])
             ],

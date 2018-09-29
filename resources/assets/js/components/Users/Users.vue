@@ -178,6 +178,7 @@ export default {
         .get(url, { params: this.tableData })
         .then(response => {
           let data = response.data;
+          console.log(data);
           if (this.tableData.draw == data.draw) {
             this.users = data.data.data;
             this.configPagination(data.data);

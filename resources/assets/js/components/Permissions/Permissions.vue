@@ -1,5 +1,5 @@
 <template>
-    <div class="users container">
+    <div class="roles container">
         <notifications group="permissions" position="bottom right" :speed="2000"/>
 
         <div class="row">
@@ -9,18 +9,18 @@
                         <h3 class="card-title col-6">
                             Roles
                             <div class="input-group">
-                                <input type="text" class="form-control" v-model="tableData.search" @input="getUsers()" placeholder="Search Roles .." aria-label="Search Roles" aria-describedby="roleSearch">
+                                <input type="text" class="form-control" v-model="tableData.search" @input="getRoles()" placeholder="Search Roles .." aria-label="Search Roles" aria-describedby="roleSearch">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text" id="groupSearch"><i class="fa fa-search"></i></div>
                                 </div>
                                 <div class="input-group-prepend">
-                                    <div v-if="loadingUsers" class="input-group-text" id="userSearch"><i class="fa fa-sync fa-spin"></i></div>
-                                    <div v-else @click="getUsers()" class="input-group-text" id="userSearch"><i class="fa fa-sync"></i></div>
+                                    <div v-if="loadingRoles" class="input-group-text" id="roleSearch"><i class="fa fa-sync fa-spin"></i></div>
+                                    <div v-else @click="getRoles()" class="input-group-text" id="roleSearch"><i class="fa fa-sync"></i></div>
                                 </div>
                             </div>
                         </h3>
                         <div class="card-tools">
-                            <router-link :to="{ name : 'new_user' }">
+                            <router-link :to="{ name : 'new_role' }">
                                 <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New Role </button>
                             </router-link>
                         </div>
@@ -35,15 +35,15 @@
                             </tr>
                             </tbody>
                             <tbody v-else>
-                            <tr v-for="user in users" :key="user.id">
-                                <td><img :src="user.profile_photo" class="img-circle" style="height: 4rem; width: 4rem; margin-right: 10px;"> {{user.name}}</td>
-                                <td>{{user.email}}</td>
+                            <tr v-for="role in roles" :key="role.id">
+                                <td>{{role.name}}</td>
+                                <td>0</td>
                                 <td>
-                                    <router-link :to="{ name : 'edit_user', params : { id : user.id } }">
-                                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit User</button>
+                                    <router-link :to="{ name : 'edit_role', params : { id : role.id } }">
+                                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit Role</button>
                                     </router-link>
                                     <button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-unlock"></i> Reset Password</button>
-                                    <button @click="getUser(user.id); showDeleteUserModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete User</button>
+                                    <button @click="getRole(role.id); showDeleteRoleModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete Role</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -51,29 +51,29 @@
                     </div>
                     <div class="card-footer">
                         <pagination :pagination="pagination"
-                                    @prev="getUsers(pagination.prevPageUrl)"
-                                    @next="getUsers(pagination.nextPageUrl)">
+                                    @prev="getRoles(pagination.prevPageUrl)"
+                                    @next="getRoles(pagination.nextPageUrl)">
                         </pagination>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Delete User Modal -->
-        <modal v-if="showDeleteUserModal">
-            <template slot="modal-title">Deleting: {{ user.name }}</template>
+        <!-- Delete Role Modal -->
+        <modal v-if="showDeleteRoleModal">
+            <template slot="modal-title">Deleting: {{ role.name }}</template>
             <template slot="modal-close">
-                <button type="button" class="close" @click="showDeleteUserModal = false" aria-label="Close">
+                <button type="button" class="close" @click="showDeleteRoleModal = false" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </template>
-            <template slot="modal-body">Are you sure you want to delete {{ user.name }}?</template>
+            <template slot="modal-body">Are you sure you want to delete {{ role.name }}?</template>
             <template slot="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="showDeleteUserModal = false">Close</button>
-                <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
-                <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
+                <button type="button" class="btn btn-secondary" @click="showDeleteRoleModal = false">Close</button>
+                <button v-if="loadingDeleteRole" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                <button v-else @click="deleteRole(role)" type="button" class="btn btn-danger">Delete Role</button>
             </template>
         </modal>
-        <!-- /.Delete User Modal -->
+        <!-- /.Delete Role Modal -->
     </div>
 </template>
 
@@ -81,24 +81,16 @@
     import Datatable from "../DataTable.vue";
     import Pagination from "../Pagination.vue";
     import Modal from "../Modal.vue";
-    import UserCount from "../Users/components/TotalUsers.vue";
-    import NewUserCount from "../Users/components/NewUsers.vue";
-    import ActiveUserCount from "../Users/components/ActiveUsers.vue";
-    import OnlineUserCount from "../Users/components/OnlineUsers.vue";
 
     export default {
         components: {
             datatable: Datatable,
             pagination: Pagination,
             modal: Modal,
-            'user-count': UserCount,
-            'new-users': NewUserCount,
-            'active-users': ActiveUserCount,
-            'online-users': OnlineUserCount,
         },
 
         created() {
-            this.getUsers();
+            this.getRoles();
         },
 
         data() {
@@ -112,12 +104,12 @@
                 sortOrders[column.name] = -1;
             });
             return {
-                showDeleteUserModal: false,
-                user: [],
-                users: [],
+                showDeleteRoleModal: false,
+                role: [],
+                roles: [],
                 loadingTable: true,
-                loadingDeleteUser: false,
-                loadingUsers: true,
+                loadingDeleteRole: false,
+                loadingRoles: true,
                 columns: columns,
                 sortKey: "deadline",
                 sortOrders: sortOrders,
@@ -143,8 +135,8 @@
         },
 
         methods: {
-            getRoles(url = "api/permissions") {
-                this.loadingUsers = true;
+            getRoles(url = "api/roles") {
+                this.loadingRoles = true;
                 this.loadingTable = true;
                 this.tableData.draw++;
                 axios
@@ -152,9 +144,9 @@
                     .then(response => {
                         let data = response.data;
                         if (this.tableData.draw == data.draw) {
-                            this.users = data.data.data;
+                            this.roles = data.data.data;
                             this.configPagination(data.data);
-                            this.loadingUsers = false;
+                            this.loadingRoles = false;
                             this.loadingTable = false;
                         }
                     })
@@ -163,31 +155,7 @@
                     });
             },
             refresh() {
-                this.getUsers();
-            },
-            getUser(id) {
-                axios.get("api/user/" + id).then(({ data }) => {
-                    this.user = data;
-                });
-            },
-            deleteUser(user) {
-                this.loadingDeleteUser = true;
-                axios
-                    .get("api/user/delete/" + user.id)
-                    .then(response => {
-                        this.loadingDeleteUser = false;
-                        this.refresh();
-                        this.showDeleteUserModal = false;
-                        this.$notify({
-                            group: "users",
-                            title: "User Successfully Deleted",
-                            type: "success",
-                            text: user.name + " was successfully deleted."
-                        });
-                    })
-                    .catch(errors => {
-                        console.log(errors);
-                    });
+                this.getRoles();
             },
             configPagination(data) {
                 this.pagination.lastPage = data.last_page;
@@ -204,8 +172,8 @@
                 this.sortOrders[key] = this.sortOrders[key] * -1;
                 this.tableData.column = this.getIndex(this.columns, "name", key);
                 this.tableData.dir = this.sortOrders[key] === 1 ? "asc" : "desc";
-                this.getUsers();
-                this.loadingUsers = false;
+                this.getRoles();
+                this.loadingRoles = false;
             },
             getIndex(array, key, value) {
                 return array.findIndex(i => i[key] == value);
