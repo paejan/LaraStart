@@ -160,4 +160,15 @@ class UserController extends Controller
     {
         return User::online()->count();
     }
+
+    /**
+     * Updates a users permission role.
+     * @param Request $request
+     * @param $id
+     * @return User
+     */
+    public function updateRole(Request $request, $id) {
+        return User::find($id)
+            ->syncRoles($request->user_group);
+    }
 }

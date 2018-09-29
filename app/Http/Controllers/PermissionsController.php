@@ -11,21 +11,11 @@ use Spatie\Permission\Models\Permission;
 class PermissionsController extends Controller
 {
     /**
-     * Returns all permission Roles.
+     * Returns all permissions.
      * @return Illuminate\Database\Eloquent\Collection
      */
     public function index() {
-        return Role::get();
+        return Permission::get();
     }
 
-    /**
-     * Updates a users permission role.
-     * @param User $user
-     * @param Request $request
-     * @return User
-     */
-    public function update(Request $request, $id) {
-        return User::find($id)
-            ->syncRoles($request->user_group);
-    }
 }

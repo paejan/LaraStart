@@ -1,66 +1,17 @@
 <template>
     <div class="users container">
-        <notifications group="notifications" position="bottom right" :speed="2000"/>
-        <div class="row">
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1">
-                        <i class="fa fa-user-slash"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            Users without Roles
-                            <i @click="getNewUserCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingNewUserCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ newUserCount.toLocaleString('en') }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <!-- fix for small devices only -->
-            <div class="clearfix hidden-md-up"></div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="info-box mb-3">
-                    <span class="info-box-icon bg-warning elevation-1">
-                        <i class="fa fa-user-check"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            Currently Online
-                            <i @click="getUsersOnlineCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingUsersOnlineCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ usersOnlineCount }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h3 class="m-0 text-dark">
-                    Users
-                </h3>
-            </div>
-        </div>
+        <notifications group="permissions" position="bottom right" :speed="2000"/>
 
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title col-3">
+                        <h3 class="card-title col-6">
+                            Roles
                             <div class="input-group">
-                                <input type="text" class="form-control" v-model="tableData.search" @input="getUsers()" placeholder="Search Users .." aria-label="Search Users" aria-describedby="userSearch">
+                                <input type="text" class="form-control" v-model="tableData.search" @input="getUsers()" placeholder="Search Roles .." aria-label="Search Roles" aria-describedby="roleSearch">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text" id="userSearch"><i class="fa fa-search"></i></div>
+                                    <div class="input-group-text" id="groupSearch"><i class="fa fa-search"></i></div>
                                 </div>
                                 <div class="input-group-prepend">
                                     <div v-if="loadingUsers" class="input-group-text" id="userSearch"><i class="fa fa-sync fa-spin"></i></div>
@@ -70,7 +21,7 @@
                         </h3>
                         <div class="card-tools">
                             <router-link :to="{ name : 'new_user' }">
-                                <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New User </button>
+                                <button type="button" class="btn btn-primary btn-lg"> <i class="fa fa-user-plus"></i> New Role </button>
                             </router-link>
                         </div>
                     </div>
@@ -81,15 +32,12 @@
                                 <td>Loading ... </td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
                             </tr>
                             </tbody>
                             <tbody v-else>
                             <tr v-for="user in users" :key="user.id">
                                 <td><img :src="user.profile_photo" class="img-circle" style="height: 4rem; width: 4rem; margin-right: 10px;"> {{user.name}}</td>
                                 <td>{{user.email}}</td>
-                                <td v-if="user.roles[0]">{{user.roles[0].name}}</td>
-                                <td v-else>None (User Disabled)</td>
                                 <td>
                                     <router-link :to="{ name : 'edit_user', params : { id : user.id } }">
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit User</button>
@@ -133,27 +81,31 @@
     import Datatable from "../DataTable.vue";
     import Pagination from "../Pagination.vue";
     import Modal from "../Modal.vue";
+    import UserCount from "../Users/components/TotalUsers.vue";
+    import NewUserCount from "../Users/components/NewUsers.vue";
+    import ActiveUserCount from "../Users/components/ActiveUsers.vue";
+    import OnlineUserCount from "../Users/components/OnlineUsers.vue";
+
     export default {
         components: {
             datatable: Datatable,
             pagination: Pagination,
-            modal: Modal
+            modal: Modal,
+            'user-count': UserCount,
+            'new-users': NewUserCount,
+            'active-users': ActiveUserCount,
+            'online-users': OnlineUserCount,
         },
 
         created() {
             this.getUsers();
-            this.getUserCount();
-            this.getNewUserCount();
-            this.getActiveUserCount();
-            this.getUsersOnlineCount();
         },
 
         data() {
             let sortOrders = {};
             let columns = [
-                { width: "33%", label: "Name", name: "name" },
-                { width: "33%", label: "Email", name: "email" },
-                { width: "33%", label: "Role", name: "roles" },
+                { width: "33%", label: "Role", name: "name" },
+                { width: "33%", label: "Users", name: "users" },
                 { width: "33%", label: "Actions", name: "actions" }
             ];
             columns.forEach(column => {
@@ -166,14 +118,6 @@
                 loadingTable: true,
                 loadingDeleteUser: false,
                 loadingUsers: true,
-                userCount: 0,
-                loadingUserCount: true,
-                newUserCount: 0,
-                loadingNewUserCount: true,
-                activeUserCount: 0,
-                loadingActiveUserCount: true,
-                usersOnlineCount: 0,
-                loadingUsersOnlineCount: true,
                 columns: columns,
                 sortKey: "deadline",
                 sortOrders: sortOrders,
@@ -199,7 +143,7 @@
         },
 
         methods: {
-            getUsers(url = "api/users") {
+            getRoles(url = "api/permissions") {
                 this.loadingUsers = true;
                 this.loadingTable = true;
                 this.tableData.draw++;
@@ -220,42 +164,10 @@
             },
             refresh() {
                 this.getUsers();
-                this.getUserCount();
-                this.getNewUserCount();
-                this.getActiveUserCount();
-                this.getUsersOnlineCount();
-            },
-            getUserCount() {
-                this.loadingUserCount = true;
-                axios.get("api/count/users").then(({ data }) => {
-                    this.userCount = data;
-                    this.loadingUserCount = false;
-                });
             },
             getUser(id) {
                 axios.get("api/user/" + id).then(({ data }) => {
                     this.user = data;
-                });
-            },
-            getNewUserCount() {
-                this.loadingNewUserCount = true;
-                axios.get("api/count/users/new").then(({ data }) => {
-                    this.newUserCount = data;
-                    this.loadingNewUserCount = false;
-                });
-            },
-            getActiveUserCount() {
-                this.loadingActiveUserCount = true;
-                axios.get("api/count/users/active").then(({ data }) => {
-                    this.activeUserCount = data;
-                    this.loadingActiveUserCount = false;
-                });
-            },
-            getUsersOnlineCount() {
-                this.loadingUsersOnlineCount = true;
-                axios.get("api/count/users/online").then(({ data }) => {
-                    this.usersOnlineCount = data;
-                    this.loadingUsersOnlineCount = false;
                 });
             },
             deleteUser(user) {

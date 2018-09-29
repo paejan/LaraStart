@@ -55301,7 +55301,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getRoles: function getRoles() {
             var _this2 = this;
 
-            axios.get("/api/permissions").then(function (_ref2) {
+            axios.get("/api/roles").then(function (_ref2) {
                 var data = _ref2.data;
 
                 _this2.roles = data;
@@ -55393,7 +55393,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 role: ""
             };
             console.log(this.user_group);
-            axios.patch("/api/permissions/" + this.$route.params.id, {
+            axios.post("/api/user/update_role/" + this.$route.params.id, {
                 user_group: this.user_group
             }).then(function (response) {
                 // app.$router.push({ path: "/" });
@@ -61145,6 +61145,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue__);
 //
 //
 //
@@ -61224,58 +61232,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
 
 
 
@@ -61284,19 +61245,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
         pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
-        modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a
+        modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a,
+        'user-count': __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default.a,
+        'new-users': __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default.a,
+        'active-users': __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default.a,
+        'online-users': __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue___default.a
     },
 
     created: function created() {
         this.getUsers();
-        this.getUserCount();
-        this.getNewUserCount();
-        this.getActiveUserCount();
-        this.getUsersOnlineCount();
     },
     data: function data() {
         var sortOrders = {};
-        var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "Email", name: "email" }, { width: "33%", label: "Role", name: "roles" }, { width: "33%", label: "Actions", name: "actions" }];
+        var columns = [{ width: "33%", label: "Role", name: "name" }, { width: "33%", label: "Users", name: "users" }, { width: "33%", label: "Actions", name: "actions" }];
         columns.forEach(function (column) {
             sortOrders[column.name] = -1;
         });
@@ -61307,14 +61268,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loadingTable: true,
             loadingDeleteUser: false,
             loadingUsers: true,
-            userCount: 0,
-            loadingUserCount: true,
-            newUserCount: 0,
-            loadingNewUserCount: true,
-            activeUserCount: 0,
-            loadingActiveUserCount: true,
-            usersOnlineCount: 0,
-            loadingUsersOnlineCount: true,
             columns: columns,
             sortKey: "deadline",
             sortOrders: sortOrders,
@@ -61341,10 +61294,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        getUsers: function getUsers() {
+        getRoles: function getRoles() {
             var _this = this;
 
-            var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/users";
+            var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/permissions";
 
             this.loadingUsers = true;
             this.loadingTable = true;
@@ -61363,73 +61316,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         refresh: function refresh() {
             this.getUsers();
-            this.getUserCount();
-            this.getNewUserCount();
-            this.getActiveUserCount();
-            this.getUsersOnlineCount();
-        },
-        getUserCount: function getUserCount() {
-            var _this2 = this;
-
-            this.loadingUserCount = true;
-            axios.get("api/count/users").then(function (_ref) {
-                var data = _ref.data;
-
-                _this2.userCount = data;
-                _this2.loadingUserCount = false;
-            });
         },
         getUser: function getUser(id) {
-            var _this3 = this;
+            var _this2 = this;
 
-            axios.get("api/user/" + id).then(function (_ref2) {
-                var data = _ref2.data;
+            axios.get("api/user/" + id).then(function (_ref) {
+                var data = _ref.data;
 
-                _this3.user = data;
-            });
-        },
-        getNewUserCount: function getNewUserCount() {
-            var _this4 = this;
-
-            this.loadingNewUserCount = true;
-            axios.get("api/count/users/new").then(function (_ref3) {
-                var data = _ref3.data;
-
-                _this4.newUserCount = data;
-                _this4.loadingNewUserCount = false;
-            });
-        },
-        getActiveUserCount: function getActiveUserCount() {
-            var _this5 = this;
-
-            this.loadingActiveUserCount = true;
-            axios.get("api/count/users/active").then(function (_ref4) {
-                var data = _ref4.data;
-
-                _this5.activeUserCount = data;
-                _this5.loadingActiveUserCount = false;
-            });
-        },
-        getUsersOnlineCount: function getUsersOnlineCount() {
-            var _this6 = this;
-
-            this.loadingUsersOnlineCount = true;
-            axios.get("api/count/users/online").then(function (_ref5) {
-                var data = _ref5.data;
-
-                _this6.usersOnlineCount = data;
-                _this6.loadingUsersOnlineCount = false;
+                _this2.user = data;
             });
         },
         deleteUser: function deleteUser(user) {
-            var _this7 = this;
+            var _this3 = this;
 
             this.loadingDeleteUser = true;
             axios.get("api/user/delete/" + user.id).then(function (response) {
-                _this7.loadingDeleteUser = false;
-                _this7.refresh();
-                _this7.showDeleteUserModal = false;
-                _this7.$notify({
+                _this3.loadingDeleteUser = false;
+                _this3.refresh();
+                _this3.showDeleteUserModal = false;
+                _this3.$notify({
                     group: "users",
                     title: "User Successfully Deleted",
                     type: "success",
@@ -61478,88 +61383,17 @@ var render = function() {
     { staticClass: "users container" },
     [
       _c("notifications", {
-        attrs: { group: "notifications", position: "bottom right", speed: 2000 }
+        attrs: { group: "permissions", position: "bottom right", speed: 2000 }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
-          _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "info-box-content" }, [
-              _c("span", { staticClass: "info-box-text" }, [
-                _vm._v(
-                  "\n                        Users without Roles\n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getNewUserCount()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.loadingNewUserCount
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.newUserCount.toLocaleString("en")) +
-                        "\n                    "
-                    )
-                  ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix hidden-md-up" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
-          _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "info-box-content" }, [
-              _c("span", { staticClass: "info-box-text" }, [
-                _vm._v(
-                  "\n                        Currently Online\n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getUsersOnlineCount()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.loadingUsersOnlineCount
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.usersOnlineCount) +
-                        "\n                    "
-                    )
-                  ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "col-6" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
-              _c("h3", { staticClass: "card-title col-3" }, [
+              _c("h3", { staticClass: "card-title col-6" }, [
+                _vm._v(
+                  "\n                        Roles\n                        "
+                ),
                 _c("div", { staticClass: "input-group" }, [
                   _c("input", {
                     directives: [
@@ -61573,9 +61407,9 @@ var render = function() {
                     staticClass: "form-control",
                     attrs: {
                       type: "text",
-                      placeholder: "Search Users ..",
-                      "aria-label": "Search Users",
-                      "aria-describedby": "userSearch"
+                      placeholder: "Search Roles ..",
+                      "aria-label": "Search Roles",
+                      "aria-describedby": "roleSearch"
                     },
                     domProps: { value: _vm.tableData.search },
                     on: {
@@ -61593,7 +61427,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(3),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group-prepend" }, [
                     _vm.loadingUsers
@@ -61635,7 +61469,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-user-plus" }),
-                        _vm._v(" New User ")
+                        _vm._v(" New Role ")
                       ]
                     )
                   ])
@@ -61666,8 +61500,6 @@ var render = function() {
                             _vm._v(" "),
                             _c("td"),
                             _vm._v(" "),
-                            _c("td"),
-                            _vm._v(" "),
                             _c("td")
                           ])
                         ])
@@ -61689,10 +61521,6 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(user.email))]),
-                              _vm._v(" "),
-                              user.roles[0]
-                                ? _c("td", [_vm._v(_vm._s(user.roles[0].name))])
-                                : _c("td", [_vm._v("None (User Disabled)")]),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -61879,38 +61707,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-danger elevation-1" }, [
-      _c("i", { staticClass: "fa fa-user-slash" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
-      _c("i", { staticClass: "fa fa-user-check" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-2" }, [
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("h3", { staticClass: "m-0 text-dark" }, [
-          _vm._v("\n                Users\n            ")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c(
         "div",
-        { staticClass: "input-group-text", attrs: { id: "userSearch" } },
+        { staticClass: "input-group-text", attrs: { id: "groupSearch" } },
         [_c("i", { staticClass: "fa fa-search" })]
       )
     ])

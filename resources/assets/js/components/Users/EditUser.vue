@@ -261,7 +261,7 @@ export default {
             });
         },
         getRoles() {
-            axios.get("/api/permissions")
+            axios.get("/api/roles")
                 .then(({ data }) => {
                     this.roles = data
                     this.loadingSaveRole = false;
@@ -354,7 +354,7 @@ export default {
             };
             console.log(this.user_group);
             axios
-            .patch("/api/permissions/" + this.$route.params.id, {
+            .post("/api/user/update_role/" + this.$route.params.id, {
                 user_group: this.user_group,
             })
             .then(response => {
