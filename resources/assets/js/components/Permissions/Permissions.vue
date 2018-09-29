@@ -2,33 +2,14 @@
     <div class="users container">
         <notifications group="notifications" position="bottom right" :speed="2000"/>
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1">
-                        <i class="fa fa-users"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            Total Users
-                            <i @click="getUserCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingUserCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ userCount.toLocaleString('en') }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-4">
                 <div class="info-box mb-3">
-                    <span class="info-box-icon bg-success elevation-1">
-                        <i class="fa fa-user-plus"></i>
+                    <span class="info-box-icon bg-danger elevation-1">
+                        <i class="fa fa-user-slash"></i>
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-text">
-                            New Users
+                            Users without Roles
                             <i @click="getNewUserCount()" class="fa fa-sync"></i>
                         </span>
                         <span class="info-box-number" v-if="loadingNewUserCount">
@@ -42,27 +23,7 @@
             </div>
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                    <span class="info-box-icon bg-primary elevation-1">
-                        <i class="fa fa-user-check"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            Active Users
-                            <i @click="getActiveUserCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingActiveUserCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ ((activeUserCount / userCount) * 100).toFixed() }}
-                            <small>%</small>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-4">
                 <div class="info-box mb-3">
                     <span class="info-box-icon bg-warning elevation-1">
                         <i class="fa fa-user-check"></i>

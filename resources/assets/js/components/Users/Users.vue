@@ -3,23 +3,7 @@
         <notifications group="users" position="bottom right" :speed="2000"/>
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1">
-                        <i class="fa fa-users"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            Total Users 
-                            <i @click="getUserCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingUserCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ userCount.toLocaleString('en') }}
-                        </span>
-                    </div>
-                </div>
+                <user-count></user-count>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
@@ -172,16 +156,18 @@
 import Datatable from "../DataTable.vue";
 import Pagination from "../Pagination.vue";
 import Modal from "../Modal.vue";
+import UserCount from "../Users/components/TotalUsers.vue";
+
 export default {
-  components: {
-    datatable: Datatable,
-    pagination: Pagination,
-    modal: Modal
-  },
+    components: {
+        datatable: Datatable,
+        pagination: Pagination,
+        modal: Modal,
+        'user-count': UserCount
+    },
 
   created() {
     this.getUsers();
-    this.getUserCount();
     this.getNewUserCount();
     this.getActiveUserCount();
     this.getUsersOnlineCount();
@@ -205,10 +191,6 @@ export default {
       loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
-      userCount: 0,
-      loadingUserCount: true,
-      newUserCount: 0,
-      loadingNewUserCount: true,
       activeUserCount: 0,
       loadingActiveUserCount: true,
       usersOnlineCount: 0,
@@ -259,17 +241,9 @@ export default {
     },
     refresh() {
       this.getUsers();
-      this.getUserCount();
       this.getNewUserCount();
       this.getActiveUserCount();
       this.getUsersOnlineCount();
-    },
-    getUserCount() {
-      this.loadingUserCount = true;
-      axios.get("api/count/users").then(({ data }) => {
-        this.userCount = data;
-        this.loadingUserCount = false;
-      });
     },
     getUser(id) {
       axios.get("api/user/" + id).then(({ data }) => {

@@ -53895,6 +53895,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__);
 //
 //
 //
@@ -54049,22 +54051,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 
@@ -54073,12 +54061,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
     pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
-    modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a
+    modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a,
+    'user-count': __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default.a
   },
 
   created: function created() {
     this.getUsers();
-    this.getUserCount();
     this.getNewUserCount();
     this.getActiveUserCount();
     this.getUsersOnlineCount();
@@ -54096,10 +54084,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
-      userCount: 0,
-      loadingUserCount: true,
-      newUserCount: 0,
-      loadingNewUserCount: true,
       activeUserCount: 0,
       loadingActiveUserCount: true,
       usersOnlineCount: 0,
@@ -54152,73 +54136,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     refresh: function refresh() {
       this.getUsers();
-      this.getUserCount();
       this.getNewUserCount();
       this.getActiveUserCount();
       this.getUsersOnlineCount();
     },
-    getUserCount: function getUserCount() {
+    getUser: function getUser(id) {
       var _this2 = this;
 
-      this.loadingUserCount = true;
-      axios.get("api/count/users").then(function (_ref) {
+      axios.get("api/user/" + id).then(function (_ref) {
         var data = _ref.data;
 
-        _this2.userCount = data;
-        _this2.loadingUserCount = false;
-      });
-    },
-    getUser: function getUser(id) {
-      var _this3 = this;
-
-      axios.get("api/user/" + id).then(function (_ref2) {
-        var data = _ref2.data;
-
-        _this3.user = data;
+        _this2.user = data;
       });
     },
     getNewUserCount: function getNewUserCount() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.loadingNewUserCount = true;
-      axios.get("api/count/users/new").then(function (_ref3) {
-        var data = _ref3.data;
+      axios.get("api/count/users/new").then(function (_ref2) {
+        var data = _ref2.data;
 
-        _this4.newUserCount = data;
-        _this4.loadingNewUserCount = false;
+        _this3.newUserCount = data;
+        _this3.loadingNewUserCount = false;
       });
     },
     getActiveUserCount: function getActiveUserCount() {
-      var _this5 = this;
+      var _this4 = this;
 
       this.loadingActiveUserCount = true;
-      axios.get("api/count/users/active").then(function (_ref4) {
-        var data = _ref4.data;
+      axios.get("api/count/users/active").then(function (_ref3) {
+        var data = _ref3.data;
 
-        _this5.activeUserCount = data;
-        _this5.loadingActiveUserCount = false;
+        _this4.activeUserCount = data;
+        _this4.loadingActiveUserCount = false;
       });
     },
     getUsersOnlineCount: function getUsersOnlineCount() {
-      var _this6 = this;
+      var _this5 = this;
 
       this.loadingUsersOnlineCount = true;
-      axios.get("api/count/users/online").then(function (_ref5) {
-        var data = _ref5.data;
+      axios.get("api/count/users/online").then(function (_ref4) {
+        var data = _ref4.data;
 
-        _this6.usersOnlineCount = data;
-        _this6.loadingUsersOnlineCount = false;
+        _this5.usersOnlineCount = data;
+        _this5.loadingUsersOnlineCount = false;
       });
     },
     deleteUser: function deleteUser(user) {
-      var _this7 = this;
+      var _this6 = this;
 
       this.loadingDeleteUser = true;
       axios.get("api/user/delete/" + user.id).then(function (response) {
-        _this7.loadingDeleteUser = false;
-        _this7.refresh();
-        _this7.showDeleteUserModal = false;
-        _this7.$notify({
+        _this6.loadingDeleteUser = false;
+        _this6.refresh();
+        _this6.showDeleteUserModal = false;
+        _this6.$notify({
           group: "users",
           title: "User Successfully Deleted",
           type: "success",
@@ -54700,43 +54672,16 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-          _c("div", { staticClass: "info-box" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "info-box-content" }, [
-              _c("span", { staticClass: "info-box-text" }, [
-                _vm._v(
-                  "\n                        Total Users \n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getUserCount()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.loadingUserCount
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.userCount.toLocaleString("en")) +
-                        "\n                    "
-                    )
-                  ])
-            ])
-          ])
-        ]),
+        _c(
+          "div",
+          { staticClass: "col-12 col-sm-6 col-md-3" },
+          [_c("user-count")],
+          1
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
           _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
@@ -54772,7 +54717,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
           _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
@@ -54812,7 +54757,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
           _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
@@ -54845,7 +54790,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(3),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
@@ -54885,7 +54830,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(5),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group-prepend" }, [
                     _vm.loadingUsers
@@ -55167,14 +55112,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
-      _c("i", { staticClass: "fa fa-users" })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -61530,45 +61467,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -61775,48 +61673,14 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-          _c("div", { staticClass: "info-box" }, [
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
+          _c("div", { staticClass: "info-box mb-3" }, [
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
                 _vm._v(
-                  "\n                        Total Users\n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getUserCount()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.loadingUserCount
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.userCount.toLocaleString("en")) +
-                        "\n                    "
-                    )
-                  ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-          _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "info-box-content" }, [
-              _c("span", { staticClass: "info-box-text" }, [
-                _vm._v(
-                  "\n                        New Users\n                        "
+                  "\n                        Users without Roles\n                        "
                 ),
                 _c("i", {
                   staticClass: "fa fa-sync",
@@ -61845,49 +61709,9 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "clearfix hidden-md-up" }),
         _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-4" }, [
           _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _c("div", { staticClass: "info-box-content" }, [
-              _c("span", { staticClass: "info-box-text" }, [
-                _vm._v(
-                  "\n                        Active Users\n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getActiveUserCount()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.loadingActiveUserCount
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(
-                          (
-                            (_vm.activeUserCount / _vm.userCount) *
-                            100
-                          ).toFixed()
-                        ) +
-                        "\n                        "
-                    ),
-                    _c("small", [_vm._v("%")])
-                  ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-          _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(3),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
@@ -61920,7 +61744,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(2),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
@@ -61960,7 +61784,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(5),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group-prepend" }, [
                     _vm.loadingUsers
@@ -62246,24 +62070,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
-      _c("i", { staticClass: "fa fa-users" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
-      _c("i", { staticClass: "fa fa-user-plus" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
-      _c("i", { staticClass: "fa fa-user-check" })
+    return _c("span", { staticClass: "info-box-icon bg-danger elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-slash" })
     ])
   },
   function() {
@@ -62305,6 +62113,167 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-326decf2", module.exports)
+  }
+}
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(247)
+/* template */
+var __vue_template__ = __webpack_require__(248)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Users/components/TotalUsers.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cb36c0a2", Component.options)
+  } else {
+    hotAPI.reload("data-v-cb36c0a2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 247 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        // console.log('Component mounted.')
+    },
+    created: function created() {
+        this.getUserCount();
+    },
+    data: function data() {
+        return {
+            userCount: 0,
+            loadingUserCount: true
+        };
+    },
+
+
+    methods: {
+        getUserCount: function getUserCount() {
+            var _this = this;
+
+            this.loadingUserCount = true;
+            axios.get("api/count/users").then(function (_ref) {
+                var data = _ref.data;
+
+                _this.userCount = data;
+                _this.loadingUserCount = false;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "info-box" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "info-box-content" }, [
+      _c("span", { staticClass: "info-box-text" }, [
+        _vm._v("\n            Total Users\n            "),
+        _c("i", {
+          staticClass: "fa fa-sync",
+          on: {
+            click: function($event) {
+              _vm.getUserCount()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm.loadingUserCount
+        ? _c("span", { staticClass: "info-box-number" }, [
+            _c("i", { staticClass: "fa fa-spinner fa-spin" })
+          ])
+        : _c("span", { staticClass: "info-box-number" }, [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.userCount.toLocaleString("en")) +
+                "\n        "
+            )
+          ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
+      _c("i", { staticClass: "fa fa-users" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-cb36c0a2", module.exports)
   }
 }
 
