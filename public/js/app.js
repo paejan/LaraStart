@@ -53901,6 +53901,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue__);
 //
 //
 //
@@ -54006,22 +54008,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -54037,12 +54024,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a,
     'user-count': __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default.a,
     'new-users': __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default.a,
-    'active-users': __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default.a
+    'active-users': __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default.a,
+    'online-users': __WEBPACK_IMPORTED_MODULE_6__Users_components_OnlineUsers_vue___default.a
   },
 
   created: function created() {
     this.getUsers();
-    this.getUsersOnlineCount();
   },
   data: function data() {
     var sortOrders = {};
@@ -54057,8 +54044,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
-      usersOnlineCount: 0,
-      loadingUsersOnlineCount: true,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -54107,7 +54092,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     refresh: function refresh() {
       this.getUsers();
-      this.getUsersOnlineCount();
     },
     getUser: function getUser(id) {
       var _this2 = this;
@@ -54118,26 +54102,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.user = data;
       });
     },
-    getUsersOnlineCount: function getUsersOnlineCount() {
-      var _this3 = this;
-
-      this.loadingUsersOnlineCount = true;
-      axios.get("api/count/users/online").then(function (_ref2) {
-        var data = _ref2.data;
-
-        _this3.usersOnlineCount = data;
-        _this3.loadingUsersOnlineCount = false;
-      });
-    },
     deleteUser: function deleteUser(user) {
-      var _this4 = this;
+      var _this3 = this;
 
       this.loadingDeleteUser = true;
       axios.get("api/user/delete/" + user.id).then(function (response) {
-        _this4.loadingDeleteUser = false;
-        _this4.refresh();
-        _this4.showDeleteUserModal = false;
-        _this4.$notify({
+        _this3.loadingDeleteUser = false;
+        _this3.refresh();
+        _this3.showDeleteUserModal = false;
+        _this3.$notify({
           group: "users",
           title: "User Successfully Deleted",
           type: "success",
@@ -54642,42 +54615,15 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-          _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "info-box-content" }, [
-              _c("span", { staticClass: "info-box-text" }, [
-                _vm._v(
-                  "\n                        Currently Online \n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getUsersOnlineCount()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.loadingUsersOnlineCount
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.usersOnlineCount) +
-                        "\n                    "
-                    )
-                  ])
-            ])
-          ])
-        ])
+        _c(
+          "div",
+          { staticClass: "col-12 col-sm-6 col-md-3" },
+          [_c("online-users")],
+          1
+        )
       ]),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
@@ -54717,7 +54663,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group-prepend" }, [
                     _vm.loadingUsers
@@ -54999,14 +54945,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
-      _c("i", { staticClass: "fa fa-user-check" })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -62482,6 +62420,163 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-642570a7", module.exports)
+  }
+}
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(256)
+/* template */
+var __vue_template__ = __webpack_require__(257)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Users/components/OnlineUsers.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3121c00c", Component.options)
+  } else {
+    hotAPI.reload("data-v-3121c00c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 256 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        // console.log('Component mounted.')
+    },
+    created: function created() {
+        this.getOnlineUsersCount();
+    },
+    data: function data() {
+        return {
+            onlineUsers: 0,
+            loadingUsersOnlineCount: true
+        };
+    },
+
+
+    methods: {
+        getOnlineUsersCount: function getOnlineUsersCount() {
+            var _this = this;
+
+            this.loadingUsersOnlineCount = true;
+            axios.get("api/count/users/online").then(function (_ref) {
+                var data = _ref.data;
+
+                _this.onlineUsers = data;
+                _this.loadingUsersOnlineCount = false;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "info-box mb-3" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "info-box-content" }, [
+      _c("span", { staticClass: "info-box-text" }, [
+        _vm._v("\n            Currently Online\n            "),
+        _c("i", {
+          staticClass: "fa fa-sync",
+          on: {
+            click: function($event) {
+              _vm.getOnlineUsersCount()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm.loadingUsersOnlineCount
+        ? _c("span", { staticClass: "info-box-number" }, [
+            _c("i", { staticClass: "fa fa-spinner fa-spin" })
+          ])
+        : _c("span", { staticClass: "info-box-number" }, [
+            _vm._v("\n            " + _vm._s(_vm.onlineUsers) + "\n        ")
+          ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-check" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3121c00c", module.exports)
   }
 }
 

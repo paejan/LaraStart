@@ -14,23 +14,7 @@
                 <active-users></active-users>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                    <span class="info-box-icon bg-warning elevation-1">
-                        <i class="fa fa-user-check"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            Currently Online 
-                            <i @click="getUsersOnlineCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingUsersOnlineCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ usersOnlineCount }}
-                        </span>
-                    </div>
-                </div>
+                <online-users></online-users>
             </div>
         </div>
 
@@ -126,6 +110,7 @@ import Modal from "../Modal.vue";
 import UserCount from "../Users/components/TotalUsers.vue";
 import NewUserCount from "../Users/components/NewUsers.vue";
 import ActiveUserCount from "../Users/components/ActiveUsers.vue";
+import OnlineUserCount from "../Users/components/OnlineUsers.vue";
 
 export default {
     components: {
@@ -135,11 +120,11 @@ export default {
         'user-count': UserCount,
         'new-users': NewUserCount,
         'active-users': ActiveUserCount,
+        'online-users': OnlineUserCount,
     },
 
   created() {
     this.getUsers();
-    this.getUsersOnlineCount();
   },
 
   data() {
@@ -160,8 +145,6 @@ export default {
       loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
-      usersOnlineCount: 0,
-      loadingUsersOnlineCount: true,
       columns: columns,
       sortKey: "deadline",
       sortOrders: sortOrders,
@@ -208,18 +191,10 @@ export default {
     },
     refresh() {
       this.getUsers();
-      this.getUsersOnlineCount();
     },
     getUser(id) {
       axios.get("api/user/" + id).then(({ data }) => {
         this.user = data;
-      });
-    },
-    getUsersOnlineCount() {
-      this.loadingUsersOnlineCount = true;
-      axios.get("api/count/users/online").then(({ data }) => {
-        this.usersOnlineCount = data;
-        this.loadingUsersOnlineCount = false;
       });
     },
     deleteUser(user) {
