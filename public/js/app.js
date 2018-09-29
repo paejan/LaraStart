@@ -61467,7 +61467,7 @@ var render = function() {
                             return _c("tr", { key: role.id }, [
                               _c("td", [_vm._v(_vm._s(role.name))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v("0")]),
+                              _c("td", [_vm._v(_vm._s(role.users.length))]),
                               _vm._v(" "),
                               _c(
                                 "td",

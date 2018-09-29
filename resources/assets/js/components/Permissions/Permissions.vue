@@ -37,7 +37,7 @@
                             <tbody v-else>
                             <tr v-for="role in roles" :key="role.id">
                                 <td>{{role.name}}</td>
-                                <td>0</td>
+                                <td>{{role.users.length}}</td>
                                 <td>
                                     <router-link :to="{ name : 'edit_role', params : { id : role.id } }">
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit Role</button>
