@@ -6,23 +6,7 @@
                 <user-count></user-count>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                    <span class="info-box-icon bg-success elevation-1">
-                        <i class="fa fa-user-plus"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            New Users 
-                            <i @click="getNewUserCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingNewUserCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ newUserCount.toLocaleString('en') }}
-                        </span>
-                    </div>
-                </div>
+                <new-users></new-users>
             </div>
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
@@ -157,18 +141,19 @@ import Datatable from "../DataTable.vue";
 import Pagination from "../Pagination.vue";
 import Modal from "../Modal.vue";
 import UserCount from "../Users/components/TotalUsers.vue";
+import NewUserCount from "../Users/components/NewUsers.vue";
 
 export default {
     components: {
         datatable: Datatable,
         pagination: Pagination,
         modal: Modal,
-        'user-count': UserCount
+        'user-count': UserCount,
+        'new-users': NewUserCount,
     },
 
   created() {
     this.getUsers();
-    this.getNewUserCount();
     this.getActiveUserCount();
     this.getUsersOnlineCount();
   },
@@ -241,20 +226,12 @@ export default {
     },
     refresh() {
       this.getUsers();
-      this.getNewUserCount();
       this.getActiveUserCount();
       this.getUsersOnlineCount();
     },
     getUser(id) {
       axios.get("api/user/" + id).then(({ data }) => {
         this.user = data;
-      });
-    },
-    getNewUserCount() {
-      this.loadingNewUserCount = true;
-      axios.get("api/count/users/new").then(({ data }) => {
-        this.newUserCount = data;
-        this.loadingNewUserCount = false;
       });
     },
     getActiveUserCount() {
