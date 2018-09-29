@@ -53899,6 +53899,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue__);
 //
 //
 //
@@ -54020,23 +54022,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -54050,12 +54036,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
     modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a,
     'user-count': __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default.a,
-    'new-users': __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default.a
+    'new-users': __WEBPACK_IMPORTED_MODULE_4__Users_components_NewUsers_vue___default.a,
+    'active-users': __WEBPACK_IMPORTED_MODULE_5__Users_components_ActiveUsers_vue___default.a
   },
 
   created: function created() {
     this.getUsers();
-    this.getActiveUserCount();
     this.getUsersOnlineCount();
   },
   data: function data() {
@@ -54071,8 +54057,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
-      activeUserCount: 0,
-      loadingActiveUserCount: true,
       usersOnlineCount: 0,
       loadingUsersOnlineCount: true,
       columns: columns,
@@ -54123,7 +54107,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     refresh: function refresh() {
       this.getUsers();
-      this.getActiveUserCount();
       this.getUsersOnlineCount();
     },
     getUser: function getUser(id) {
@@ -54135,37 +54118,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.user = data;
       });
     },
-    getActiveUserCount: function getActiveUserCount() {
+    getUsersOnlineCount: function getUsersOnlineCount() {
       var _this3 = this;
 
-      this.loadingActiveUserCount = true;
-      axios.get("api/count/users/active").then(function (_ref2) {
+      this.loadingUsersOnlineCount = true;
+      axios.get("api/count/users/online").then(function (_ref2) {
         var data = _ref2.data;
 
-        _this3.activeUserCount = data;
-        _this3.loadingActiveUserCount = false;
-      });
-    },
-    getUsersOnlineCount: function getUsersOnlineCount() {
-      var _this4 = this;
-
-      this.loadingUsersOnlineCount = true;
-      axios.get("api/count/users/online").then(function (_ref3) {
-        var data = _ref3.data;
-
-        _this4.usersOnlineCount = data;
-        _this4.loadingUsersOnlineCount = false;
+        _this3.usersOnlineCount = data;
+        _this3.loadingUsersOnlineCount = false;
       });
     },
     deleteUser: function deleteUser(user) {
-      var _this5 = this;
+      var _this4 = this;
 
       this.loadingDeleteUser = true;
       axios.get("api/user/delete/" + user.id).then(function (response) {
-        _this5.loadingDeleteUser = false;
-        _this5.refresh();
-        _this5.showDeleteUserModal = false;
-        _this5.$notify({
+        _this4.loadingDeleteUser = false;
+        _this4.refresh();
+        _this4.showDeleteUserModal = false;
+        _this4.$notify({
           group: "users",
           title: "User Successfully Deleted",
           type: "success",
@@ -54663,49 +54635,16 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "clearfix hidden-md-up" }),
         _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-          _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "info-box-content" }, [
-              _c("span", { staticClass: "info-box-text" }, [
-                _vm._v(
-                  "\n                        Active Users \n                        "
-                ),
-                _c("i", {
-                  staticClass: "fa fa-sync",
-                  on: {
-                    click: function($event) {
-                      _vm.getActiveUserCount()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.loadingActiveUserCount
-                ? _c("span", { staticClass: "info-box-number" }, [
-                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
-                  ])
-                : _c("span", { staticClass: "info-box-number" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(
-                          (
-                            (_vm.activeUserCount / _vm.userCount) *
-                            100
-                          ).toFixed()
-                        ) +
-                        "\n                        "
-                    ),
-                    _c("small", [_vm._v("%")])
-                  ])
-            ])
-          ])
-        ]),
+        _c(
+          "div",
+          { staticClass: "col-12 col-sm-6 col-md-3" },
+          [_c("active-users")],
+          1
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
           _c("div", { staticClass: "info-box mb-3" }, [
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "info-box-content" }, [
               _c("span", { staticClass: "info-box-text" }, [
@@ -54738,7 +54677,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(2),
+      _vm._m(1),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
@@ -54778,7 +54717,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(3),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group-prepend" }, [
                     _vm.loadingUsers
@@ -55060,14 +54999,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
-      _c("i", { staticClass: "fa fa-user-check" })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -62375,6 +62306,182 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-29501993", module.exports)
+  }
+}
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(253)
+/* template */
+var __vue_template__ = __webpack_require__(254)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Users/components/ActiveUsers.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-642570a7", Component.options)
+  } else {
+    hotAPI.reload("data-v-642570a7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 253 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        // console.log('Component mounted.')
+    },
+    created: function created() {
+        this.getActiveUserCount();
+        this.getUserCount();
+    },
+    data: function data() {
+        return {
+            activeUserCount: 0,
+            userCount: 0,
+            loadingActiveUserCount: true
+        };
+    },
+
+
+    methods: {
+        getUserCount: function getUserCount() {
+            var _this = this;
+
+            axios.get("api/count/users").then(function (_ref) {
+                var data = _ref.data;
+
+                _this.userCount = data;
+            });
+        },
+        getActiveUserCount: function getActiveUserCount() {
+            var _this2 = this;
+
+            this.loadingActiveUserCount = true;
+            axios.get("api/count/users/active").then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this2.activeUserCount = data;
+                _this2.loadingActiveUserCount = false;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "info-box mb-3" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "info-box-content" }, [
+      _c("span", { staticClass: "info-box-text" }, [
+        _vm._v("\n            Active Users\n            "),
+        _c("i", {
+          staticClass: "fa fa-sync",
+          on: {
+            click: function($event) {
+              _vm.getActiveUserCount()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm.loadingActiveUserCount
+        ? _c("span", { staticClass: "info-box-number" }, [
+            _c("i", { staticClass: "fa fa-spinner fa-spin" })
+          ])
+        : _c("span", { staticClass: "info-box-number" }, [
+            _vm._v(
+              "\n            " +
+                _vm._s(
+                  ((_vm.activeUserCount / _vm.userCount) * 100).toFixed()
+                ) +
+                "\n            "
+            ),
+            _c("small", [_vm._v("%")])
+          ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-check" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-642570a7", module.exports)
   }
 }
 

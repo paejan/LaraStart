@@ -11,24 +11,7 @@
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
             <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                    <span class="info-box-icon bg-primary elevation-1">
-                        <i class="fa fa-user-check"></i>
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">
-                            Active Users 
-                            <i @click="getActiveUserCount()" class="fa fa-sync"></i>
-                        </span>
-                        <span class="info-box-number" v-if="loadingActiveUserCount">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
-                        <span class="info-box-number" v-else>
-                            {{ ((activeUserCount / userCount) * 100).toFixed() }}
-                            <small>%</small>
-                        </span>
-                    </div>
-                </div>
+                <active-users></active-users>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
@@ -142,6 +125,7 @@ import Pagination from "../Pagination.vue";
 import Modal from "../Modal.vue";
 import UserCount from "../Users/components/TotalUsers.vue";
 import NewUserCount from "../Users/components/NewUsers.vue";
+import ActiveUserCount from "../Users/components/ActiveUsers.vue";
 
 export default {
     components: {
@@ -150,11 +134,11 @@ export default {
         modal: Modal,
         'user-count': UserCount,
         'new-users': NewUserCount,
+        'active-users': ActiveUserCount,
     },
 
   created() {
     this.getUsers();
-    this.getActiveUserCount();
     this.getUsersOnlineCount();
   },
 
@@ -176,8 +160,6 @@ export default {
       loadingTable: true,
       loadingDeleteUser: false,
       loadingUsers: true,
-      activeUserCount: 0,
-      loadingActiveUserCount: true,
       usersOnlineCount: 0,
       loadingUsersOnlineCount: true,
       columns: columns,
@@ -226,19 +208,11 @@ export default {
     },
     refresh() {
       this.getUsers();
-      this.getActiveUserCount();
       this.getUsersOnlineCount();
     },
     getUser(id) {
       axios.get("api/user/" + id).then(({ data }) => {
         this.user = data;
-      });
-    },
-    getActiveUserCount() {
-      this.loadingActiveUserCount = true;
-      axios.get("api/count/users/active").then(({ data }) => {
-        this.activeUserCount = data;
-        this.loadingActiveUserCount = false;
       });
     },
     getUsersOnlineCount() {
