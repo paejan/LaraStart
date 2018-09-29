@@ -28633,7 +28633,7 @@ window.Vue = __webpack_require__(29);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(100) }, { name: 'profile', path: '/profile', component: __webpack_require__(103) }, { name: 'all_users', path: '/users', component: __webpack_require__(106) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(118) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(223) }];
+var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(100) }, { name: 'profile', path: '/profile', component: __webpack_require__(103) }, { name: 'all_users', path: '/users', component: __webpack_require__(106) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(118) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(223) }, { name: 'all_permissions', path: '/permissions', component: __webpack_require__(243) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
@@ -61323,6 +61323,990 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(244)
+/* template */
+var __vue_template__ = __webpack_require__(245)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Permissions/Permissions.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-326decf2", Component.options)
+  } else {
+    hotAPI.reload("data-v-326decf2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 244 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DataTable_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        datatable: __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default.a,
+        pagination: __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default.a,
+        modal: __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default.a
+    },
+
+    created: function created() {
+        this.getUsers();
+        this.getUserCount();
+        this.getNewUserCount();
+        this.getActiveUserCount();
+        this.getUsersOnlineCount();
+    },
+    data: function data() {
+        var sortOrders = {};
+        var columns = [{ width: "33%", label: "Name", name: "name" }, { width: "33%", label: "Email", name: "email" }, { width: "33%", label: "Role", name: "roles" }, { width: "33%", label: "Actions", name: "actions" }];
+        columns.forEach(function (column) {
+            sortOrders[column.name] = -1;
+        });
+        return {
+            showDeleteUserModal: false,
+            user: [],
+            users: [],
+            loadingTable: true,
+            loadingDeleteUser: false,
+            loadingUsers: true,
+            userCount: 0,
+            loadingUserCount: true,
+            newUserCount: 0,
+            loadingNewUserCount: true,
+            activeUserCount: 0,
+            loadingActiveUserCount: true,
+            usersOnlineCount: 0,
+            loadingUsersOnlineCount: true,
+            columns: columns,
+            sortKey: "deadline",
+            sortOrders: sortOrders,
+            perPage: ["10", "20", "30"],
+            tableData: {
+                draw: 0,
+                length: 10,
+                search: "",
+                column: 0,
+                dir: "asc"
+            },
+            pagination: {
+                lastPage: "",
+                currentPage: "",
+                total: "",
+                lastPageUrl: "",
+                nextPageUrl: "",
+                prevPageUrl: "",
+                from: "",
+                to: ""
+            }
+        };
+    },
+
+
+    methods: {
+        getUsers: function getUsers() {
+            var _this = this;
+
+            var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "api/users";
+
+            this.loadingUsers = true;
+            this.loadingTable = true;
+            this.tableData.draw++;
+            axios.get(url, { params: this.tableData }).then(function (response) {
+                var data = response.data;
+                if (_this.tableData.draw == data.draw) {
+                    _this.users = data.data.data;
+                    _this.configPagination(data.data);
+                    _this.loadingUsers = false;
+                    _this.loadingTable = false;
+                }
+            }).catch(function (errors) {
+                console.log(errors);
+            });
+        },
+        refresh: function refresh() {
+            this.getUsers();
+            this.getUserCount();
+            this.getNewUserCount();
+            this.getActiveUserCount();
+            this.getUsersOnlineCount();
+        },
+        getUserCount: function getUserCount() {
+            var _this2 = this;
+
+            this.loadingUserCount = true;
+            axios.get("api/count/users").then(function (_ref) {
+                var data = _ref.data;
+
+                _this2.userCount = data;
+                _this2.loadingUserCount = false;
+            });
+        },
+        getUser: function getUser(id) {
+            var _this3 = this;
+
+            axios.get("api/user/" + id).then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this3.user = data;
+            });
+        },
+        getNewUserCount: function getNewUserCount() {
+            var _this4 = this;
+
+            this.loadingNewUserCount = true;
+            axios.get("api/count/users/new").then(function (_ref3) {
+                var data = _ref3.data;
+
+                _this4.newUserCount = data;
+                _this4.loadingNewUserCount = false;
+            });
+        },
+        getActiveUserCount: function getActiveUserCount() {
+            var _this5 = this;
+
+            this.loadingActiveUserCount = true;
+            axios.get("api/count/users/active").then(function (_ref4) {
+                var data = _ref4.data;
+
+                _this5.activeUserCount = data;
+                _this5.loadingActiveUserCount = false;
+            });
+        },
+        getUsersOnlineCount: function getUsersOnlineCount() {
+            var _this6 = this;
+
+            this.loadingUsersOnlineCount = true;
+            axios.get("api/count/users/online").then(function (_ref5) {
+                var data = _ref5.data;
+
+                _this6.usersOnlineCount = data;
+                _this6.loadingUsersOnlineCount = false;
+            });
+        },
+        deleteUser: function deleteUser(user) {
+            var _this7 = this;
+
+            this.loadingDeleteUser = true;
+            axios.get("api/user/delete/" + user.id).then(function (response) {
+                _this7.loadingDeleteUser = false;
+                _this7.refresh();
+                _this7.showDeleteUserModal = false;
+                _this7.$notify({
+                    group: "users",
+                    title: "User Successfully Deleted",
+                    type: "success",
+                    text: user.name + " was successfully deleted."
+                });
+            }).catch(function (errors) {
+                console.log(errors);
+            });
+        },
+        configPagination: function configPagination(data) {
+            this.pagination.lastPage = data.last_page;
+            this.pagination.currentPage = data.current_page;
+            this.pagination.total = data.total;
+            this.pagination.lastPageUrl = data.last_page_url;
+            this.pagination.nextPageUrl = data.next_page_url;
+            this.pagination.prevPageUrl = data.prev_page_url;
+            this.pagination.from = data.from;
+            this.pagination.to = data.to;
+        },
+        sortBy: function sortBy(key) {
+            this.sortKey = key;
+            this.sortOrders[key] = this.sortOrders[key] * -1;
+            this.tableData.column = this.getIndex(this.columns, "name", key);
+            this.tableData.dir = this.sortOrders[key] === 1 ? "asc" : "desc";
+            this.getUsers();
+            this.loadingUsers = false;
+        },
+        getIndex: function getIndex(array, key, value) {
+            return array.findIndex(function (i) {
+                return i[key] == value;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "users container" },
+    [
+      _c("notifications", {
+        attrs: { group: "notifications", position: "bottom right", speed: 2000 }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+          _c("div", { staticClass: "info-box" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "info-box-content" }, [
+              _c("span", { staticClass: "info-box-text" }, [
+                _vm._v(
+                  "\n                        Total Users\n                        "
+                ),
+                _c("i", {
+                  staticClass: "fa fa-sync",
+                  on: {
+                    click: function($event) {
+                      _vm.getUserCount()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _vm.loadingUserCount
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
+                : _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.userCount.toLocaleString("en")) +
+                        "\n                    "
+                    )
+                  ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+          _c("div", { staticClass: "info-box mb-3" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "info-box-content" }, [
+              _c("span", { staticClass: "info-box-text" }, [
+                _vm._v(
+                  "\n                        New Users\n                        "
+                ),
+                _c("i", {
+                  staticClass: "fa fa-sync",
+                  on: {
+                    click: function($event) {
+                      _vm.getNewUserCount()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _vm.loadingNewUserCount
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
+                : _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.newUserCount.toLocaleString("en")) +
+                        "\n                    "
+                    )
+                  ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "clearfix hidden-md-up" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+          _c("div", { staticClass: "info-box mb-3" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "info-box-content" }, [
+              _c("span", { staticClass: "info-box-text" }, [
+                _vm._v(
+                  "\n                        Active Users\n                        "
+                ),
+                _c("i", {
+                  staticClass: "fa fa-sync",
+                  on: {
+                    click: function($event) {
+                      _vm.getActiveUserCount()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _vm.loadingActiveUserCount
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
+                : _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(
+                          (
+                            (_vm.activeUserCount / _vm.userCount) *
+                            100
+                          ).toFixed()
+                        ) +
+                        "\n                        "
+                    ),
+                    _c("small", [_vm._v("%")])
+                  ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+          _c("div", { staticClass: "info-box mb-3" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "info-box-content" }, [
+              _c("span", { staticClass: "info-box-text" }, [
+                _vm._v(
+                  "\n                        Currently Online\n                        "
+                ),
+                _c("i", {
+                  staticClass: "fa fa-sync",
+                  on: {
+                    click: function($event) {
+                      _vm.getUsersOnlineCount()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _vm.loadingUsersOnlineCount
+                ? _c("span", { staticClass: "info-box-number" }, [
+                    _c("i", { staticClass: "fa fa-spinner fa-spin" })
+                  ])
+                : _c("span", { staticClass: "info-box-number" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.usersOnlineCount) +
+                        "\n                    "
+                    )
+                  ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(4),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("h3", { staticClass: "card-title col-3" }, [
+                _c("div", { staticClass: "input-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.tableData.search,
+                        expression: "tableData.search"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Search Users ..",
+                      "aria-label": "Search Users",
+                      "aria-describedby": "userSearch"
+                    },
+                    domProps: { value: _vm.tableData.search },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.tableData, "search", $event.target.value)
+                        },
+                        function($event) {
+                          _vm.getUsers()
+                        }
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-prepend" }, [
+                    _vm.loadingUsers
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "input-group-text",
+                            attrs: { id: "userSearch" }
+                          },
+                          [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                        )
+                      : _c(
+                          "div",
+                          {
+                            staticClass: "input-group-text",
+                            attrs: { id: "userSearch" },
+                            on: {
+                              click: function($event) {
+                                _vm.getUsers()
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-sync" })]
+                        )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card-tools" },
+                [
+                  _c("router-link", { attrs: { to: { name: "new_user" } } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-lg",
+                        attrs: { type: "button" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-user-plus" }),
+                        _vm._v(" New User ")
+                      ]
+                    )
+                  ])
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-body table-responsive p-0" },
+              [
+                _c(
+                  "datatable",
+                  {
+                    attrs: {
+                      columns: _vm.columns,
+                      sortKey: _vm.sortKey,
+                      sortOrders: _vm.sortOrders
+                    },
+                    on: { sort: _vm.sortBy }
+                  },
+                  [
+                    _vm.loadingTable
+                      ? _c("tbody", [
+                          _c("tr", [
+                            _c("td", [_vm._v("Loading ... ")]),
+                            _vm._v(" "),
+                            _c("td"),
+                            _vm._v(" "),
+                            _c("td"),
+                            _vm._v(" "),
+                            _c("td")
+                          ])
+                        ])
+                      : _c(
+                          "tbody",
+                          _vm._l(_vm.users, function(user) {
+                            return _c("tr", { key: user.id }, [
+                              _c("td", [
+                                _c("img", {
+                                  staticClass: "img-circle",
+                                  staticStyle: {
+                                    height: "4rem",
+                                    width: "4rem",
+                                    "margin-right": "10px"
+                                  },
+                                  attrs: { src: user.profile_photo }
+                                }),
+                                _vm._v(" " + _vm._s(user.name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(user.email))]),
+                              _vm._v(" "),
+                              user.roles[0]
+                                ? _c("td", [_vm._v(_vm._s(user.roles[0].name))])
+                                : _c("td", [_vm._v("None (User Disabled)")]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          name: "edit_user",
+                                          params: { id: user.id }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-outline-primary btn-sm",
+                                          attrs: { type: "button" }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-user-edit"
+                                          }),
+                                          _vm._v(" Edit User")
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-outline-success btn-sm",
+                                      attrs: { type: "button" }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fa fa-unlock" }),
+                                      _vm._v(" Reset Password")
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-outline-danger btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.getUser(user.id)
+                                          _vm.showDeleteUserModal = true
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-trash-alt"
+                                      }),
+                                      _vm._v(" Delete User")
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          })
+                        )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-footer" },
+              [
+                _c("pagination", {
+                  attrs: { pagination: _vm.pagination },
+                  on: {
+                    prev: function($event) {
+                      _vm.getUsers(_vm.pagination.prevPageUrl)
+                    },
+                    next: function($event) {
+                      _vm.getUsers(_vm.pagination.nextPageUrl)
+                    }
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.showDeleteUserModal
+        ? _c(
+            "modal",
+            [
+              _c("template", { slot: "modal-title" }, [
+                _vm._v("Deleting: " + _vm._s(_vm.user.name))
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-close" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteUserModal = false
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-body" }, [
+                _vm._v(
+                  "Are you sure you want to delete " +
+                    _vm._s(_vm.user.name) +
+                    "?"
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteUserModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _vm.loadingDeleteUser
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { disabled: "", type: "button" }
+                      },
+                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteUser(_vm.user)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete User")]
+                    )
+              ])
+            ],
+            2
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
+      _c("i", { staticClass: "fa fa-users" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-plus" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-check" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
+      _c("i", { staticClass: "fa fa-user-check" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-2" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("h3", { staticClass: "m-0 text-dark" }, [
+          _vm._v("\n                Users\n            ")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "div",
+        { staticClass: "input-group-text", attrs: { id: "userSearch" } },
+        [_c("i", { staticClass: "fa fa-search" })]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-326decf2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -17,11 +17,12 @@ Vue.use(Notifications)
 
 
 let routes = [
-  { name: 'dashboard', path: '/dashboard', component: require('./components/Dashboard.vue') },
-  { name: 'profile', path: '/profile', component: require('./components/Profile.vue') },
-  { name: 'all_users', path: '/users', component: require('./components/Users/Users.vue') },
-  { name: 'edit_user', path: '/users/:id', component: require('./components/Users/EditUser.vue') },
-  { name: 'new_user', path: '/users/new', component: require('./components/Users/NewUser.vue') }
+    { name: 'dashboard', path: '/dashboard', component: require('./components/Dashboard.vue') },
+    { name: 'profile', path: '/profile', component: require('./components/Profile.vue') },
+    { name: 'all_users', path: '/users', component: require('./components/Users/Users.vue') },
+    { name: 'edit_user', path: '/users/:id', component: require('./components/Users/EditUser.vue') },
+    { name: 'new_user', path: '/users/new', component: require('./components/Users/NewUser.vue') },
+    { name: 'all_permissions', path: '/permissions', component: require('./components/Permissions/Permissions.vue') }
 ]
 
 const router = new VueRouter({
