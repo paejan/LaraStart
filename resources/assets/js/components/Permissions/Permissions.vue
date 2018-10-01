@@ -3,7 +3,7 @@
         <notifications group="permissions" position="bottom right" :speed="2000"/>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title col-6">
@@ -42,7 +42,7 @@
                                     <router-link :to="{ name : 'edit_role', params : { id : role.id } }">
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit Role</button>
                                     </router-link>
-                                    <button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-unlock"></i> Reset Password</button>
+                                    <button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-users"></i> View Users</button>
                                     <button @click="getRole(role.id); showDeleteRoleModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete Role</button>
                                 </td>
                             </tr>

@@ -61345,7 +61345,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-6" }, [
+        _c("div", { staticClass: "col-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", { staticClass: "card-title col-6" }, [
@@ -61508,8 +61508,8 @@ var render = function() {
                                       attrs: { type: "button" }
                                     },
                                     [
-                                      _c("i", { staticClass: "fa fa-unlock" }),
-                                      _vm._v(" Reset Password")
+                                      _c("i", { staticClass: "fa fa-users" }),
+                                      _vm._v(" View Users")
                                     ]
                                   ),
                                   _vm._v(" "),

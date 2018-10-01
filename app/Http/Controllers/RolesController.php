@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Integer;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -30,5 +31,17 @@ class RolesController extends Controller
 
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
+
+    /**
+     * Returns Role with all Users assigned specified by the role id.
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Role|Role[]
+     */
+    public function roleUsers($id) {
+        return Role::with('Users')
+            ->findOrFail($id);
+    }
+
 
 }
