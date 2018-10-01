@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Integer;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
@@ -41,6 +39,15 @@ class RolesController extends Controller
     public function roleUsers($id) {
         return Role::with('Users')
             ->findOrFail($id);
+    }
+
+    /**
+     * Returns Users without assigned user roles.
+     *
+     * @return mixed
+     */
+    public function usersWithoutRoles() {
+        return User::doesntHave('Roles')->get();
     }
 
 

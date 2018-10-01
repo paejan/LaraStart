@@ -61617,7 +61617,11 @@ var render = function() {
                 _c(
                   "ul",
                   _vm._l(_vm.role.users, function(user) {
-                    return _c("li", [_vm._v(_vm._s(user.email))])
+                    return _c("li", [
+                      _vm._v(
+                        _vm._s(user.name) + " (" + _vm._s(user.email) + ")"
+                      )
+                    ])
                   })
                 )
               ]),
@@ -61630,7 +61634,7 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        _vm.showDeleteUserModal = false
+                        _vm.showRoleUsersModal = false
                       }
                     }
                   },

@@ -68,11 +68,11 @@
             </template>
             <template slot="modal-body">
                 <ul>
-                    <li v-for="user in role.users">{{ user.email}}</li>
+                    <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
                 </ul>
             </template>
             <template slot="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="showDeleteUserModal = false">Close</button>
+                <button type="button" class="btn btn-secondary" @click="showRoleUsersModal = false">Close</button>
             </template>
         </modal>
         <!-- /.Delete User Modal -->
