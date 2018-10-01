@@ -23,3 +23,5 @@ Route::get('user/{user}', 'Api\UserController@show');
 Route::get('user/delete/{user}', 'Api\UserController@destroy');
 Route::post('user/update_role/{user}', 'Api\UserController@updateRole');
 
+Route::get('roles/users/{id}', 'RolesController@roleUsers');
+
