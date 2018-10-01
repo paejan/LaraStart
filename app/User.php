@@ -3,8 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password',
-        'login_at', 'profile_photo'
+        'login_at', 'profile_photo',
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at', 'login_at'
+        'created_at', 'updated_at', 'login_at',
     ];
 
     /**
@@ -40,11 +40,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
     /**
      * Scope a query to only include active users.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query)
@@ -56,6 +56,7 @@ class User extends Authenticatable
      * Scope a query to only include online users.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOnline($query)
@@ -67,11 +68,11 @@ class User extends Authenticatable
      * Scope a query to only include new users.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeNew($query)
     {
         return $query->where('created_at', '>', Carbon::now()->subWeeks(2));
     }
-
 }
