@@ -42,7 +42,7 @@
                                     <router-link :to="{ name : 'edit_role', params : { id : role.id } }">
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit Role</button>
                                     </router-link>
-                                    <button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-users"></i> View Users</button>
+                                    <button @click="getRoleUsers(role.id); showRoleUsersModal = true" type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-users"></i> View Users</button>
                                     <button @click="getRole(role.id); showDeleteRoleModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete Role</button>
                                 </td>
                             </tr>
@@ -58,22 +58,24 @@
                 </div>
             </div>
         </div>
-        <!-- Delete Role Modal -->
-        <modal v-if="showDeleteRoleModal">
-            <template slot="modal-title">Deleting: {{ role.name }}</template>
+        <!-- Delete User Modal -->
+        <modal v-if="showRoleUsersModal">
+            <template slot="modal-title">{{ role.name }} Users</template>
             <template slot="modal-close">
-                <button type="button" class="close" @click="showDeleteRoleModal = false" aria-label="Close">
+                <button type="button" class="close" @click="showRoleUsersModal = false" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </template>
-            <template slot="modal-body">Are you sure you want to delete {{ role.name }}?</template>
+            <template slot="modal-body">
+                <ul>
+                    <li v-for="user in role.users">{{ user.email}}</li>
+                </ul>
+            </template>
             <template slot="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="showDeleteRoleModal = false">Close</button>
-                <button v-if="loadingDeleteRole" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
-                <button v-else @click="deleteRole(role)" type="button" class="btn btn-danger">Delete Role</button>
+                <button type="button" class="btn btn-secondary" @click="showDeleteUserModal = false">Close</button>
             </template>
         </modal>
-        <!-- /.Delete Role Modal -->
+        <!-- /.Delete User Modal -->
     </div>
 </template>
 
@@ -109,6 +111,7 @@
                 roles: [],
                 loadingTable: true,
                 loadingDeleteRole: false,
+                showRoleUsersModal: false,
                 loadingRoles: true,
                 columns: columns,
                 sortKey: "deadline",
@@ -153,6 +156,11 @@
                     .catch(errors => {
                         console.log(errors);
                     });
+            },
+            getRoleUsers(role_id) {
+                axios.get("api/roles/users/" + role_id).then(({ data }) => {
+                    this.role = data;
+                });
             },
             refresh() {
                 this.getRoles();

@@ -61225,6 +61225,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -61252,6 +61254,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             roles: [],
             loadingTable: true,
             loadingDeleteRole: false,
+            showRoleUsersModal: false,
             loadingRoles: true,
             columns: columns,
             sortKey: "deadline",
@@ -61297,6 +61300,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }).catch(function (errors) {
                 console.log(errors);
+            });
+        },
+        getRoleUsers: function getRoleUsers(role_id) {
+            var _this2 = this;
+
+            axios.get("api/roles/users/" + role_id).then(function (_ref) {
+                var data = _ref.data;
+
+                _this2.role = data;
             });
         },
         refresh: function refresh() {
@@ -61505,7 +61517,13 @@ var render = function() {
                                     {
                                       staticClass:
                                         "btn btn-outline-success btn-sm",
-                                      attrs: { type: "button" }
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.getRoleUsers(role.id)
+                                          _vm.showRoleUsersModal = true
+                                        }
+                                      }
                                     },
                                     [
                                       _c("i", { staticClass: "fa fa-users" }),
@@ -61567,12 +61585,12 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.showDeleteRoleModal
+      _vm.showRoleUsersModal
         ? _c(
             "modal",
             [
               _c("template", { slot: "modal-title" }, [
-                _vm._v("Deleting: " + _vm._s(_vm.role.name))
+                _vm._v(_vm._s(_vm.role.name) + " Users")
               ]),
               _vm._v(" "),
               _c("template", { slot: "modal-close" }, [
@@ -61583,7 +61601,7 @@ var render = function() {
                     attrs: { type: "button", "aria-label": "Close" },
                     on: {
                       click: function($event) {
-                        _vm.showDeleteRoleModal = false
+                        _vm.showRoleUsersModal = false
                       }
                     }
                   },
@@ -61596,10 +61614,11 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("template", { slot: "modal-body" }, [
-                _vm._v(
-                  "Are you sure you want to delete " +
-                    _vm._s(_vm.role.name) +
-                    "?"
+                _c(
+                  "ul",
+                  _vm._l(_vm.role.users, function(user) {
+                    return _c("li", [_vm._v(_vm._s(user.email))])
+                  })
                 )
               ]),
               _vm._v(" "),
@@ -61611,35 +61630,12 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        _vm.showDeleteRoleModal = false
+                        _vm.showDeleteUserModal = false
                       }
                     }
                   },
                   [_vm._v("Close")]
-                ),
-                _vm._v(" "),
-                _vm.loadingDeleteRole
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { disabled: "", type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.deleteRole(_vm.role)
-                          }
-                        }
-                      },
-                      [_vm._v("Delete Role")]
-                    )
+                )
               ])
             ],
             2
