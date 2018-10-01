@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use phpDocumentor\Reflection\Types\Integer;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function index(Request $request)
@@ -29,8 +29,8 @@ class UserController extends Controller
         $users = User::with('Roles')
             ->orderBy($columns[$request->column], $request->dir)
             ->when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('email', 'like', '%' . $request->search . '%');
+                $query->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhere('email', 'like', '%'.$request->search.'%');
             })
             ->paginate($request->length);
 
@@ -41,9 +41,11 @@ class UserController extends Controller
      * Creates a new user account.
      *
      * @param Request $request
+     *
      * @return Collection
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'name'          => 'required|string|max:255',
             'email'         => 'required|string|email|max:255|unique:users',
@@ -57,15 +59,14 @@ class UserController extends Controller
             'password'      => Hash::make($request->password),
             'profile_photo' => $request->profile_photo,
         ]);
-
     }
-
 
     /**
      * Updates the user information.
      *
      * @param Request $request
-     * @param Integer $id
+     * @param int     $id
+     *
      * @return Collection
      */
     public function update(Request $request, $id)
@@ -97,7 +98,8 @@ class UserController extends Controller
     /**
      * Returns a users data with roles by the specified id.
      *
-     * @param Integer $user
+     * @param int $user
+     *
      * @return User|int
      */
     public function show($user)
@@ -106,13 +108,14 @@ class UserController extends Controller
             ->find($user);
     }
 
-
     /**
      * Deletes a user by the specified id.
      *
      * @param User $user
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function destroy(User $user)
     {
@@ -124,7 +127,7 @@ class UserController extends Controller
     /**
      * Return a count of all registered users.
      *
-     * @return integer
+     * @return int
      */
     public function count()
     {
@@ -134,7 +137,7 @@ class UserController extends Controller
     /**
      * Returns a count of the active users within the past week.
      *
-     * @return integer
+     * @return int
      */
     public function active()
     {
@@ -144,7 +147,7 @@ class UserController extends Controller
     /**
      * Returns a count of the new users created within the past 2 weeks.
      *
-     * @return integer
+     * @return int
      */
     public function newUsers()
     {
@@ -154,7 +157,7 @@ class UserController extends Controller
     /**
      * Returns a count of users that are currently logged in.
      *
-     * @return integer
+     * @return int
      */
     public function online()
     {
@@ -163,11 +166,14 @@ class UserController extends Controller
 
     /**
      * Updates a users permission role.
+     *
      * @param Request $request
      * @param $id
+     *
      * @return User
      */
-    public function updateRole(Request $request, $id) {
+    public function updateRole(Request $request, $id)
+    {
         return User::find($id)
             ->syncRoles($request->user_group);
     }

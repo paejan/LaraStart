@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App;
-use App\File;
 
 class FileController extends Controller
 {
@@ -16,7 +15,7 @@ class FileController extends Controller
     private $document_ext = ['doc', 'docx', 'pdf', 'odt'];
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -24,10 +23,12 @@ class FileController extends Controller
     }
 
     /**
-     * Fetch files by Type or Id
-     * @param  string $type  File type
-     * @param  integer $id   File Id
-     * @return object        Files list, JSON
+     * Fetch files by Type or Id.
+     *
+     * @param string $type File type
+     * @param int    $id   File Id
+     *
+     * @return object Files list, JSON
      */
     public function index($type, $id = null)
     {
@@ -44,14 +45,14 @@ class FileController extends Controller
 
             $response = [
                 'pagination' => [
-                    'total' => $files->total(),
-                    'per_page' => $files->perPage(),
+                    'total'        => $files->total(),
+                    'per_page'     => $files->perPage(),
                     'current_page' => $files->currentPage(),
-                    'last_page' => $files->lastPage(),
-                    'from' => $files->firstItem(),
-                    'to' => $files->lastItem()
+                    'last_page'    => $files->lastPage(),
+                    'from'         => $files->firstItem(),
+                    'to'           => $files->lastItem(),
                 ],
-                'data' => $files
+                'data' => $files,
             ];
         }
 
@@ -59,18 +60,20 @@ class FileController extends Controller
     }
 
     /**
-     * Upload new file and store it
-     * @param  Request $request Request with form data: filename and file info
-     * @return boolean          True if success, otherwise - false
+     * Upload new file and store it.
+     *
+     * @param Request $request Request with form data: filename and file info
+     *
+     * @return bool True if success, otherwise - false
      */
     public function store(Request $request)
     {
-        $max_size = (int)ini_get('upload_max_filesize') * 1000;
+        $max_size = (int) ini_get('upload_max_filesize') * 1000;
         $all_ext = implode(',', $this->allExtensions());
 
         $this->validate($request, [
             'name' => 'required|unique:files',
-            'file' => 'required|file|mimes:' . $all_ext . '|max:' . $max_size
+            'file' => 'required|file|mimes:'.$all_ext.'|max:'.$max_size,
         ]);
 
         $model = new File();
@@ -79,12 +82,12 @@ class FileController extends Controller
         $ext = $file->getClientOriginalExtension();
         $type = $this->getType($ext);
 
-        if (Storage::putFileAs('/public/' . $this->getUserDir() . '/' . $type . '/', $file, $request['name'] . '.' . $ext)) {
+        if (Storage::putFileAs('/public/'.$this->getUserDir().'/'.$type.'/', $file, $request['name'].'.'.$ext)) {
             return $model::create([
-                    'name' => $request['name'],
-                    'type' => $type,
+                    'name'      => $request['name'],
+                    'type'      => $type,
                     'extension' => $ext,
-                    'user_id' => Auth::id()
+                    'user_id'   => Auth::id(),
                 ]);
         }
 
@@ -92,10 +95,12 @@ class FileController extends Controller
     }
 
     /**
-     * Edit specific file
-     * @param  integer  $id      File Id
-     * @param  Request $request  Request with form data: filename
-     * @return boolean           True if success, otherwise - false
+     * Edit specific file.
+     *
+     * @param int     $id      File Id
+     * @param Request $request Request with form data: filename
+     *
+     * @return bool True if success, otherwise - false
      */
     public function edit($id, Request $request)
     {
@@ -106,15 +111,16 @@ class FileController extends Controller
         }
 
         $this->validate($request, [
-            'name' => 'required|unique:files'
+            'name' => 'required|unique:files',
         ]);
 
-        $old_filename = '/public/' . $this->getUserDir() . '/' . $file->type . '/' . $file->name . '.' . $file->extension;
-        $new_filename = '/public/' . $this->getUserDir() . '/' . $request['type'] . '/' . $request['name'] . '.' . $request['extension'];
+        $old_filename = '/public/'.$this->getUserDir().'/'.$file->type.'/'.$file->name.'.'.$file->extension;
+        $new_filename = '/public/'.$this->getUserDir().'/'.$request['type'].'/'.$request['name'].'.'.$request['extension'];
 
         if (Storage::disk('local')->exists($old_filename)) {
             if (Storage::disk('local')->move($old_filename, $new_filename)) {
                 $file->name = $request['name'];
+
                 return response()->json($file->save());
             }
         }
@@ -122,18 +128,19 @@ class FileController extends Controller
         return response()->json(false);
     }
 
-
     /**
-     * Delete file from disk and database
-     * @param  integer $id  File Id
-     * @return boolean      True if success, otherwise - false
+     * Delete file from disk and database.
+     *
+     * @param int $id File Id
+     *
+     * @return bool True if success, otherwise - false
      */
     public function destroy($id)
     {
         $file = File::findOrFail($id);
 
-        if (Storage::disk('local')->exists('/public/' . $this->getUserDir() . '/' . $file->type . '/' . $file->name . '.' . $file->extension)) {
-            if (Storage::disk('local')->delete('/public/' . $this->getUserDir() . '/' . $file->type . '/' . $file->name . '.' . $file->extension)) {
+        if (Storage::disk('local')->exists('/public/'.$this->getUserDir().'/'.$file->type.'/'.$file->name.'.'.$file->extension)) {
+            if (Storage::disk('local')->delete('/public/'.$this->getUserDir().'/'.$file->type.'/'.$file->name.'.'.$file->extension)) {
                 return response()->json($file->delete());
             }
         }
@@ -141,11 +148,12 @@ class FileController extends Controller
         return response()->json(false);
     }
 
-
     /**
-     * Get type by extension
-     * @param  string $ext Specific extension
-     * @return string      Type
+     * Get type by extension.
+     *
+     * @param string $ext Specific extension
+     *
+     * @return string Type
      */
     private function getType($ext)
     {
@@ -167,7 +175,8 @@ class FileController extends Controller
     }
 
     /**
-     * Get all extensions
+     * Get all extensions.
+     *
      * @return array Extensions of all file types
      */
     private function allExtensions()
@@ -176,11 +185,12 @@ class FileController extends Controller
     }
 
     /**
-     * Get directory for the specific user
+     * Get directory for the specific user.
+     *
      * @return string Specific user directory
      */
     private function getUserDir()
     {
-        return Auth::user()->name . '_' . Auth::id();
+        return Auth::user()->name.'_'.Auth::id();
     }
 }

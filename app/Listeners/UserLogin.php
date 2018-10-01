@@ -2,8 +2,6 @@
 
 namespace App\Listeners;
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Login;
@@ -23,7 +21,8 @@ class UserLogin
     /**
      * Handle the event.
      *
-     * @param  \Illuminate\Auth\Events\Login $event
+     * @param \Illuminate\Auth\Events\Login $event
+     *
      * @return void
      */
     public function handle(Login $event)

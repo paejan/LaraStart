@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\User;
 
 class RolesController extends Controller
 {
     /**
      * Returns all permission Roles.
+     *
      * @param Request $request
+     *
      * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Role[]
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         // Return all roles if request isn't a search.
         if (!$request->input()) {
             return Role::with('Users')->get();
@@ -23,7 +27,7 @@ class RolesController extends Controller
         $users = Role::with('Users')
             ->orderBy($columns[$request->column], $request->dir)
             ->when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->search . '%');
+                $query->where('name', 'like', '%'.$request->search.'%');
             })
             ->paginate($request->length);
 
@@ -34,9 +38,11 @@ class RolesController extends Controller
      * Returns Role with all Users assigned specified by the role id.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Role|Role[]
      */
-    public function roleUsers($id) {
+    public function roleUsers($id)
+    {
         return Role::with('Users')
             ->findOrFail($id);
     }
@@ -46,9 +52,8 @@ class RolesController extends Controller
      *
      * @return mixed
      */
-    public function usersWithoutRoles() {
+    public function usersWithoutRoles()
+    {
         return User::doesntHave('Roles')->get();
     }
-
-
 }

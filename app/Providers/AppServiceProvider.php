@@ -23,10 +23,11 @@ class AppServiceProvider extends ServiceProvider
             if (in_array($type, $parameters)) {
                 return true;
             }
+
             return false;
         });
         Validator::replacer('image64', function ($message, $attribute, $rule, $parameters) {
-            return str_replace(':values', join(",", $parameters), $message);
+            return str_replace(':values', implode(',', $parameters), $message);
         });
     }
 
