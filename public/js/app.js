@@ -54743,7 +54743,7 @@ var render = function() {
             : _c("small", [
                 _vm._v(
                   "Updated: " +
-                    _vm._s(Number(_vm.lastUpdate / 60).toFixed(0)) +
+                    _vm._s(Math.floor(_vm.lastUpdate / 60)) +
                     " minutes ago"
                 )
               ])

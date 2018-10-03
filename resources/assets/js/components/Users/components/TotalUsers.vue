@@ -17,7 +17,7 @@
             <small v-if="lastUpdate < 60">Updated: Just Now</small>
             <small v-else-if="lastUpdate === null">Updated: <i class="fa fa-spinner fa-spin"></i></small>
             <small v-else-if="(lastUpdate > 60) && (lastUpdate < 120)">Updated: 1 minute ago</small>
-            <small v-else>Updated: {{ Number(lastUpdate/60).toFixed(0) }} minutes ago</small>
+            <small v-else>Updated: {{ Math.floor((lastUpdate/60)) }} minutes ago</small>
         </div>
     </div>
 </template>
