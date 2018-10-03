@@ -54221,7 +54221,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.tableData.draw++;
       axios.get(url, { params: this.tableData }).then(function (response) {
         var data = response.data;
-        console.log(data);
+        // console.log(data);
         if (_this.tableData.draw == data.draw) {
           _this.users = data.data.data;
           _this.configPagination(data.data);
