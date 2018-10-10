@@ -1,8 +1,8 @@
 <template>
     <div class="info-box">
-            <span class="info-box-icon bg-info elevation-1">
-                <i class="fa fa-users"></i>
-            </span>
+        <span class="info-box-icon bg-info elevation-1">
+            <i class="fa fa-users"></i>
+        </span>
         <div class="info-box-content">
             <span class="info-box-text">
                 Total Users
@@ -24,10 +24,6 @@
 
 <script>
     export default {
-        mounted() {
-           // console.log('Component mounted.')
-        },
-
         created() {
             this.getUserCount();
             this.timer();
@@ -58,7 +54,5 @@
                 }.bind(this), 1000);
             }
         },
-
-
     };
 </script>
