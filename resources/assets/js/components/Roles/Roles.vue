@@ -1,16 +1,6 @@
 <template>
     <div class="roles container">
         <notifications group="permissions" position="bottom right" :speed="2000"/>
-
-        <div class="row" v-if="usersWithoutRoles.length > 0">
-            <div class="col-12">
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h5><i class="icon fa fa-ban"></i> Alert!</h5>
-                    {{ usersWithoutRoles.length }} users are missing roles. Review List
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -102,7 +92,6 @@
 
         created() {
             this.getRoles();
-            this.getUsersWithoutRoles();
         },
 
         data() {
@@ -119,7 +108,6 @@
                 showDeleteRoleModal: false,
                 role: [],
                 roles: [],
-                usersWithoutRoles: [],
                 loadingTable: true,
                 loadingDeleteRole: false,
                 showRoleUsersModal: false,
@@ -171,11 +159,6 @@
             getRoleUsers(role_id) {
                 axios.get("api/roles/users/" + role_id).then(({ data }) => {
                     this.role = data;
-                });
-            },
-            getUsersWithoutRoles() {
-                axios.get("api/roles/missing/users").then(({ data }) => {
-                    this.usersWithoutRoles = data;
                 });
             },
             refresh() {
