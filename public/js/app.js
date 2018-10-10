@@ -54838,18 +54838,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        // console.log('Component mounted.')
-    },
     created: function created() {
         this.getNewUserCount();
+        this.timer();
     },
     data: function data() {
         return {
             newUserCount: 0,
-            loadingNewUserCount: true
+            loadingNewUserCount: true,
+            lastUpdate: null
         };
     },
 
@@ -54858,13 +54861,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getNewUserCount: function getNewUserCount() {
             var _this = this;
 
+            this.lastUpdate = null;
             this.loadingNewUserCount = true;
             axios.get("api/count/users/new").then(function (_ref) {
                 var data = _ref.data;
 
                 _this.newUserCount = data;
                 _this.loadingNewUserCount = false;
+                _this.lastUpdate = 0;
             });
+        },
+        timer: function timer() {
+            setInterval(function () {
+                this.lastUpdate++;
+            }.bind(this), 1000);
         }
     }
 });
@@ -54882,15 +54892,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "info-box-content" }, [
       _c("span", { staticClass: "info-box-text" }, [
-        _vm._v("\n            New Users\n            "),
-        _c("i", {
-          staticClass: "fa fa-sync",
-          on: {
-            click: function($event) {
-              _vm.getNewUserCount()
-            }
-          }
-        })
+        _vm._v("\n            New Users\n        ")
       ]),
       _vm._v(" "),
       _vm.loadingNewUserCount
@@ -54903,7 +54905,33 @@ var render = function() {
                 _vm._s(_vm.newUserCount.toLocaleString("en")) +
                 "\n        "
             )
-          ])
+          ]),
+      _vm._v(" "),
+      _c("i", {
+        staticClass: "fa fa-sync",
+        on: {
+          click: function($event) {
+            _vm.getNewUserCount()
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm.lastUpdate < 60
+        ? _c("small", [_vm._v("Updated: Just Now")])
+        : _vm.lastUpdate === null
+          ? _c("small", [
+              _vm._v("Updated: "),
+              _c("i", { staticClass: "fa fa-spinner fa-spin" })
+            ])
+          : _vm.lastUpdate > 60 && _vm.lastUpdate < 120
+            ? _c("small", [_vm._v("Updated: 1 minute ago")])
+            : _c("small", [
+                _vm._v(
+                  "Updated: " +
+                    _vm._s(Math.floor(_vm.lastUpdate / 60)) +
+                    " minutes ago"
+                )
+              ])
     ])
   ])
 }
