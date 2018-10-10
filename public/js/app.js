@@ -61995,16 +61995,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -62019,7 +62009,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     created: function created() {
         this.getRoles();
-        this.getUsersWithoutRoles();
     },
     data: function data() {
         var sortOrders = {};
@@ -62031,7 +62020,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showDeleteRoleModal: false,
             role: [],
             roles: [],
-            usersWithoutRoles: [],
             loadingTable: true,
             loadingDeleteRole: false,
             showRoleUsersModal: false,
@@ -62091,15 +62079,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.role = data;
             });
         },
-        getUsersWithoutRoles: function getUsersWithoutRoles() {
-            var _this3 = this;
-
-            axios.get("api/roles/missing/users").then(function (_ref2) {
-                var data = _ref2.data;
-
-                _this3.usersWithoutRoles = data;
-            });
-        },
         refresh: function refresh() {
             this.getRoles();
         },
@@ -62145,38 +62124,6 @@ var render = function() {
         attrs: { group: "permissions", position: "bottom right", speed: 2000 }
       }),
       _vm._v(" "),
-      _vm.usersWithoutRoles.length > 0
-        ? _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "div",
-                { staticClass: "alert alert-danger alert-dismissible" },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "alert",
-                        "aria-hidden": "true"
-                      }
-                    },
-                    [_vm._v("×")]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(0),
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.usersWithoutRoles.length) +
-                      " users are missing roles. Review List\n            "
-                  )
-                ]
-              )
-            ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
           _c("div", { staticClass: "card" }, [
@@ -62218,7 +62165,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group-prepend" }, [
                     _vm.loadingRoles
@@ -62471,15 +62418,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h5", [
-      _c("i", { staticClass: "icon fa fa-ban" }),
-      _vm._v(" Alert!")
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
