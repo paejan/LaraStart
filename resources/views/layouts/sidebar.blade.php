@@ -27,7 +27,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <router-link to="/permissions" class="nav-link">
+                    <router-link to="/roles" class="nav-link">
                         <i class="nav-icon fas fa-key"></i><p>Permissions</p>
                     </router-link>
                 </li>

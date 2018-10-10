@@ -28774,7 +28774,7 @@ window.Vue = __webpack_require__(30);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(103) }, { name: 'profile', path: '/profile', component: __webpack_require__(106) }, { name: 'all_users', path: '/users', component: __webpack_require__(109) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(130) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(235) }, { name: 'all_permissions', path: '/permissions', component: __webpack_require__(238) }];
+var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(103) }, { name: 'profile', path: '/profile', component: __webpack_require__(106) }, { name: 'all_users', path: '/users', component: __webpack_require__(109) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(130) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(235) }, { name: 'all_permissions', path: '/roles', component: __webpack_require__(258) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
@@ -61832,15 +61832,40 @@ if (false) {
 }
 
 /***/ }),
-/* 238 */
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(239)
+var __vue_script__ = __webpack_require__(259)
 /* template */
-var __vue_template__ = __webpack_require__(240)
+var __vue_template__ = __webpack_require__(260)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -61857,7 +61882,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Permissions/Permissions.vue"
+Component.options.__file = "resources/assets/js/components/Roles/Roles.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -61866,9 +61891,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-326decf2", Component.options)
+    hotAPI.createRecord("data-v-707d46e4", Component.options)
   } else {
-    hotAPI.reload("data-v-326decf2", Component.options)
+    hotAPI.reload("data-v-707d46e4", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -61879,7 +61904,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 239 */
+/* 259 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62105,7 +62130,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 240 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -62473,15 +62498,9 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-326decf2", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-707d46e4", module.exports)
   }
 }
-
-/***/ }),
-/* 241 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
