@@ -54734,7 +54734,7 @@ var render = function() {
               _vm._v("Updated: "),
               _c("i", { staticClass: "fa fa-spinner fa-spin" })
             ])
-          : _vm.lastUpdate > 60 && _vm.lastUpdate < 120
+          : _vm.lastUpdate > 59 && _vm.lastUpdate < 120
             ? _c("small", [_vm._v("Updated: 1 minute ago")])
             : _c("small", [
                 _vm._v(
@@ -54923,7 +54923,7 @@ var render = function() {
               _vm._v("Updated: "),
               _c("i", { staticClass: "fa fa-spinner fa-spin" })
             ])
-          : _vm.lastUpdate > 60 && _vm.lastUpdate < 120
+          : _vm.lastUpdate > 59 && _vm.lastUpdate < 120
             ? _c("small", [_vm._v("Updated: 1 minute ago")])
             : _c("small", [
                 _vm._v(
@@ -55126,7 +55126,7 @@ var render = function() {
               _vm._v("Updated: "),
               _c("i", { staticClass: "fa fa-spinner fa-spin" })
             ])
-          : _vm.lastUpdate > 60 && _vm.lastUpdate < 120
+          : _vm.lastUpdate > 59 && _vm.lastUpdate < 120
             ? _c("small", [_vm._v("Updated: 1 minute ago")])
             : _c("small", [
                 _vm._v(
@@ -55311,7 +55311,7 @@ var render = function() {
               _vm._v("Updated: "),
               _c("i", { staticClass: "fa fa-spinner fa-spin" })
             ])
-          : _vm.lastUpdate > 60 && _vm.lastUpdate < 120
+          : _vm.lastUpdate > 59 && _vm.lastUpdate < 120
             ? _c("small", [_vm._v("Updated: 1 minute ago")])
             : _c("small", [
                 _vm._v(

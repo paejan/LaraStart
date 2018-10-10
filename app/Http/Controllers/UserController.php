@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\User;
@@ -41,7 +41,6 @@ class UserController extends Controller
      * Creates a new user account.
      *
      * @param Request $request
-     *
      * @return Collection
      */
     public function store(Request $request)
