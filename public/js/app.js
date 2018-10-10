@@ -55028,20 +55028,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        // console.log('Component mounted.')
-    },
     created: function created() {
         this.getActiveUserCount();
         this.getUserCount();
+        this.timer();
     },
     data: function data() {
         return {
             activeUserCount: 0,
             userCount: 0,
-            loadingActiveUserCount: true
+            loadingActiveUserCount: true,
+            lastUpdate: null
         };
     },
 
@@ -55065,7 +55068,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 _this2.activeUserCount = data;
                 _this2.loadingActiveUserCount = false;
+                _this2.lastUpdate = 0;
             });
+        },
+        timer: function timer() {
+            setInterval(function () {
+                this.lastUpdate++;
+            }.bind(this), 1000);
         }
     }
 });
@@ -55083,15 +55092,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "info-box-content" }, [
       _c("span", { staticClass: "info-box-text" }, [
-        _vm._v("\n            Active Users\n            "),
-        _c("i", {
-          staticClass: "fa fa-sync",
-          on: {
-            click: function($event) {
-              _vm.getActiveUserCount()
-            }
-          }
-        })
+        _vm._v("\n            Active Users\n        ")
       ]),
       _vm._v(" "),
       _vm.loadingActiveUserCount
@@ -55107,7 +55108,33 @@ var render = function() {
                 "\n            "
             ),
             _c("small", [_vm._v("%")])
-          ])
+          ]),
+      _vm._v(" "),
+      _c("i", {
+        staticClass: "fa fa-sync",
+        on: {
+          click: function($event) {
+            _vm.getActiveUserCount()
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm.lastUpdate < 60
+        ? _c("small", [_vm._v("Updated: Just Now")])
+        : _vm.lastUpdate === null
+          ? _c("small", [
+              _vm._v("Updated: "),
+              _c("i", { staticClass: "fa fa-spinner fa-spin" })
+            ])
+          : _vm.lastUpdate > 60 && _vm.lastUpdate < 120
+            ? _c("small", [_vm._v("Updated: 1 minute ago")])
+            : _c("small", [
+                _vm._v(
+                  "Updated: " +
+                    _vm._s(Math.floor(_vm.lastUpdate / 60)) +
+                    " minutes ago"
+                )
+              ])
     ])
   ])
 }
