@@ -62574,7 +62574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: "success",
                     text: "This User Role has been created."
                 });
-                _this2.$router.push({ path: "/role/" + response.data.id });
+                // this.$router.push({ path: "/role/" + response.data.id});
             }).catch(function (error) {
                 _this2.loadingSave = false;
                 if (error.response) {
@@ -62719,11 +62719,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: {
-                          id: "permissions[]",
-                          required: "",
-                          name: "permissions[]"
-                        },
+                        attrs: { id: "permissions[]", required: "" },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter

@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="permissions">Add Permission</label>
-                                <select class="form-control" id="permissions[]" required v-model="role.permission" name="permissions[]">
+                                <select class="form-control" id="permissions[]" required v-model="role.permission">
                                     <option value="">Select Permission</option>
                                     <option v-for="permission in permissions" :value="permission.id">{{ permission.name }}</option>
                                 </select>
@@ -100,7 +100,7 @@
                         type: "success",
                         text: "This User Role has been created."
                     });
-                        this.$router.push({ path: "/role/" + response.data.id});
+                        // this.$router.push({ path: "/role/" + response.data.id});
                     })
                 .catch(error => {
                     this.loadingSave = false;
