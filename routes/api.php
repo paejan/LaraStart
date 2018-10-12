@@ -24,3 +24,4 @@ Route::get('user/delete/{user}', 'UserController@destroy');
 Route::post('user/update_role/{user}', 'UserController@updateRole');
 
 Route::get('roles/users/{id}', 'RolesController@roleUsers');
+Route::get('roles/permissions/{id}', 'RolesController@getPermissions');

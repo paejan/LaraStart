@@ -101,4 +101,16 @@ class RolesController extends Controller
     {
         return User::doesntHave('Roles')->get();
     }
+
+
+    /**
+     * Returns the permissions assigned the specified row.
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Role|Role[]
+     */
+    public function getPermissions($id) {
+        return Role::with('Permissions')
+                ->findOrFail($id);
+    }
 }
