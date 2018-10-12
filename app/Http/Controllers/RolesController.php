@@ -54,6 +54,14 @@ class RolesController extends Controller
     }
 
     /**
+     * @param Role $id
+     * @return mixed
+     */
+    public function show(Role $role) {
+        return $role;
+    }
+
+    /**
      * Returns Role with all Users assigned specified by the role id.
      *
      * @param $id

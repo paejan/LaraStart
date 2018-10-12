@@ -59,13 +59,14 @@
 
         created() {
             this.getPermissions();
+            this.getRole();
         },
 
         data() {
             return {
                 role: {
                     name: "",
-                    permissions: [],
+                    permissions: "",
                 },
                 errors: {
                     name: "",
@@ -73,6 +74,7 @@
                 },
                 permissions: "",
                 loadingSave: false,
+                loadingRole: false,
             };
         },
 
@@ -82,6 +84,23 @@
                     .then(({ data }) => {
                         this.permissions = data;
                     });
+            },
+            getRole() {
+                this.loadingRole = true;
+                axios.get("/api/roles/" + this.$route.params.id)
+                .then(({ data }) => {
+                    this.role = data;
+                })
+                .catch(errors => {
+                    console.log(errors);
+                    this.loadingUser = false;
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Unable to load role.",
+                        type: "error",
+                        text: "Whoops..  We were unable to load that role."
+                    });
+                });
             },
             saveForm() {
                 event.preventDefault();
