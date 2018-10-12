@@ -35,6 +35,25 @@ class RolesController extends Controller
     }
 
     /**
+     * Creates a new user role.
+     *
+     * @param Request $request
+     * @return Collection
+     */
+    public function store(Request $request)
+    {
+        dd($request);
+        $request->validate([
+            'name'          => 'required|unique:role.name|string|max:191',
+            'permissions.*' => 'required|exists:permissions.id',
+        ]);
+
+        return Role::create([
+            'name' => $request->name,
+        ]);
+    }
+
+    /**
      * Returns Role with all Users assigned specified by the role id.
      *
      * @param $id

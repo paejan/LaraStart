@@ -34,11 +34,11 @@
                             <div class="form-group">
                                 <label for="permissions">Add Permission</label>
                                 <select class="form-control" id="permissions" required name="permissions">
-                                    <option value="">Select Permission..</option>
+                                    <option value="">Select Permission</option>
                                     <option v-for="permission in permissions" :value="permission.id">{{ permission.name }}</option>
                                 </select>
                             </div>
-                            <button class="btn btn-success">Add Another Permission</button>
+                            <button type="button" class="btn btn-success">Add Another Permission</button>
                         </div>
                         <div class="card-footer">
                             <button v-if="loadingSave" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
@@ -53,6 +53,10 @@
 
 <script>
     export default {
+        mounted() {
+            // console.log("Component mounted.");
+        },
+
         created() {
             this.getPermissions();
         },
@@ -87,7 +91,7 @@
                     permissions: "",
                 };
                 axios.post("/api/roles", {
-                    name: this.user.name,
+                    name: this.role.name,
                     permissions: this.permissions,
                 }).then(response => {
                     Vue.notify({

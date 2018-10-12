@@ -28745,7 +28745,7 @@ module.exports = setMonth
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(75);
-module.exports = __webpack_require__(241);
+module.exports = __webpack_require__(244);
 
 
 /***/ }),
@@ -28774,7 +28774,7 @@ window.Vue = __webpack_require__(30);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(103) }, { name: 'profile', path: '/profile', component: __webpack_require__(106) }, { name: 'all_users', path: '/users', component: __webpack_require__(109) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(130) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(235) }, { name: 'all_roles', path: '/roles', component: __webpack_require__(258) }, { name: 'new_role', path: '/roles/new', component: __webpack_require__(261) }];
+var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(103) }, { name: 'profile', path: '/profile', component: __webpack_require__(106) }, { name: 'all_users', path: '/users', component: __webpack_require__(109) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(130) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(235) }, { name: 'all_roles', path: '/roles', component: __webpack_require__(238) }, { name: 'new_role', path: '/roles/new', component: __webpack_require__(241) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
@@ -61832,40 +61832,15 @@ if (false) {
 }
 
 /***/ }),
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */,
-/* 256 */,
-/* 257 */,
-/* 258 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(259)
+var __vue_script__ = __webpack_require__(239)
 /* template */
-var __vue_template__ = __webpack_require__(260)
+var __vue_template__ = __webpack_require__(240)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -61904,7 +61879,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 259 */
+/* 239 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62109,7 +62084,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 260 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -62441,15 +62416,15 @@ if (false) {
 }
 
 /***/ }),
-/* 261 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(262)
+var __vue_script__ = __webpack_require__(242)
 /* template */
-var __vue_template__ = __webpack_require__(263)
+var __vue_template__ = __webpack_require__(243)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -62488,7 +62463,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 262 */
+/* 242 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62548,6 +62523,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        // console.log("Component mounted.");
+    },
     created: function created() {
         this.getPermissions();
     },
@@ -62587,7 +62565,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 permissions: ""
             };
             axios.post("/api/roles", {
-                name: this.user.name,
+                name: this.role.name,
                 permissions: this.permissions
             }).then(function (response) {
                 Vue.notify({
@@ -62619,7 +62597,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 263 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -62741,7 +62719,7 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select Permission..")
+                          _vm._v("Select Permission")
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.permissions, function(permission) {
@@ -62756,9 +62734,14 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-success" }, [
-                    _vm._v("Add Another Permission")
-                  ])
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Add Another Permission")]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-footer" }, [
@@ -62827,6 +62810,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-b3974bc6", module.exports)
   }
 }
+
+/***/ }),
+/* 244 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
