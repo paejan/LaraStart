@@ -62533,7 +62533,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             role: {
                 name: "",
-                permissions: ""
+                permissions: []
             },
             errors: {
                 name: "",
@@ -62566,7 +62566,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
             axios.post("/api/roles", {
                 name: this.role.name,
-                permissions: this.permissions
+                permissions: this.role.permissions
             }).then(function (response) {
                 Vue.notify({
                     group: "notifications",
@@ -62710,11 +62710,38 @@ var render = function() {
                     _c(
                       "select",
                       {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.role.permission,
+                            expression: "role.permission"
+                          }
+                        ],
                         staticClass: "form-control",
                         attrs: {
-                          id: "permissions",
+                          id: "permissions[]",
                           required: "",
-                          name: "permissions"
+                          name: "permissions[]"
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.role,
+                              "permission",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
                       },
                       [

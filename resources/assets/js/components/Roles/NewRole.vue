@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="permissions">Add Permission</label>
-                                <select class="form-control" id="permissions" required name="permissions">
+                                <select class="form-control" id="permissions[]" required v-model="role.permission" name="permissions[]">
                                     <option value="">Select Permission</option>
                                     <option v-for="permission in permissions" :value="permission.id">{{ permission.name }}</option>
                                 </select>
@@ -65,7 +65,7 @@
             return {
                 role: {
                     name: "",
-                    permissions: "",
+                    permissions: [],
                 },
                 errors: {
                     name: "",
@@ -92,7 +92,7 @@
                 };
                 axios.post("/api/roles", {
                     name: this.role.name,
-                    permissions: this.permissions,
+                    permissions: this.role.permissions,
                 }).then(response => {
                     Vue.notify({
                         group: "notifications",
@@ -102,23 +102,23 @@
                     });
                         this.$router.push({ path: "/role/" + response.data.id});
                     })
-                    .catch(error => {
-                        this.loadingSave = false;
-                        if (error.response) {
-                            if (error.response.data.errors.name) {
-                                this.errors.name = error.response.data.errors.name[0];
-                            }
-                            console.log(error.response);
-                        } else {
-                            console.log(error);
+                .catch(error => {
+                    this.loadingSave = false;
+                    if (error.response) {
+                        if (error.response.data.errors.name) {
+                            this.errors.name = error.response.data.errors.name[0];
                         }
-                        Vue.notify({
-                            group: "notifications",
-                            title: "Failed To Create Role!",
-                            type: "error",
-                            text: "There was a problem with your input."
-                        });
+                        console.log(error.response);
+                    } else {
+                        console.log(error);
+                    }
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Failed To Create Role!",
+                        type: "error",
+                        text: "There was a problem with your input."
                     });
+                });
             }
         }
     };

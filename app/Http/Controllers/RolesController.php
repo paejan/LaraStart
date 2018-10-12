@@ -42,10 +42,9 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $request->validate([
-            'name'          => 'required|unique:role.name|string|max:191',
-            'permissions.*' => 'required|exists:permissions.id',
+            'name'          => 'required|unique:roles,name|string|max:191',
+            'permissions.*' => 'required|exists:permissions,id',
         ]);
 
         return Role::create([
