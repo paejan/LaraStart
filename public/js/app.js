@@ -62974,7 +62974,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             role: null,
-            set_permissions: null, // TODO
             errors: {
                 name: "",
                 permissions: ""

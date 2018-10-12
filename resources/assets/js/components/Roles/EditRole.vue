@@ -65,7 +65,6 @@
         data() {
             return {
                 role: null,
-                set_permissions: null, // TODO
                 errors: {
                     name: "",
                     permissions: "",

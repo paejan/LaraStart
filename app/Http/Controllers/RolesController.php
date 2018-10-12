@@ -72,11 +72,14 @@ class RolesController extends Controller
     }
 
     /**
+     * Returns the Role with all of the assigned permissions.
+     *
      * @param Role $id
      * @return mixed
      */
-    public function show(Role $role) {
-        return $role;
+    public function show($id) {
+        return Role::with("permissions")
+            ->findOrFail($id);
     }
 
     /**
@@ -100,17 +103,5 @@ class RolesController extends Controller
     public function usersWithoutRoles()
     {
         return User::doesntHave('Roles')->get();
-    }
-
-
-    /**
-     * Returns the permissions assigned the specified row.
-     *
-     * @param $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Role|Role[]
-     */
-    public function getPermissions($id) {
-        return Role::with('Permissions')
-                ->findOrFail($id);
     }
 }
