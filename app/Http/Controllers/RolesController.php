@@ -35,6 +35,54 @@ class RolesController extends Controller
     }
 
     /**
+     * Creates a new user role.
+     *
+     * @param Request $request
+     * @return Collection
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'          => 'required|unique:roles,name|string|max:191',
+            'permissions.*' => 'required|exists:permissions,id',
+        ]);
+
+        return Role::create([
+            'name' => $request->name,
+        ]);
+    }
+
+    /**
+     * Updates a User Role.
+     *
+     * @param Request $request
+     * @return Collection
+     */
+    public function update(Request $request, Role $role)
+    {
+        $request->validate([
+            'name'          => 'required|unique:roles,name,'.$role->id.'|string|max:191',
+        ]);
+
+        $role->update([
+            'name' => $request->name,
+        ]);
+
+        return $role;
+    }
+
+    /**
+     * Returns the Role with all of the assigned permissions.
+     *
+     * @param Role $id
+     * @return mixed
+     */
+    public function show($id) {
+        return Role::with("permissions")
+            ->findOrFail($id);
+    }
+
+    /**
      * Returns Role with all Users assigned specified by the role id.
      *
      * @param $id

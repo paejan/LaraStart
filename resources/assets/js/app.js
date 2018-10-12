@@ -26,7 +26,8 @@ let routes = [
     { name: 'new_user', path: '/users/new', component: require('./components/Users/NewUser.vue') },
 
     { name: 'all_roles', path: '/roles', component: require('./components/Roles/Roles.vue') },
-    { name: 'new_role', path: '/roles/new', component: require('./components/Roles/NewRole.vue') }
+    { name: 'new_role', path: '/roles/new', component: require('./components/Roles/NewRole.vue') },
+    { name: 'edit_role', path: '/roles/edit/:id', component: require('./components/Roles/EditRole.vue') }
 ]
 
 const router = new VueRouter({

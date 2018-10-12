@@ -4,7 +4,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h3 class="m-0 text-dark">
-                    New Role
+                    Edit Role
                 </h3>
             </div>
         </div>
@@ -15,7 +15,7 @@
                     <form v-on:submit="saveForm()" >
                         <div class="card-header">
                             <h3 class="card-title col-12">
-                                <i class="fa fa-key"></i> Create Role
+                                <i class="fa fa-key"></i> {{ role.name }}
                             </h3>
                             <div class="card-tools">
 
@@ -59,28 +59,44 @@
 
         created() {
             this.getPermissions();
+            this.getRole();
         },
 
         data() {
             return {
-                role: {
-                    name: "",
-                    permissions: [],
-                },
+                role: null,
                 errors: {
                     name: "",
                     permissions: "",
                 },
                 permissions: "",
                 loadingSave: false,
+                loadingRole: false,
             };
         },
 
         methods: {
             getPermissions() {
                 axios.get("/api/permissions")
+                    .then(({ data }) => {
+                        this.permissions = data;
+                    });
+            },
+            getRole() {
+                this.loadingRole = true;
+                axios.get("/api/roles/" + this.$route.params.id)
                 .then(({ data }) => {
-                    this.permissions = data;
+                    this.role = data;
+                })
+                .catch(errors => {
+                    console.log(errors);
+                    this.loadingUser = false;
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Unable to load role.",
+                        type: "error",
+                        text: "Whoops..  We were unable to load that role."
+                    });
                 });
             },
             saveForm() {
@@ -90,18 +106,17 @@
                     name: "",
                     permissions: "",
                 };
-                axios.post("/api/roles", {
+                axios.patch("/api/roles/" + this.$route.params.id, {
                     name: this.role.name,
-                    permissions: this.role.permissions,
-                }).then(response => {
+                })
+                .then(response => {
                     Vue.notify({
                         group: "notifications",
-                        title: "Role Created",
+                        title: "Role Updated",
                         type: "success",
-                        text: "This User Role has been created."
+                        text: "This User Role has been updated."
                     });
-                        // this.$router.push({ path: "/role/" + response.data.id});
-                    })
+                })
                 .catch(error => {
                     this.loadingSave = false;
                     if (error.response) {
@@ -114,7 +129,7 @@
                     }
                     Vue.notify({
                         group: "notifications",
-                        title: "Failed To Create Role!",
+                        title: "Failed To Update Role!",
                         type: "error",
                         text: "There was a problem with your input."
                     });
