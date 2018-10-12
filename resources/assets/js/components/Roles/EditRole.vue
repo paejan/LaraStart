@@ -64,10 +64,8 @@
 
         data() {
             return {
-                role: {
-                    name: "",
-                    permissions: "",
-                },
+                role: null,
+                set_permissions: null, // TODO
                 errors: {
                     name: "",
                     permissions: "",
@@ -109,35 +107,34 @@
                     name: "",
                     permissions: "",
                 };
-                axios.post("/api/roles", {
+                axios.patch("/api/roles/" + this.$route.params.id, {
                     name: this.role.name,
-                    permissions: this.role.permissions,
-                }).then(response => {
+                })
+                .then(response => {
                     Vue.notify({
                         group: "notifications",
-                        title: "Role Created",
+                        title: "Role Updated",
                         type: "success",
-                        text: "This User Role has been created."
+                        text: "This User Role has been updated."
                     });
-                    // this.$router.push({ path: "/role/" + response.data.id});
                 })
-                    .catch(error => {
-                        this.loadingSave = false;
-                        if (error.response) {
-                            if (error.response.data.errors.name) {
-                                this.errors.name = error.response.data.errors.name[0];
-                            }
-                            console.log(error.response);
-                        } else {
-                            console.log(error);
+                .catch(error => {
+                    this.loadingSave = false;
+                    if (error.response) {
+                        if (error.response.data.errors.name) {
+                            this.errors.name = error.response.data.errors.name[0];
                         }
-                        Vue.notify({
-                            group: "notifications",
-                            title: "Failed To Create Role!",
-                            type: "error",
-                            text: "There was a problem with your input."
-                        });
+                        console.log(error.response);
+                    } else {
+                        console.log(error);
+                    }
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Failed To Update Role!",
+                        type: "error",
+                        text: "There was a problem with your input."
                     });
+                });
             }
         }
     };

@@ -62973,10 +62973,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            role: {
-                name: "",
-                permissions: ""
-            },
+            role: null,
+            set_permissions: null, // TODO
             errors: {
                 name: "",
                 permissions: ""
@@ -63026,17 +63024,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: "",
                 permissions: ""
             };
-            axios.post("/api/roles", {
-                name: this.role.name,
-                permissions: this.role.permissions
+            axios.patch("/api/roles/" + this.$route.params.id, {
+                name: this.role.name
             }).then(function (response) {
                 Vue.notify({
                     group: "notifications",
-                    title: "Role Created",
+                    title: "Role Updated",
                     type: "success",
-                    text: "This User Role has been created."
+                    text: "This User Role has been updated."
                 });
-                // this.$router.push({ path: "/role/" + response.data.id});
             }).catch(function (error) {
                 _this3.loadingSave = false;
                 if (error.response) {
@@ -63049,7 +63045,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 Vue.notify({
                     group: "notifications",
-                    title: "Failed To Create Role!",
+                    title: "Failed To Update Role!",
                     type: "error",
                     text: "There was a problem with your input."
                 });

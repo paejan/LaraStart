@@ -42,7 +42,6 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $request->validate([
             'name'          => 'required|unique:roles,name|string|max:191',
             'permissions.*' => 'required|exists:permissions,id',
@@ -51,6 +50,25 @@ class RolesController extends Controller
         return Role::create([
             'name' => $request->name,
         ]);
+    }
+
+    /**
+     * Updates a User Role.
+     *
+     * @param Request $request
+     * @return Collection
+     */
+    public function update(Request $request, Role $role)
+    {
+        $request->validate([
+            'name'          => 'required|unique:roles,name,'.$role->id.'|string|max:191',
+        ]);
+
+        $role->update([
+            'name' => $request->name,
+        ]);
+
+        return $role;
     }
 
     /**
