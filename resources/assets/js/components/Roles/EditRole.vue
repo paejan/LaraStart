@@ -56,7 +56,9 @@
 
         data() {
             return {
-                role: null,
+                role: {
+                    name: "",
+                },
                 errors: {
                     name: "",
                     permissions: "",
