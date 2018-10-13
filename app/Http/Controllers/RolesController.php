@@ -38,6 +38,7 @@ class RolesController extends Controller
      * Creates a new user role.
      *
      * @param Request $request
+     *
      * @return Collection
      */
     public function store(Request $request)
@@ -56,6 +57,7 @@ class RolesController extends Controller
      * Updates a User Role.
      *
      * @param Request $request
+     *
      * @return Collection
      */
     public function update(Request $request, Role $role)
@@ -75,10 +77,12 @@ class RolesController extends Controller
      * Returns the Role with all of the assigned permissions.
      *
      * @param Role $id
+     *
      * @return mixed
      */
-    public function show($id) {
-        return Role::with("permissions")
+    public function show($id)
+    {
+        return Role::with('permissions')
             ->findOrFail($id);
     }
 
