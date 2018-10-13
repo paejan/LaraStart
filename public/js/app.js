@@ -62971,10 +62971,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -63105,143 +63101,99 @@ var render = function() {
                   _c("div", { staticClass: "card-tools" })
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _vm.errors.name
-                    ? _c("div", { staticClass: "form-group has-error" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Name (*)")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.role.name,
-                              expression: "role.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            required: "",
-                            id: "name",
-                            name: "name",
-                            placeholder: "Enter Name"
-                          },
-                          domProps: { value: _vm.role.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _vm.errors.name
+                      ? _c("div", { staticClass: "form-group has-error" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Name (*)")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.role.name,
+                                expression: "role.name"
                               }
-                              _vm.$set(_vm.role, "name", $event.target.value)
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              required: "",
+                              id: "name",
+                              name: "name",
+                              placeholder: "Enter Name"
+                            },
+                            domProps: { value: _vm.role.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.role, "name", $event.target.value)
+                              }
                             }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "help-block" }, [
-                          _vm._v(_vm._s(_vm.errors.name))
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "help-block" }, [
+                            _vm._v(_vm._s(_vm.errors.name))
+                          ])
                         ])
-                      ])
-                    : _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Name (*)")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.role.name,
-                              expression: "role.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            required: "",
-                            id: "name",
-                            name: "name",
-                            placeholder: "Enter Name"
-                          },
-                          domProps: { value: _vm.role.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      : _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Name (*)")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.role.name,
+                                expression: "role.name"
                               }
-                              _vm.$set(_vm.role, "name", $event.target.value)
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              required: "",
+                              id: "name",
+                              name: "name",
+                              placeholder: "Enter Name"
+                            },
+                            domProps: { value: _vm.role.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.role, "name", $event.target.value)
+                              }
                             }
-                          }
-                        })
-                      ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "permissions" } }, [
-                      _vm._v("Add Permission")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.role.permission,
-                            expression: "role.permission"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "permissions[]", required: "" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.role,
-                              "permission",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select Permission")
+                          })
                         ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.permissions, function(permission) {
-                          return _c(
-                            "option",
-                            { domProps: { value: permission.id } },
-                            [_vm._v(_vm._s(permission.name))]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Add Another Permission")]
-                  )
-                ]),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Permissions")]),
+                    _vm._v(" "),
+                    _vm._l(_vm.permissions, function(permission) {
+                      return _c("div", { staticClass: "form-group" }, [
+                        _c("input", {
+                          attrs: { type: "checkbox", name: "permissions[]" }
+                        }),
+                        _vm._v(
+                          " " +
+                            _vm._s(permission.name) +
+                            "\n                        "
+                        )
+                      ])
+                    })
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-footer" }, [
                   _vm.loadingSave

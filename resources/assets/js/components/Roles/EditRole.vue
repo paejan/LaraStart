@@ -31,14 +31,10 @@
                                 <label for="name">Name (*)</label>
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="role.name">
                             </div>
-                            <div class="form-group">
-                                <label for="permissions">Add Permission</label>
-                                <select class="form-control" id="permissions[]" required v-model="role.permission">
-                                    <option value="">Select Permission</option>
-                                    <option v-for="permission in permissions" :value="permission.id">{{ permission.name }}</option>
-                                </select>
+                            <label>Permissions</label>
+                            <div class="form-group" v-for="permission in permissions">
+                                <input type="checkbox" name="permissions[]"> {{ permission.name }}
                             </div>
-                            <button type="button" class="btn btn-success">Add Another Permission</button>
                         </div>
                         <div class="card-footer">
                             <button v-if="loadingSave" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
