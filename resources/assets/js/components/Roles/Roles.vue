@@ -66,8 +66,11 @@
                 </button>
             </template>
             <template slot="modal-body">
-                <ul>
+                <ul v-if="role.users.length > 0">
                     <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
+                </ul>
+                <ul v-else>
+                    <li> No users assigned to {{ role.name }}. </li>
                 </ul>
             </template>
             <template slot="modal-footer">

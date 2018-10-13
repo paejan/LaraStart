@@ -61970,6 +61970,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -62357,16 +62360,26 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("template", { slot: "modal-body" }, [
-                _c(
-                  "ul",
-                  _vm._l(_vm.role.users, function(user) {
-                    return _c("li", [
-                      _vm._v(
-                        _vm._s(user.name) + " (" + _vm._s(user.email) + ")"
-                      )
+                _vm.role.users.length > 0
+                  ? _c(
+                      "ul",
+                      _vm._l(_vm.role.users, function(user) {
+                        return _c("li", [
+                          _vm._v(
+                            _vm._s(user.name) + " (" + _vm._s(user.email) + ")"
+                          )
+                        ])
+                      })
+                    )
+                  : _c("ul", [
+                      _c("li", [
+                        _vm._v(
+                          " No users assigned to " +
+                            _vm._s(_vm.role.name) +
+                            ". "
+                        )
+                      ])
                     ])
-                  })
-                )
               ]),
               _vm._v(" "),
               _c("template", { slot: "modal-footer" }, [
@@ -62964,9 +62977,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        // console.log("Component mounted.");
-    },
     created: function created() {
         this.getPermissions();
         this.getRole();
