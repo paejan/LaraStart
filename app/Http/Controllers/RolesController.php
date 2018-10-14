@@ -61,7 +61,7 @@ class RolesController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name'          => 'required|unique:roles,name,'.$role->id.'|string|max:191',
+            'name' => 'required|unique:roles,name,'.$role->id.'|string|max:191',
         ]);
 
         $role->update([

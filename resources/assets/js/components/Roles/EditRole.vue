@@ -33,7 +33,7 @@
                             </div>
                             <label>Permissions</label>
                             <div class="form-group" v-for="permission in permissions">
-                                <input type="checkbox" name="permissions[]"> {{ permission.name }}
+                                <input type="checkbox" v-model="role.permissions"> {{ permission.name }}
                             </div>
                         </div>
                         <div class="card-footer">
@@ -58,6 +58,7 @@
             return {
                 role: {
                     name: "",
+                    permissions: "",
                 },
                 errors: {
                     name: "",
@@ -80,7 +81,8 @@
                 this.loadingRole = true;
                 axios.get("/api/roles/" + this.$route.params.id)
                 .then(({ data }) => {
-                    this.role = data;
+                    this.role.name = data.name;
+                    this.role.permissions = data.permissions;
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -102,6 +104,7 @@
                 };
                 axios.patch("/api/roles/" + this.$route.params.id, {
                     name: this.role.name,
+                    permissions: this.role.permissions
                 })
                 .then(response => {
                     Vue.notify({

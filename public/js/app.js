@@ -62980,7 +62980,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             role: {
-                name: ""
+                name: "",
+                permissions: ""
             },
             errors: {
                 name: "",
@@ -63010,7 +63011,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get("/api/roles/" + this.$route.params.id).then(function (_ref2) {
                 var data = _ref2.data;
 
-                _this2.role = data;
+                _this2.role.name = data.name;
+                _this2.role.permissions = data.permissions;
             }).catch(function (errors) {
                 console.log(errors);
                 _this2.loadingUser = false;
@@ -63032,7 +63034,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 permissions: ""
             };
             axios.patch("/api/roles/" + this.$route.params.id, {
-                name: this.role.name
+                name: this.role.name,
+                permissions: this.role.permissions
             }).then(function (response) {
                 Vue.notify({
                     group: "notifications",
@@ -63184,7 +63187,50 @@ var render = function() {
                     _vm._l(_vm.permissions, function(permission) {
                       return _c("div", { staticClass: "form-group" }, [
                         _c("input", {
-                          attrs: { type: "checkbox", name: "permissions[]" }
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.role.permissions,
+                              expression: "role.permissions"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.role.permissions)
+                              ? _vm._i(_vm.role.permissions, null) > -1
+                              : _vm.role.permissions
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.role.permissions,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.role,
+                                      "permissions",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.role,
+                                      "permissions",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.role, "permissions", $$c)
+                              }
+                            }
+                          }
                         }),
                         _vm._v(
                           " " +
