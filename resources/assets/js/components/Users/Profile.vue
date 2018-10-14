@@ -2,7 +2,7 @@
     <div class="container">
         <notifications group="notifications" position="bottom right" :speed="2000"/>
         <div class="row">
-            <div class="col-6">
+            <div class="col-8">
                 <div class="card card-primary">
                     <form v-on:submit="saveUserForm()" >
                         <div class="card-header">
@@ -69,50 +69,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="card card-danger">
-                    <form v-on:submit="saveRoleForm()" >
-                        <div class="card-header">
-                            <h3 class="card-title col-12">
-                                <i class="fa fa-key"></i> Permissions
-                            </h3>
-                            <div class="card-tools">
-
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="user_group">User Group</label>
-                                <select class="form-control" id="user_group" required name="user_group" v-model="user_group">
-                                    <option value="">None</option>
-                                    <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button v-if="loadingSaveRole" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
-                            <button v-else type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
-        <!-- Delete User Modal -->
-        <modal v-if="showDeleteUserModal">
-            <template slot="modal-title">Deleting: {{ user.name }}</template>
-            <template slot="modal-close">
-                <button type="button" class="close" @click="showDeleteUserModal = false" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </template>
-            <template slot="modal-body">Are you sure you want to delete {{ user.name }}?</template>
-            <template slot="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="showDeleteUserModal = false">Close</button>
-                <button v-if="loadingDeleteUser" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
-                <button v-else @click="deleteUser(user)" type="button" class="btn btn-danger">Delete User</button>
-            </template>
-        </modal>
-        <!-- /.Delete User Modal -->
     </div>
 </template>
 

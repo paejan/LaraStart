@@ -63313,49 +63313,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -63587,7 +63544,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-6" }, [
+        _c("div", { staticClass: "col-8" }, [
           _c("div", { staticClass: "card card-primary" }, [
             _c(
               "form",
@@ -63939,185 +63896,8 @@ var render = function() {
               ]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-6" }, [
-          _c("div", { staticClass: "card card-danger" }, [
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    _vm.saveRoleForm()
-                  }
-                }
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "user_group" } }, [
-                      _vm._v("User Group")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.user_group,
-                            expression: "user_group"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          id: "user_group",
-                          required: "",
-                          name: "user_group"
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.user_group = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("None")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.roles, function(role) {
-                          return _c(
-                            "option",
-                            { domProps: { value: role.id } },
-                            [_vm._v(_vm._s(role.name))]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-footer" }, [
-                  _vm.loadingSaveRole
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { disabled: "", type: "submit" }
-                        },
-                        [
-                          _c("i", { staticClass: "fa fa-spinner fa-spin" }),
-                          _vm._v(" Save")
-                        ]
-                      )
-                    : _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { type: "submit" }
-                        },
-                        [_vm._v("Save")]
-                      )
-                ])
-              ]
-            )
-          ])
         ])
-      ]),
-      _vm._v(" "),
-      _vm.showDeleteUserModal
-        ? _c(
-            "modal",
-            [
-              _c("template", { slot: "modal-title" }, [
-                _vm._v("Deleting: " + _vm._s(_vm.user.name))
-              ]),
-              _vm._v(" "),
-              _c("template", { slot: "modal-close" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: { type: "button", "aria-label": "Close" },
-                    on: {
-                      click: function($event) {
-                        _vm.showDeleteUserModal = false
-                      }
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("template", { slot: "modal-body" }, [
-                _vm._v(
-                  "Are you sure you want to delete " +
-                    _vm._s(_vm.user.name) +
-                    "?"
-                )
-              ]),
-              _vm._v(" "),
-              _c("template", { slot: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.showDeleteUserModal = false
-                      }
-                    }
-                  },
-                  [_vm._v("Close")]
-                ),
-                _vm._v(" "),
-                _vm.loadingDeleteUser
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { disabled: "", type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.deleteUser(_vm.user)
-                          }
-                        }
-                      },
-                      [_vm._v("Delete User")]
-                    )
-              ])
-            ],
-            2
-          )
-        : _vm._e()
+      ])
     ],
     1
   )
@@ -64131,19 +63911,6 @@ var staticRenderFns = [
       _c("h3", { staticClass: "card-title col-12" }, [
         _c("i", { staticClass: "fa fa-user-edit" }),
         _vm._v(" Your Profile\n                        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title col-12" }, [
-        _c("i", { staticClass: "fa fa-key" }),
-        _vm._v(" Permissions\n                        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })

@@ -22,5 +22,6 @@ Route::get('count/users/online', 'UserController@online');
 Route::get('user/{user}', 'UserController@show');
 Route::get('user/delete/{user}', 'UserController@destroy');
 Route::post('user/update_role/{user}', 'UserController@updateRole');
+Route::get('profile', 'UserController@showProfile');
 
 Route::get('roles/users/{id}', 'RolesController@roleUsers');
