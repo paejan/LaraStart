@@ -82,9 +82,13 @@
         data() {
             return {
                 loadingUser: true,
-                profile: [],
+                profile: {
+                    name: "",
+                    email: "",
+                    password: "",
+                    password_confirmation: ""
+                },
                 roles: [],
-                format,
                 errors: {
                     name: "",
                     email: "",
@@ -128,13 +132,6 @@
                     vm.profile_photo = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            },
-            formatDateTime: function(datetime) {
-                // Formats a MySQL datetime to JS Datetime
-                return new Date(datetime)
-                    .toISOString()
-                    .slice(0, 19)
-                    .replace("T", " ");
             },
             saveUserForm() {
                 event.preventDefault();

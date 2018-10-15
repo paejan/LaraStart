@@ -63317,9 +63317,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             loadingUser: true,
-            profile: [],
+            profile: {
+                name: "",
+                email: "",
+                password: "",
+                password_confirmation: ""
+            },
             roles: [],
-            format: format,
             errors: {
                 name: "",
                 email: "",
@@ -63365,11 +63369,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 vm.profile_photo = e.target.result;
             };
             reader.readAsDataURL(file);
-        },
-
-        formatDateTime: function formatDateTime(datetime) {
-            // Formats a MySQL datetime to JS Datetime
-            return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
         },
         saveUserForm: function saveUserForm() {
             var _this2 = this;
