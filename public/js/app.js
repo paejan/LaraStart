@@ -63234,10 +63234,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_date_fns__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Modal_vue__);
 //
 //
 //
@@ -63313,41 +63309,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        modal: __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default.a
-    },
-
-    mounted: function mounted() {
-        // console.log("Component mounted.");
-    },
     created: function created() {
-        this.getUser();
-        this.getRoles();
+        this.getProfile();
     },
     data: function data() {
         return {
             loadingUser: true,
-            user: [],
+            profile: [],
             roles: [],
-            format: __WEBPACK_IMPORTED_MODULE_0_date_fns__["format"],
+            format: format,
             errors: {
                 name: "",
                 email: "",
                 password: "",
-                profile_photo: "",
-                role: ""
+                profile_photo: ""
             },
-            loadingSaveUser: true,
-            loadingSaveRole: true,
-            profile_photo: "",
-            user_group: "",
-            showDeleteUserModal: false,
-            loadingDeleteUser: false
+            loadingSave: true,
+            profile_photo: ""
         };
     },
 
@@ -63356,49 +63336,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getUser: function getUser() {
             var _this = this;
 
-            this.loadingUser = true;
-            axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
+            this.loadingSave = true;
+            axios.get("/api/profile/").then(function (_ref) {
                 var data = _ref.data;
 
-                _this.user = data;
-                _this.loadingUser = false;
-                _this.loadingSaveUser = false;
-                if (data.roles[0]) {
-                    _this.user_group = data.roles[0].id;
-                } else {
-                    Vue.notify({
-                        group: "notifications",
-                        title: "User Account Disabled",
-                        type: "error",
-                        text: "Please assign a user role to enable this user account."
-                    });
-                }
+                _this.profile = data;
+                _this.loadingSave = false;
             }).catch(function (errors) {
                 console.log(errors);
-                _this.loadingUser = false;
+                _this.loadingSave = false;
                 Vue.notify({
                     group: "notifications",
-                    title: "Unable to load user data",
+                    title: "Unable to load profile",
                     type: "error",
-                    text: "Whoops..  We were unable to load that user."
-                });
-            });
-        },
-        getRoles: function getRoles() {
-            var _this2 = this;
-
-            axios.get("/api/roles").then(function (_ref2) {
-                var data = _ref2.data;
-
-                _this2.roles = data;
-                _this2.loadingSaveRole = false;
-            }).catch(function (errors) {
-                console.log(errors);
-                Vue.notify({
-                    group: "notifications",
-                    title: "Unable to User Roles",
-                    type: "error",
-                    text: "Whoops..  We were unable to load user roles."
+                    text: "Whoops..  We were unable to load your information."
                 });
             });
         },
@@ -63421,7 +63372,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return new Date(datetime).toISOString().slice(0, 19).replace("T", " ");
         },
         saveUserForm: function saveUserForm() {
-            var _this3 = this;
+            var _this2 = this;
 
             event.preventDefault();
             this.loadingSaveUser = true;
@@ -63439,7 +63390,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password_confirmation: this.user.password_confirmation,
                 profile_photo: app.profile_photo
             }).then(function (response) {
-                _this3.getUser();
+                _this2.getUser();
                 Vue.notify({
                     group: "notifications",
                     title: "User Updated",
@@ -63447,16 +63398,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     text: "This user has been updated."
                 });
             }).catch(function (error) {
-                _this3.loadingSaveUser = false;
+                _this2.loadingSaveUser = false;
                 if (error.response) {
                     if (error.response.data.errors.name) {
-                        _this3.errors.name = error.response.data.errors.name[0];
+                        _this2.errors.name = error.response.data.errors.name[0];
                     }
                     if (error.response.data.errors.email) {
-                        _this3.errors.email = error.response.data.errors.email[0];
+                        _this2.errors.email = error.response.data.errors.email[0];
                     }
                     if (error.response.data.errors.password) {
-                        _this3.errors.password = error.response.data.errors.password[0];
+                        _this2.errors.password = error.response.data.errors.password[0];
                     }
                     console.log(error.response);
                 } else {
@@ -63471,7 +63422,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         saveRoleForm: function saveRoleForm() {
-            var _this4 = this;
+            var _this3 = this;
 
             event.preventDefault();
             this.loadingSaveRole = true;
@@ -63483,8 +63434,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 user_group: this.user_group
             }).then(function (response) {
                 // app.$router.push({ path: "/" });
-                _this4.getUser();
-                _this4.getRoles();
+                _this3.getUser();
+                _this3.getRoles();
                 Vue.notify({
                     group: "notifications",
                     title: "User Role Updated.",
@@ -63492,7 +63443,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     text: "This user's User Role has been updated."
                 });
             }).catch(function (error) {
-                _this4.loadingSaveRole = false;
+                _this3.loadingSaveRole = false;
                 if (error.response) {
                     console.log(error.response);
                 } else {
@@ -63507,19 +63458,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteUser: function deleteUser(user) {
-            var _this5 = this;
+            var _this4 = this;
 
             this.loadingDeleteUser = true;
             axios.get("/api/user/delete/" + user.id).then(function (response) {
-                _this5.loadingDeleteUser = false;
-                _this5.showDeleteUserModal = false;
-                _this5.$notify({
+                _this4.loadingDeleteUser = false;
+                _this4.showDeleteUserModal = false;
+                _this4.$notify({
                     group: "users",
                     title: "User Successfully Deleted",
                     type: "success",
                     text: user.name + " was successfully deleted."
                 });
-                _this5.$router.push({ path: "/users" });
+                _this4.$router.push({ path: "/users" });
             }).catch(function (errors) {
                 console.log(errors);
             });

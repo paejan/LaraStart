@@ -74,27 +74,15 @@
 </template>
 
 <script>
-    import { format, formatDistance, formatRelative, subDays } from "date-fns";
-    import Modal from "../Modal.vue";
-
     export default {
-        components: {
-            modal: Modal
-        },
-
-        mounted() {
-            // console.log("Component mounted.");
-        },
-
         created() {
-            this.getUser();
-            this.getRoles();
+            this.getProfile();
         },
 
         data() {
             return {
                 loadingUser: true,
-                user: [],
+                profile: [],
                 roles: [],
                 format,
                 errors: {
@@ -102,63 +90,31 @@
                     email: "",
                     password: "",
                     profile_photo: "",
-                    role: ""
                 },
-                loadingSaveUser: true,
-                loadingSaveRole: true,
+                loadingSave: true,
                 profile_photo: "",
-                user_group: "",
-                showDeleteUserModal: false,
-                loadingDeleteUser: false,
             };
         },
 
         methods: {
             getUser() {
-                this.loadingUser = true;
+                this.loadingSave = true;
                 axios
-                    .get("/api/user/" + this.$route.params.id)
+                    .get("/api/profile/")
                     .then(({ data }) => {
-                        this.user = data;
-                        this.loadingUser = false;
-                        this.loadingSaveUser = false;
-                        if (data.roles[0]) {
-                            this.user_group = data.roles[0].id;
-                        } else {
-                            Vue.notify({
-                                group: "notifications",
-                                title: "User Account Disabled",
-                                type: "error",
-                                text: "Please assign a user role to enable this user account."
-                            });
-                        }
+                        this.profile = data;
+                        this.loadingSave = false;
                     })
                     .catch(errors => {
                         console.log(errors);
-                        this.loadingUser = false;
+                        this.loadingSave = false;
                         Vue.notify({
                             group: "notifications",
-                            title: "Unable to load user data",
+                            title: "Unable to load profile",
                             type: "error",
-                            text: "Whoops..  We were unable to load that user."
+                            text: "Whoops..  We were unable to load your information."
                         });
                     });
-            },
-            getRoles() {
-                axios.get("/api/roles")
-                    .then(({ data }) => {
-                        this.roles = data
-                        this.loadingSaveRole = false;
-                    })
-                    .catch(errors => {
-                        console.log(errors);
-                        Vue.notify({
-                            group: "notifications",
-                            title: "Unable to User Roles",
-                            type: "error",
-                            text: "Whoops..  We were unable to load user roles."
-                        });
-                    })
             },
             onImageChange(e) {
                 let files = e.target.files || e.dataTransfer.files;

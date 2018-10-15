@@ -178,4 +178,14 @@ class UserController extends Controller
         return User::find($id)
             ->syncRoles($request->user_group);
     }
+
+    /**
+     * Returns the signed in users profile data.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    public function getProfile()
+    {
+        return Auth::user();
+    }
 }
