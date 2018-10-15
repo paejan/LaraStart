@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button v-if="loadingSaveUser" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
+                            <button v-if="loadingSave" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
                             <button v-else type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
@@ -135,7 +135,7 @@
             },
             saveUserForm() {
                 event.preventDefault();
-                this.loadingSaveUser = true;
+                this.loadingSave = true;
                 this.errors = { // Clear any previous errors.
                     name: "",
                     email: "",
@@ -160,7 +160,7 @@
                         });
                     })
                     .catch(error => {
-                        this.loadingSaveUser = false;
+                        this.loadingSave = false;
                         if (error.response) {
                             if (error.response.data.errors.name) {
                                 this.errors.name = error.response.data.errors.name[0];

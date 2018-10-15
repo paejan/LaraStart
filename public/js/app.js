@@ -63374,7 +63374,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             event.preventDefault();
-            this.loadingSaveUser = true;
+            this.loadingSave = true;
             this.errors = { // Clear any previous errors.
                 name: "",
                 email: "",
@@ -63397,7 +63397,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     text: "This user has been updated."
                 });
             }).catch(function (error) {
-                _this2.loadingSaveUser = false;
+                _this2.loadingSave = false;
                 if (error.response) {
                     if (error.response.data.errors.name) {
                         _this2.errors.name = error.response.data.errors.name[0];
@@ -63830,7 +63830,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-footer" }, [
-                  _vm.loadingSaveUser
+                  _vm.loadingSave
                     ? _c(
                         "button",
                         {
