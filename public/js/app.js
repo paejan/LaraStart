@@ -63333,7 +63333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        getUser: function getUser() {
+        getProfile: function getProfile() {
             var _this = this;
 
             this.loadingSave = true;
@@ -63521,8 +63521,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.user.name,
-                              expression: "user.name"
+                              value: _vm.profile.name,
+                              expression: "profile.name"
                             }
                           ],
                           staticClass: "form-control",
@@ -63533,13 +63533,13 @@ var render = function() {
                             name: "name",
                             placeholder: "Enter Name"
                           },
-                          domProps: { value: _vm.user.name },
+                          domProps: { value: _vm.profile.name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.user, "name", $event.target.value)
+                              _vm.$set(_vm.profile, "name", $event.target.value)
                             }
                           }
                         }),
@@ -63558,8 +63558,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.user.name,
-                              expression: "user.name"
+                              value: _vm.profile.name,
+                              expression: "profile.name"
                             }
                           ],
                           staticClass: "form-control",
@@ -63570,13 +63570,13 @@ var render = function() {
                             name: "name",
                             placeholder: "Enter Name"
                           },
-                          domProps: { value: _vm.user.name },
+                          domProps: { value: _vm.profile.name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.user, "name", $event.target.value)
+                              _vm.$set(_vm.profile, "name", $event.target.value)
                             }
                           }
                         })
@@ -63593,8 +63593,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.user.email,
-                              expression: "user.email"
+                              value: _vm.profile.email,
+                              expression: "profile.email"
                             }
                           ],
                           staticClass: "form-control",
@@ -63605,13 +63605,17 @@ var render = function() {
                             name: "email",
                             placeholder: "Enter E-mail"
                           },
-                          domProps: { value: _vm.user.email },
+                          domProps: { value: _vm.profile.email },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.user, "email", $event.target.value)
+                              _vm.$set(
+                                _vm.profile,
+                                "email",
+                                $event.target.value
+                              )
                             }
                           }
                         }),
@@ -63630,8 +63634,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.user.email,
-                              expression: "user.email"
+                              value: _vm.profile.email,
+                              expression: "profile.email"
                             }
                           ],
                           staticClass: "form-control",
@@ -63642,13 +63646,17 @@ var render = function() {
                             name: "email",
                             placeholder: "Enter E-mail"
                           },
-                          domProps: { value: _vm.user.email },
+                          domProps: { value: _vm.profile.email },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.user, "email", $event.target.value)
+                              _vm.$set(
+                                _vm.profile,
+                                "email",
+                                $event.target.value
+                              )
                             }
                           }
                         })
@@ -63665,8 +63673,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.user.new_password,
-                              expression: "user.new_password"
+                              value: _vm.profile.new_password,
+                              expression: "profile.new_password"
                             }
                           ],
                           staticClass: "form-control",
@@ -63677,14 +63685,14 @@ var render = function() {
                             placeholder: "Enter New Password",
                             autocomplete: "off"
                           },
-                          domProps: { value: _vm.user.new_password },
+                          domProps: { value: _vm.profile.new_password },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.user,
+                                _vm.profile,
                                 "new_password",
                                 $event.target.value
                               )
@@ -63706,8 +63714,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.user.new_password,
-                              expression: "user.new_password"
+                              value: _vm.profile.new_password,
+                              expression: "profile.new_password"
                             }
                           ],
                           staticClass: "form-control",
@@ -63718,14 +63726,14 @@ var render = function() {
                             placeholder: "Enter New Password",
                             autocomplete: "off"
                           },
-                          domProps: { value: _vm.user.new_password },
+                          domProps: { value: _vm.profile.new_password },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.user,
+                                _vm.profile,
                                 "new_password",
                                 $event.target.value
                               )
@@ -63744,8 +63752,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.user.password_confirmation,
-                          expression: "user.password_confirmation"
+                          value: _vm.profile.password_confirmation,
+                          expression: "profile.password_confirmation"
                         }
                       ],
                       staticClass: "form-control",
@@ -63756,14 +63764,14 @@ var render = function() {
                         placeholder: "Confirm New Password",
                         autocomplete: "off"
                       },
-                      domProps: { value: _vm.user.password_confirmation },
+                      domProps: { value: _vm.profile.password_confirmation },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
                           _vm.$set(
-                            _vm.user,
+                            _vm.profile,
                             "password_confirmation",
                             $event.target.value
                           )
@@ -63795,7 +63803,7 @@ var render = function() {
                                 "margin-right": "10px"
                               },
                               attrs: {
-                                src: _vm.user.profile_photo,
+                                src: _vm.profile.profile_photo,
                                 alt: "User Image"
                               }
                             })

@@ -16,34 +16,34 @@
                         <div class="card-body">
                             <div class="form-group has-error" v-if="errors.name">
                                 <label for="name">Name (*)</label>
-                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="user.name">
+                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="profile.name">
                                 <span class="help-block">{{ errors.name }}</span>
                             </div>
                             <div class="form-group" v-else>
                                 <label for="name">Name (*)</label>
-                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="user.name">
+                                <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="profile.name">
                             </div>
                             <div class="form-group has-error" v-if="errors.email">
                                 <label for="email">E-mail (*)</label>
-                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="user.email">
+                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="profile.email">
                                 <span class="help-block">{{ errors.email }}</span>
                             </div>
                             <div class="form-group" v-else>
                                 <label for="email">E-mail (*)</label>
-                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="user.email">
+                                <input type="email" required class="form-control" id="email" name="email" placeholder="Enter E-mail" v-model="profile.email">
                             </div>
                             <div class="form-group has-error" v-if="errors.password">
                                 <label for="password">New Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off" v-model="user.new_password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off" v-model="profile.new_password">
                                 <span class="help-block">{{ errors.password }}</span>
                             </div>
                             <div class="form-group" v-else>
                                 <label for="password">New Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off" v-model="user.new_password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter New Password" autocomplete="off" v-model="profile.new_password">
                             </div>
                             <div class="form-group">
                                 <label for="password_confirmation">Confirm New Password</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm New Password" autocomplete="off" v-model="user.password_confirmation">
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm New Password" autocomplete="off" v-model="profile.password_confirmation">
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -51,7 +51,7 @@
                                         <img :src="profile_photo" class="img-circle" style="height: 4rem; width: 4rem; margin-right: 10px;">
                                     </div>
                                     <div class="image text-center" v-else>
-                                        <img :src="user.profile_photo" class="img-circle elevation-2" style="height: 4rem; width: 4rem; margin-right: 10px;" alt="User Image">
+                                        <img :src="profile.profile_photo" class="img-circle elevation-2" style="height: 4rem; width: 4rem; margin-right: 10px;" alt="User Image">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -97,7 +97,7 @@
         },
 
         methods: {
-            getUser() {
+            getProfile() {
                 this.loadingSave = true;
                 axios
                     .get("/api/profile/")
