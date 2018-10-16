@@ -63081,8 +63081,9 @@ var render = function() {
                           ],
                           attrs: { type: "checkbox" },
                           domProps: {
+                            value: permission.id,
                             checked: Array.isArray(_vm.role.permissions)
-                              ? _vm._i(_vm.role.permissions, null) > -1
+                              ? _vm._i(_vm.role.permissions, permission.id) > -1
                               : _vm.role.permissions
                           },
                           on: {
@@ -63091,7 +63092,7 @@ var render = function() {
                                 $$el = $event.target,
                                 $$c = $$el.checked ? true : false
                               if (Array.isArray($$a)) {
-                                var $$v = null,
+                                var $$v = permission.id,
                                   $$i = _vm._i($$a, $$v)
                                 if ($$el.checked) {
                                   $$i < 0 &&
