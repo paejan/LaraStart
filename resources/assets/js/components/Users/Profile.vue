@@ -195,7 +195,6 @@
                         user_group: this.user_group,
                     })
                     .then(response => {
-                        // app.$router.push({ path: "/" });
                         this.getUser();
                         this.getRoles();
                         Vue.notify({

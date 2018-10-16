@@ -63432,7 +63432,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post("/api/user/update_role/" + this.$route.params.id, {
                 user_group: this.user_group
             }).then(function (response) {
-                // app.$router.push({ path: "/" });
                 _this3.getUser();
                 _this3.getRoles();
                 Vue.notify({
