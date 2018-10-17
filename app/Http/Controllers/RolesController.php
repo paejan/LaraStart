@@ -70,7 +70,7 @@ class RolesController extends Controller
         ]);
 
         foreach ($request->permissions as $permission) {
-            $role->assignPermission
+
         }
 
         return $role;
