@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
@@ -69,8 +70,15 @@ class RolesController extends Controller
             'name' => $request->name,
         ]);
 
-        foreach ($request->permissions as $permission) {
-
+        // Unassign/Assign Permissions.
+        foreach (Permission::all() as $permission) {
+            if (in_array($permission->id, $request->permissions)) {
+                if (!$role->hasPermissionTo($permission->name)) { // todo: does Laravel permissions already do this?
+                    $role->givePermissionTo($permission->name);
+                }
+            } else {
+                $role->revokePermissionTo($permission->name);
+            }
         }
 
         return $role;
