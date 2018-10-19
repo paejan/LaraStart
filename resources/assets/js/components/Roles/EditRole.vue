@@ -33,7 +33,7 @@
                             </div>
                             <label>Permissions</label>
                             <div class="form-group" v-for="permission in permissions">
-                                <input type="checkbox" v-model="role.permissions"> {{ permission.name }}
+                                <input type="checkbox" :value="permission.id" v-model="role.permissions"> {{ permission.name }}
                             </div>
                         </div>
                         <div class="card-footer">
