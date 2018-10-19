@@ -32,8 +32,13 @@
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="role.name">
                             </div>
                             <label>Permissions</label>
-                            <div class="form-group" v-for="permission in permissions">
-                                <input type="checkbox" :value="permission.id" v-model="role.permissions"> {{ permission.name }}
+                            <div class="form-group" v-for="selectedPermission in role.selectedPermissions">
+                                <select class="form-control" required v-model="role.selectedPermissions">
+                                    <option value="">Select Permission..</option>
+                                    <option v-for="permission in permissions" :value="permission.id">
+                                        {{ permission.name }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -58,7 +63,8 @@
             return {
                 role: {
                     name: "",
-                    permissions: "",
+                    permissions: [],
+                    selectedPermissions: [],
                 },
                 errors: {
                     name: "",

@@ -62855,6 +62855,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -62865,7 +62870,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             role: {
                 name: "",
-                permissions: ""
+                permissions: [],
+                selectedPermissions: []
             },
             errors: {
                 name: "",
@@ -63068,59 +63074,63 @@ var render = function() {
                     _vm._v(" "),
                     _c("label", [_vm._v("Permissions")]),
                     _vm._v(" "),
-                    _vm._l(_vm.permissions, function(permission) {
+                    _vm._l(_vm.role.selectedPermissions, function(
+                      selectedPermission
+                    ) {
                       return _c("div", { staticClass: "form-group" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.role.permissions,
-                              expression: "role.permissions"
-                            }
-                          ],
-                          attrs: { type: "checkbox" },
-                          domProps: {
-                            value: permission.id,
-                            checked: Array.isArray(_vm.role.permissions)
-                              ? _vm._i(_vm.role.permissions, permission.id) > -1
-                              : _vm.role.permissions
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.role.permissions,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = permission.id,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.role,
-                                      "permissions",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.role,
-                                      "permissions",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.role, "permissions", $$c)
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.role.selectedPermissions,
+                                expression: "role.selectedPermissions"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.role,
+                                  "selectedPermissions",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
                               }
                             }
-                          }
-                        }),
-                        _vm._v(
-                          " " +
-                            _vm._s(permission.name) +
-                            "\n                        "
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Select Permission..")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.permissions, function(permission) {
+                              return _c(
+                                "option",
+                                { domProps: { value: permission.id } },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(permission.name) +
+                                      "\n                                "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
                         )
                       ])
                     })
