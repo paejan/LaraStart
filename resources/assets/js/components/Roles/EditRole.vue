@@ -64,7 +64,6 @@
                 role: {
                     name: "",
                     permissions: [],
-                    selectedPermissions: [],
                 },
                 errors: {
                     name: "",
@@ -88,7 +87,9 @@
                 axios.get("/api/roles/" + this.$route.params.id)
                 .then(({ data }) => {
                     this.role.name = data.name;
-                    this.role.permissions = data.permissions;
+                    for(var i = 0; i < data.permissions.length; i++) {
+                        this.role.permissions.push(data.permissions[i].id);
+                    }
                 })
                 .catch(errors => {
                     console.log(errors);

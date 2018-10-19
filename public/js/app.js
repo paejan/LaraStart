@@ -62870,8 +62870,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             role: {
                 name: "",
-                permissions: [],
-                selectedPermissions: []
+                permissions: []
             },
             errors: {
                 name: "",
@@ -62902,7 +62901,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = _ref2.data;
 
                 _this2.role.name = data.name;
-                _this2.role.permissions = data.permissions;
+                for (var i = 0; i < data.permissions.length; i++) {
+                    _this2.role.permissions.push(data.permissions[i].id);
+                }
             }).catch(function (errors) {
                 console.log(errors);
                 _this2.loadingUser = false;
