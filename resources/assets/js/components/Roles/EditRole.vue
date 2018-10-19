@@ -32,13 +32,14 @@
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="role.name">
                             </div>
                             <label>Permissions</label>
-                            <div class="form-group" v-for="selectedPermission in role.selectedPermissions">
-                                <select class="form-control" required v-model="role.selectedPermissions">
-                                    <option value="">Select Permission..</option>
+                            <div class="form-group" v-for="selectedPermission, key in role.permissions">
+                                <select class="form-control" required>
+                                    <option value="">Select Permission.. {{ key }}</option>
                                     <option v-for="permission in permissions" :value="permission.id">
                                         {{ permission.name }}
                                     </option>
                                 </select>
+                                <button type="button" @click="removePermission(key)" class="btn btn-secondary">Remove Permission</button>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -138,6 +139,9 @@
                         text: "There was a problem with your input."
                     });
                 });
+            },
+            removePermission (key) {
+                this.$delete(this.role.permissions, key)
             }
         }
     };

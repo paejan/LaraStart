@@ -62860,6 +62860,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -62951,6 +62952,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     text: "There was a problem with your input."
                 });
             });
+        },
+        removePermission: function removePermission(key) {
+            this.$delete(this.role.permissions, key);
         }
     }
 });
@@ -63075,46 +63079,20 @@ var render = function() {
                     _vm._v(" "),
                     _c("label", [_vm._v("Permissions")]),
                     _vm._v(" "),
-                    _vm._l(_vm.role.selectedPermissions, function(
-                      selectedPermission
+                    _vm._l(_vm.role.permissions, function(
+                      selectedPermission,
+                      key
                     ) {
                       return _c("div", { staticClass: "form-group" }, [
                         _c(
                           "select",
                           {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.role.selectedPermissions,
-                                expression: "role.selectedPermissions"
-                              }
-                            ],
                             staticClass: "form-control",
-                            attrs: { required: "" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.role,
-                                  "selectedPermissions",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
+                            attrs: { required: "" }
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Select Permission..")
+                              _vm._v("Select Permission.. " + _vm._s(key))
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.permissions, function(permission) {
@@ -63132,6 +63110,20 @@ var render = function() {
                             })
                           ],
                           2
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.removePermission(key)
+                              }
+                            }
+                          },
+                          [_vm._v("Remove Permission")]
                         )
                       ])
                     })
