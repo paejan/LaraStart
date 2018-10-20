@@ -203,12 +203,21 @@ class UserController extends Controller
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
-        Auth::user()->update([
-            'name'  => $request->name,
-            'email' => $request->email,
-        ]);
-
-        return Auth::user();
+        return User::where('id', Auth::user()->id)
+            ->when(!empty($request->password), function ($query) use ($request) {
+                $query->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            })
+            ->when(!empty($request->profile_photo), function ($query) use ($request) {
+                $query->update([
+                    'profile_photo' => $request->profile_photo,
+                ]);
+            })
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
     }
 
 }
