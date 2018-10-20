@@ -63224,8 +63224,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -63407,68 +63405,73 @@ var render = function() {
                         })
                       ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "permissions" } }, [
-                      _vm._v("Add Permission")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.role.permission,
-                            expression: "role.permission"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "permissions[]", required: "" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.role,
-                              "permission",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select Permission")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.permissions, function(permission) {
-                          return _c(
-                            "option",
-                            { domProps: { value: permission.id } },
-                            [_vm._v(_vm._s(permission.name))]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Add Another Permission")]
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: "permissions" } }, [
+                        _vm._v("Add Permissions")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.permissions, function(permission) {
+                        return _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.role.permissions,
+                                expression: "role.permissions"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              value: permission.id,
+                              checked: Array.isArray(_vm.role.permissions)
+                                ? _vm._i(_vm.role.permissions, permission.id) >
+                                  -1
+                                : _vm.role.permissions
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.role.permissions,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = permission.id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.role,
+                                        "permissions",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.role,
+                                        "permissions",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.role, "permissions", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(
+                            " " +
+                              _vm._s(permission.name) +
+                              "\n                            "
+                          )
+                        ])
+                      })
+                    ],
+                    2
                   )
                 ]),
                 _vm._v(" "),
