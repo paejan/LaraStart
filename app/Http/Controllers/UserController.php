@@ -203,8 +203,10 @@ class UserController extends Controller
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
-        dd($request);
-
+        Auth::user()->update([
+            'name'  => $request->name,
+            'email' => $request->email,
+        ]);
 
         return Auth::user();
     }
