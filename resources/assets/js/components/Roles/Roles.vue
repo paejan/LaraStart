@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <!-- Delete User Modal -->
+        <!-- Role User Count Modal -->
         <modal v-if="showRoleUsersModal">
             <template slot="modal-title">{{ role.name }} Users</template>
             <template slot="modal-close">
@@ -77,7 +77,23 @@
                 <button type="button" class="btn btn-secondary" @click="showRoleUsersModal = false">Close</button>
             </template>
         </modal>
-        <!-- /.Delete User Modal -->
+        <!-- /.Role User Count Modal -->
+        <!-- Delete Permission Role Modal -->
+        <modal v-if="showDeleteRoleModal">
+            <template slot="modal-title">Deleting: {{ role.name }}</template>
+            <template slot="modal-close">
+                <button type="button" class="close" @click="showDeleteRoleModal = false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </template>
+            <template slot="modal-body"> Are you sure you want to delete {{ role.name }}? </template>
+            <template slot="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showDeleteRoleModal = false">Close</button>
+                <button v-if="loadingDelete" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                <button v-else @click="deleteRole(role)" type="button" class="btn btn-danger">Delete Role</button>
+            </template>
+        </modal>
+        <!-- /.Role User Count Modal -->
     </div>
 </template>
 
@@ -112,7 +128,7 @@
                 role: [],
                 roles: [],
                 loadingTable: true,
-                loadingDeleteRole: false,
+                loadingDelete: false,
                 showRoleUsersModal: false,
                 loadingRoles: true,
                 columns: columns,
@@ -144,8 +160,7 @@
                 this.loadingRoles = true;
                 this.loadingTable = true;
                 this.tableData.draw++;
-                axios
-                    .get(url, { params: this.tableData })
+                axios.get(url, { params: this.tableData })
                     .then(response => {
                         let data = response.data;
                         if (this.tableData.draw == data.draw) {
@@ -163,9 +178,6 @@
                 axios.get("api/roles/users/" + role_id).then(({ data }) => {
                     this.role = data;
                 });
-            },
-            refresh() {
-                this.getRoles();
             },
             configPagination(data) {
                 this.pagination.lastPage = data.last_page;
@@ -187,6 +199,11 @@
             },
             getIndex(array, key, value) {
                 return array.findIndex(i => i[key] == value);
+            },
+            getRole(id) {
+                axios.get("api/roles/users/" + id).then(({ data }) => {
+                    this.role = data;
+                });
             }
         }
     };

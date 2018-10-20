@@ -57,7 +57,7 @@ class RolesController extends Controller
      * Updates a User Role.
      *
      * @param Request $request
-     * @return Collection
+     * @return Role
      */
     public function update(Request $request, Role $role)
     {

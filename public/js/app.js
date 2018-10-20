@@ -62502,6 +62502,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -62528,7 +62544,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             role: [],
             roles: [],
             loadingTable: true,
-            loadingDeleteRole: false,
+            loadingDelete: false,
             showRoleUsersModal: false,
             loadingRoles: true,
             columns: columns,
@@ -62586,9 +62602,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.role = data;
             });
         },
-        refresh: function refresh() {
-            this.getRoles();
-        },
         configPagination: function configPagination(data) {
             this.pagination.lastPage = data.last_page;
             this.pagination.currentPage = data.current_page;
@@ -62610,6 +62623,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getIndex: function getIndex(array, key, value) {
             return array.findIndex(function (i) {
                 return i[key] == value;
+            });
+        },
+        getRole: function getRole(id) {
+            var _this3 = this;
+
+            axios.get("api/roles/users/" + id).then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this3.role = data;
             });
         }
     }
@@ -62932,6 +62954,85 @@ var render = function() {
                   },
                   [_vm._v("Close")]
                 )
+              ])
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showDeleteRoleModal
+        ? _c(
+            "modal",
+            [
+              _c("template", { slot: "modal-title" }, [
+                _vm._v("Deleting: " + _vm._s(_vm.role.name))
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-close" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteRoleModal = false
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-body" }, [
+                _vm._v(
+                  " Are you sure you want to delete " +
+                    _vm._s(_vm.role.name) +
+                    "? "
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteRoleModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _vm.loadingDelete
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { disabled: "", type: "button" }
+                      },
+                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteRole(_vm.role)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete Role")]
+                    )
               ])
             ],
             2
