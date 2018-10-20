@@ -62518,6 +62518,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -62988,13 +62997,37 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("template", { slot: "modal-body" }, [
-                _vm._v(
-                  " Are you sure you want to delete " +
-                    _vm._s(_vm.role.name) +
-                    "? "
-                )
-              ]),
+              _vm.role.users.length > 0
+                ? _c("template", { slot: "modal-body" }, [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(_vm.role.users.length) +
+                        " users are assigned to this role. "
+                    ),
+                    _c("br"),
+                    _vm._v(
+                      "\n            Please assign them to another role before deleting this permission role. "
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      _vm._l(_vm.role.users, function(user) {
+                        return _c("li", [
+                          _vm._v(
+                            _vm._s(user.name) + " (" + _vm._s(user.email) + ")"
+                          )
+                        ])
+                      })
+                    )
+                  ])
+                : _c("template", { slot: "modal-body" }, [
+                    _vm._v(
+                      " Are you sure you want to delete " +
+                        _vm._s(_vm.role.name) +
+                        "? "
+                    )
+                  ]),
               _vm._v(" "),
               _c("template", { slot: "modal-footer" }, [
                 _c(
@@ -63011,28 +63044,32 @@ var render = function() {
                   [_vm._v("Close")]
                 ),
                 _vm._v(" "),
-                _vm.loadingDelete
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { disabled: "", type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.deleteRole(_vm.role)
-                          }
-                        }
-                      },
-                      [_vm._v("Delete Role")]
-                    )
+                _vm.role.users.length === 0
+                  ? _c("div", [
+                      _vm.loadingDelete
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { disabled: "", type: "button" }
+                            },
+                            [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  _vm.deleteRole(_vm.role)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete Role")]
+                          )
+                    ])
+                  : _vm._e()
               ])
             ],
             2

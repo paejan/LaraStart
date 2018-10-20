@@ -86,11 +86,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </template>
-            <template slot="modal-body"> Are you sure you want to delete {{ role.name }}? </template>
+            <template slot="modal-body" v-if="role.users.length > 0">
+                {{ role.users.length }} users are assigned to this role. <br>
+                Please assign them to another role before deleting this permission role. <br>
+                <ul>
+                    <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
+                </ul>
+            </template>
+            <template slot="modal-body" v-else> Are you sure you want to delete {{ role.name }}? </template>
             <template slot="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="showDeleteRoleModal = false">Close</button>
-                <button v-if="loadingDelete" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
-                <button v-else @click="deleteRole(role)" type="button" class="btn btn-danger">Delete Role</button>
+                <div v-if="role.users.length === 0">
+                    <button v-if="loadingDelete" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                    <button v-else @click="deleteRole(role)" type="button" class="btn btn-danger">Delete Role</button>
+                </div>
             </template>
         </modal>
         <!-- /.Role User Count Modal -->
