@@ -189,11 +189,12 @@ class UserController extends Controller
         return Auth::user();
     }
 
+
     /**
      * Updates the authenticated users profile.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return boolean
      */
     public function updateProfile(Request $request) {
         $request->validate([
