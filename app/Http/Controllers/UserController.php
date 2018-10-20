@@ -196,7 +196,15 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function updateProfile(Request $request) {
+        $request->validate([
+            'name'          => 'required|string|max:191',
+            'email'         => 'required|email|unique:users,email,' . Auth::user()->id . '|max:255',
+            'password'      => 'nullable|string|min:6|max:255|confirmed',
+            'profile_photo' => 'nullable|image64:jpeg,jpg,png',
+        ]);
+
         dd($request);
+
 
         return Auth::user();
     }

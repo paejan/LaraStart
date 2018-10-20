@@ -63401,7 +63401,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
             reader.readAsDataURL(file);
         },
-        saveUserForm: function saveUserForm() {
+        saveForm: function saveForm() {
             var _this2 = this;
 
             event.preventDefault();
@@ -63412,20 +63412,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: "",
                 profile_photo: ""
             };
-            var app = this;
-            axios.patch("/api/users/" + this.$route.params.id, {
-                name: this.user.name,
-                email: this.user.email,
-                password: this.user.new_password,
-                password_confirmation: this.user.password_confirmation,
-                profile_photo: app.profile_photo
+            axios.patch("/api/profile/", {
+                name: this.profile.name,
+                email: this.profile.email,
+                password: this.profile.new_password,
+                password_confirmation: this.profile.password_confirmation,
+                profile_photo: this.profile_photo
             }).then(function (response) {
-                _this2.getUser();
+                _this2.getProfile();
                 Vue.notify({
                     group: "notifications",
-                    title: "User Updated",
+                    title: "Profile Updated",
                     type: "success",
-                    text: "This user has been updated."
+                    text: "Your profile has been updated."
                 });
             }).catch(function (error) {
                 _this2.loadingSave = false;
@@ -63449,59 +63448,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: "error",
                     text: "There was a problem with your input."
                 });
-            });
-        },
-        saveRoleForm: function saveRoleForm() {
-            var _this3 = this;
-
-            event.preventDefault();
-            this.loadingSaveRole = true;
-            this.errors = { // Clear any previous errors.
-                role: ""
-            };
-            console.log(this.user_group);
-            axios.post("/api/user/update_role/" + this.$route.params.id, {
-                user_group: this.user_group
-            }).then(function (response) {
-                _this3.getUser();
-                _this3.getRoles();
-                Vue.notify({
-                    group: "notifications",
-                    title: "User Role Updated.",
-                    type: "success",
-                    text: "This user's User Role has been updated."
-                });
-            }).catch(function (error) {
-                _this3.loadingSaveRole = false;
-                if (error.response) {
-                    console.log(error.response);
-                } else {
-                    console.log(error);
-                }
-                Vue.notify({
-                    group: "notifications",
-                    title: "Failed To Update!",
-                    type: "error",
-                    text: "There was a problem with your input."
-                });
-            });
-        },
-        deleteUser: function deleteUser(user) {
-            var _this4 = this;
-
-            this.loadingDeleteUser = true;
-            axios.get("/api/user/delete/" + user.id).then(function (response) {
-                _this4.loadingDeleteUser = false;
-                _this4.showDeleteUserModal = false;
-                _this4.$notify({
-                    group: "users",
-                    title: "User Successfully Deleted",
-                    type: "success",
-                    text: user.name + " was successfully deleted."
-                });
-                _this4.$router.push({ path: "/users" });
-            }).catch(function (errors) {
-                console.log(errors);
             });
         }
     }
@@ -63531,7 +63477,7 @@ var render = function() {
               {
                 on: {
                   submit: function($event) {
-                    _vm.saveUserForm()
+                    _vm.saveForm()
                   }
                 }
               },

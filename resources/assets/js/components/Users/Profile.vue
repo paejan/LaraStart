@@ -142,46 +142,43 @@
                     password: "",
                     profile_photo: ""
                 };
-                var app = this;
                 axios.patch("/api/profile/", {
-                    name: this.user.name,
-                    email: this.user.email,
-                    password: this.user.new_password,
-                    password_confirmation: this.user.password_confirmation,
-                    profile_photo: app.profile_photo,
-                })
-                    .then(response => {
-                        this.getUser();
-                        Vue.notify({
-                            group: "notifications",
-                            title: "User Updated",
-                            type: "success",
-                            text: "This user has been updated."
-                        });
-                    })
-                    .catch(error => {
-                        this.loadingSave = false;
-                        if (error.response) {
-                            if (error.response.data.errors.name) {
-                                this.errors.name = error.response.data.errors.name[0];
-                            }
-                            if (error.response.data.errors.email) {
-                                this.errors.email = error.response.data.errors.email[0];
-                            }
-                            if (error.response.data.errors.password) {
-                                this.errors.password = error.response.data.errors.password[0];
-                            }
-                            console.log(error.response);
-                        } else {
-                            console.log(error);
-                        }
-                        Vue.notify({
-                            group: "notifications",
-                            title: "Failed To Update!",
-                            type: "error",
-                            text: "There was a problem with your input."
-                        });
+                    name: this.profile.name,
+                    email: this.profile.email,
+                    password: this.profile.new_password,
+                    password_confirmation: this.profile.password_confirmation,
+                    profile_photo: this.profile_photo,
+                }).then(response => {
+                    this.getProfile();
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Profile Updated",
+                        type: "success",
+                        text: "Your profile has been updated."
                     });
+                }).catch(error => {
+                    this.loadingSave = false;
+                    if (error.response) {
+                        if (error.response.data.errors.name) {
+                            this.errors.name = error.response.data.errors.name[0];
+                        }
+                        if (error.response.data.errors.email) {
+                            this.errors.email = error.response.data.errors.email[0];
+                        }
+                        if (error.response.data.errors.password) {
+                            this.errors.password = error.response.data.errors.password[0];
+                        }
+                        console.log(error.response);
+                    } else {
+                        console.log(error);
+                    }
+                    Vue.notify({
+                        group: "notifications",
+                        title: "Failed To Update!",
+                        type: "error",
+                        text: "There was a problem with your input."
+                    });
+                });
             },
         }
     };
