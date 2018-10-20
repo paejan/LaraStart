@@ -36,7 +36,7 @@
                             <tbody v-else>
                             <tr v-for="role in roles" :key="role.id">
                                 <td>{{role.name}}</td>
-                                <td>{{role.users.length}}</td>
+                                <td>{{ role.users.length}} </td>
                                 <td>
                                     <router-link :to="{ name : 'edit_role', params : { id : role.id } }">
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit Role</button>
@@ -65,7 +65,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </template>
-            <template slot="modal-body">
+            <template slot="modal-body" v-if="role.users">
                 <ul v-if="role.users.length > 0">
                     <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
                 </ul>

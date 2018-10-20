@@ -62109,7 +62109,9 @@ var render = function() {
                             return _c("tr", { key: role.id }, [
                               _c("td", [_vm._v(_vm._s(role.name))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(role.users.length))]),
+                              _c("td", [
+                                _vm._v(_vm._s(role.users.length) + " ")
+                              ]),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -62243,28 +62245,33 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("template", { slot: "modal-body" }, [
-                _vm.role.users.length > 0
-                  ? _c(
-                      "ul",
-                      _vm._l(_vm.role.users, function(user) {
-                        return _c("li", [
-                          _vm._v(
-                            _vm._s(user.name) + " (" + _vm._s(user.email) + ")"
-                          )
-                        ])
-                      })
-                    )
-                  : _c("ul", [
-                      _c("li", [
-                        _vm._v(
-                          " No users assigned to " +
-                            _vm._s(_vm.role.name) +
-                            ". "
+              _vm.role.users
+                ? _c("template", { slot: "modal-body" }, [
+                    _vm.role.users.length > 0
+                      ? _c(
+                          "ul",
+                          _vm._l(_vm.role.users, function(user) {
+                            return _c("li", [
+                              _vm._v(
+                                _vm._s(user.name) +
+                                  " (" +
+                                  _vm._s(user.email) +
+                                  ")"
+                              )
+                            ])
+                          })
                         )
-                      ])
-                    ])
-              ]),
+                      : _c("ul", [
+                          _c("li", [
+                            _vm._v(
+                              " No users assigned to " +
+                                _vm._s(_vm.role.name) +
+                                ". "
+                            )
+                          ])
+                        ])
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("template", { slot: "modal-footer" }, [
                 _c(
