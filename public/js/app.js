@@ -56567,7 +56567,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loadingUser = true;
-            axioselete.get("/api/user/users/" + this.$route.params.id).then(function (_ref) {
+            axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
                 var data = _ref.data;
 
                 _this.user = data;

@@ -232,8 +232,8 @@ export default {
     methods: {
         getUser() {
             this.loadingUser = true;
-            axioselete
-            .get("/api/user/users/" + this.$route.params.id)
+            axios
+            .get("/api/user/" + this.$route.params.id)
             .then(({ data }) => {
                 this.user = data;
                 this.loadingUser = false;
