@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-8">
                 <div class="card card-primary">
-                    <form v-on:submit="saveUserForm()" >
+                    <form v-on:submit="saveForm()" >
                         <div class="card-header">
                             <h3 class="card-title col-12">
                                 <i class="fa fa-user-edit"></i> Your Profile
@@ -143,7 +143,7 @@
                     profile_photo: ""
                 };
                 var app = this;
-                axios.patch("/api/users/" + this.$route.params.id, {
+                axios.patch("/api/profile/", {
                     name: this.user.name,
                     email: this.user.email,
                     password: this.user.new_password,

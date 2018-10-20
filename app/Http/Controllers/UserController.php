@@ -31,8 +31,8 @@ class UserController extends Controller
         $users = User::with('Roles')
             ->orderBy($columns[$request->column], $request->dir)
             ->when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhere('email', 'like', '%'.$request->search.'%');
+                $query->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
             })
             ->paginate($request->length);
 
@@ -48,16 +48,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'          => 'required|string|max:255',
-            'email'         => 'required|string|email|max:255|unique:users',
-            'password'      => 'nullable|string|min:6|max:255|confirmed',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
         return User::create([
-            'name'          => $request->name,
-            'email'         => $request->email,
-            'password'      => Hash::make($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'profile_photo' => $request->profile_photo,
         ]);
     }
@@ -66,16 +66,16 @@ class UserController extends Controller
      * Updates the user information.
      *
      * @param Request $request
-     * @param int     $id
+     * @param int $id
      *
      * @return Collection
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'          => 'required|string|max:255',
-            'email'         => 'required|string|email|max:255',
-            'password'      => 'nullable|string|min:6|max:255|confirmed',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
@@ -91,7 +91,7 @@ class UserController extends Controller
                 ]);
             })
             ->update([
-                'name'  => $request->name,
+                'name' => $request->name,
                 'email' => $request->email,
             ]);
     }
@@ -188,4 +188,17 @@ class UserController extends Controller
     {
         return Auth::user();
     }
+
+    /**
+     * Updates the authenticated users profile.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    public function updateProfile(Request $request) {
+        dd($request);
+
+        return Auth::user();
+    }
+
 }
