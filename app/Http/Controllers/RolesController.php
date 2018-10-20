@@ -96,6 +96,20 @@ class RolesController extends Controller
     }
 
     /**
+     * Deletes the specified role by the associated role id.
+     *
+     * @param Role $role
+     * @return Role
+     * @throws \Exception
+     */
+    public function destroy(Role $role)
+    {
+        $role->delete();
+
+        return $role;
+    }
+
+    /**
      * Returns Role with all Users assigned specified by the role id.
      *
      * @param $id

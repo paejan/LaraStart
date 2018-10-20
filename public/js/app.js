@@ -62642,6 +62642,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 _this3.role = data;
             });
+        },
+        deleteRole: function deleteRole(role) {
+            var _this4 = this;
+
+            this.loadingDelete = true;
+            axios.get("api/roles/delete/" + role.id).then(function (response) {
+                _this4.loadingDelete = false;
+                _this4.getRoles();
+                _this4.showDeleteRoleModal = false;
+                _this4.$notify({
+                    group: "permissions",
+                    title: "Role Successfully Deleted",
+                    type: "success",
+                    text: role.name + " was successfully deleted."
+                });
+            }).catch(function (errors) {
+                console.log(errors);
+            });
         }
     }
 });

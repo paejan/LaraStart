@@ -213,7 +213,25 @@
                 axios.get("api/roles/users/" + id).then(({ data }) => {
                     this.role = data;
                 });
-            }
+            },
+            deleteRole(role) {
+                this.loadingDelete = true;
+                axios.get("api/roles/delete/" + role.id)
+                    .then(response => {
+                        this.loadingDelete = false;
+                        this.getRoles();
+                        this.showDeleteRoleModal = false;
+                        this.$notify({
+                            group: "permissions",
+                            title: "Role Successfully Deleted",
+                            type: "success",
+                            text: role.name + " was successfully deleted."
+                        });
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    });
+            },
         }
     };
 </script>

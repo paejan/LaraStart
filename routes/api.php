@@ -27,3 +27,4 @@ Route::get('profile', 'UserController@getProfile');
 Route::patch('profile', 'UserController@updateProfile');
 
 Route::get('roles/users/{id}', 'RolesController@roleUsers');
+Route::get('roles/delete/{role}', 'RolesController@destroy');
