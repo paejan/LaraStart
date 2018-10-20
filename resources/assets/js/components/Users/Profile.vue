@@ -133,7 +133,7 @@
                 };
                 reader.readAsDataURL(file);
             },
-            saveUserForm() {
+            saveForm() {
                 event.preventDefault();
                 this.loadingSave = true;
                 this.errors = { // Clear any previous errors.
@@ -181,61 +181,6 @@
                             type: "error",
                             text: "There was a problem with your input."
                         });
-                    });
-            },
-            saveRoleForm() {
-                event.preventDefault();
-                this.loadingSaveRole = true;
-                this.errors = { // Clear any previous errors.
-                    role: ""
-                };
-                console.log(this.user_group);
-                axios
-                    .post("/api/user/update_role/" + this.$route.params.id, {
-                        user_group: this.user_group,
-                    })
-                    .then(response => {
-                        this.getUser();
-                        this.getRoles();
-                        Vue.notify({
-                            group: "notifications",
-                            title: "User Role Updated.",
-                            type: "success",
-                            text: "This user's User Role has been updated."
-                        });
-                    })
-                    .catch(error => {
-                        this.loadingSaveRole = false;
-                        if (error.response) {
-                            console.log(error.response);
-                        } else {
-                            console.log(error);
-                        }
-                        Vue.notify({
-                            group: "notifications",
-                            title: "Failed To Update!",
-                            type: "error",
-                            text: "There was a problem with your input."
-                        });
-                    });
-            },
-            deleteUser(user) {
-                this.loadingDeleteUser = true;
-                axios
-                    .get("/api/user/delete/" + user.id)
-                    .then(response => {
-                        this.loadingDeleteUser = false;
-                        this.showDeleteUserModal = false;
-                        this.$notify({
-                            group: "users",
-                            title: "User Successfully Deleted",
-                            type: "success",
-                            text: user.name + " was successfully deleted."
-                        });
-                        this.$router.push({ path: "/users" });
-                    })
-                    .catch(errors => {
-                        console.log(errors);
                     });
             },
         }
