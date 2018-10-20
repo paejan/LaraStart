@@ -35,22 +35,32 @@ class RolesController extends Controller
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
 
+
     /**
-     * Creates a new user role.
+     * Creates a new user role and assigns the specified permission(s).
      *
      * @param Request $request
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Model|Role
      */
     public function store(Request $request)
     {
         $request->validate([
             'name'          => 'required|unique:roles,name|string|max:191',
-            'permissions.*' => 'required|exists:permissions,id',
+            'permissions.*' => 'required|integer|exists:permissions,id',
         ]);
 
-        return Role::create([
+        $role = Role::create([
             'name' => $request->name,
         ]);
+
+        // Un-assign/Assign Permissions.
+        foreach (Permission::all() as $permission) {
+            if (in_array($permission->id, $request->permissions)) {
+                $role->givePermissionTo($permission->name);
+            }
+        }
+
+        return $role;
     }
 
     /**
