@@ -31,15 +31,9 @@
                                 <label for="name">Name (*)</label>
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="role.name">
                             </div>
-                            <label>Permissions</label>
-                            <div class="form-group" v-for="selectedPermission, key in role.permissions">
-                                <select class="form-control" required v-model="role.permissions">
-                                    <option value>Select Permission..</option>
-                                    <option v-for="permission in permissions" :value="permission.id">
-                                        {{ permission.name }}
-                                    </option>
-                                </select>
-                                <button type="button" @click="removePermission(key)" class="btn btn-secondary">Remove Permission</button>
+                            <label>Permissions Testing</label>
+                            <div class="form-group" v-for="permission in permissions">
+                                <input type="checkbox" v-model="role.permissions" :value="permission.id"> {{ permission.name }}
                             </div>
                         </div>
                         <div class="card-footer">
