@@ -61,17 +61,16 @@ class RolesController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        dd($request);
         $request->validate([
             'name'          => 'required|unique:roles,name,'.$role->id.'|string|max:191',
-            'permissions.*' => 'nullable|exists:permissions,id|integer',
+            'permissions.*' => 'nullable|integer|exists:permissions,id',
         ]);
 
         $role->update([
             'name' => $request->name,
         ]);
 
-        // Unassign/Assign Permissions.
+        // Un-assign/Assign Permissions.
         foreach (Permission::all() as $permission) {
             if (in_array($permission->id, $request->permissions)) {
                 if (!$role->hasPermissionTo($permission->name)) { // todo: does Laravel permissions already do this?
