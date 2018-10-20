@@ -56567,7 +56567,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loadingUser = true;
-            axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
+            axioselete.get("/api/user/users/" + this.$route.params.id).then(function (_ref) {
                 var data = _ref.data;
 
                 _this.user = data;
@@ -63595,6 +63595,27 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Modal_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63645,7 +63666,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        modal: __WEBPACK_IMPORTED_MODULE_0__Modal_vue___default.a
+    },
+
     created: function created() {
         this.getPermissions();
         this.getRole();
@@ -63653,6 +63680,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             role: {
+                id: "",
                 name: "",
                 permissions: []
             },
@@ -63661,6 +63689,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 permissions: ""
             },
             permissions: "",
+            showDeleteRoleModal: false,
+            loadingDelete: false,
             loadingSave: false,
             loadingRole: false
         };
@@ -63684,6 +63714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get("/api/roles/" + this.$route.params.id).then(function (_ref2) {
                 var data = _ref2.data;
 
+                _this2.role.id = data.id;
                 _this2.role.name = data.name;
                 for (var i = 0; i < data.permissions.length; i++) {
                     _this2.role.permissions.push(data.permissions[i].id);
@@ -63738,6 +63769,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         removePermission: function removePermission(key) {
             this.$delete(this.role.permissions, key);
+        },
+        deleteRole: function deleteRole(role) {
+            var _this4 = this;
+
+            this.loadingDelete = true;
+            axios.get("/api/roles/delete/" + role.id).then(function (response) {
+                _this4.loadingDelete = false;
+                _this4.showDeleteRoleModal = false;
+                _this4.$router.push({ path: "/roles" });
+            }).catch(function (errors) {
+                console.log(errors);
+            });
         }
     }
 });
@@ -63942,13 +63985,106 @@ var render = function() {
                           attrs: { type: "submit" }
                         },
                         [_vm._v("Save")]
-                      )
+                      ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.showDeleteRoleModal = true
+                        }
+                      }
+                    },
+                    [_vm._v("Delete Role")]
+                  )
                 ])
               ]
             )
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.showDeleteRoleModal
+        ? _c(
+            "modal",
+            [
+              _c("template", { slot: "modal-title" }, [
+                _vm._v("Deleting: " + _vm._s(_vm.role.name))
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-close" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteRoleModal = false
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-body" }, [
+                _vm._v(
+                  " Are you sure you want to delete " +
+                    _vm._s(_vm.role.name) +
+                    "? "
+                )
+              ]),
+              _vm._v(" "),
+              _c("template", { slot: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.showDeleteRoleModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _vm.loadingDelete
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { disabled: "", type: "button" }
+                      },
+                      [_c("i", { staticClass: "fa fa-sync fa-spin" })]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteRole(_vm.role)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete Role")]
+                    )
+              ])
+            ],
+            2
+          )
+        : _vm._e()
     ],
     1
   )

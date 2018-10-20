@@ -78,7 +78,7 @@
             </template>
         </modal>
         <!-- /.Role User Count Modal -->
-        <!-- Delete Permission Role Modal -->
+        <!-- Delete Role Modal -->
         <modal v-if="showDeleteRoleModal">
             <template slot="modal-title">Deleting: {{ role.name }}</template>
             <template slot="modal-close">
@@ -102,7 +102,7 @@
                 </div>
             </template>
         </modal>
-        <!-- /.Role User Count Modal -->
+        <!-- /.Delete Role Modal -->
     </div>
 </template>
 

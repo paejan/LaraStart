@@ -128,7 +128,7 @@ class RolesController extends Controller
      */
     public function roleUsers($id)
     {
-        return Role::with('Users')
+        return Role::with('Users', 'Permissions')
             ->findOrFail($id);
     }
 
