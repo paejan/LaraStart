@@ -33,8 +33,8 @@
                             </div>
                             <label>Permissions</label>
                             <div class="form-group" v-for="selectedPermission, key in role.permissions">
-                                <select class="form-control" required>
-                                    <option value="">Select Permission.. {{ key }}</option>
+                                <select class="form-control" required v-model="role.permissions">
+                                    <option value>Select Permission..</option>
                                     <option v-for="permission in permissions" :value="permission.id">
                                         {{ permission.name }}
                                     </option>

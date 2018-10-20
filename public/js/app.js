@@ -63087,12 +63087,39 @@ var render = function() {
                         _c(
                           "select",
                           {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.role.permissions,
+                                expression: "role.permissions"
+                              }
+                            ],
                             staticClass: "form-control",
-                            attrs: { required: "" }
+                            attrs: { required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.role,
+                                  "permissions",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Select Permission.. " + _vm._s(key))
+                              _vm._v("Select Permission..")
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.permissions, function(permission) {
