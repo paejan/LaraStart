@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
@@ -34,41 +35,61 @@ class RolesController extends Controller
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
 
+
     /**
-     * Creates a new user role.
+     * Creates a new user role and assigns the specified permission(s).
      *
      * @param Request $request
-     *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Model|Role
      */
     public function store(Request $request)
     {
         $request->validate([
             'name'          => 'required|unique:roles,name|string|max:191',
-            'permissions.*' => 'required|exists:permissions,id',
+            'permissions.*' => 'required|integer|exists:permissions,id',
         ]);
 
-        return Role::create([
+        $role = Role::create([
             'name' => $request->name,
         ]);
+
+        // Un-assign/Assign Permissions.
+        foreach (Permission::all() as $permission) {
+            if (in_array($permission->id, $request->permissions)) {
+                $role->givePermissionTo($permission->name);
+            }
+        }
+
+        return $role;
     }
 
     /**
      * Updates a User Role.
      *
      * @param Request $request
-     *
-     * @return Collection
+     * @return Role
      */
     public function update(Request $request, Role $role)
     {
         $request->validate([
             'name'          => 'required|unique:roles,name,'.$role->id.'|string|max:191',
+            'permissions.*' => 'nullable|integer|exists:permissions,id',
         ]);
 
         $role->update([
             'name' => $request->name,
         ]);
+
+        // Un-assign/Assign Permissions.
+        foreach (Permission::all() as $permission) {
+            if (in_array($permission->id, $request->permissions)) {
+                if (!$role->hasPermissionTo($permission->name)) { // todo: does Laravel permissions already do this?
+                    $role->givePermissionTo($permission->name);
+                }
+            } else {
+                $role->revokePermissionTo($permission->name);
+            }
+        }
 
         return $role;
     }
@@ -87,6 +108,20 @@ class RolesController extends Controller
     }
 
     /**
+     * Deletes the specified role by the associated role id.
+     *
+     * @param Role $role
+     * @return Role
+     * @throws \Exception
+     */
+    public function destroy(Role $role)
+    {
+        $role->delete();
+
+        return $role;
+    }
+
+    /**
      * Returns Role with all Users assigned specified by the role id.
      *
      * @param $id
@@ -95,7 +130,7 @@ class RolesController extends Controller
      */
     public function roleUsers($id)
     {
-        return Role::with('Users')
+        return Role::with('Users', 'Permissions')
             ->findOrFail($id);
     }
 

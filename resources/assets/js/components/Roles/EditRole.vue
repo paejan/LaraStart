@@ -31,30 +31,47 @@
                                 <label for="name">Name (*)</label>
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="role.name">
                             </div>
-                            <div class="form-group">
-                                <label for="permissions">Add Permission</label>
-                                <select class="form-control" id="permissions[]" required v-model="role.permission">
-                                    <option value="">Select Permission</option>
-                                    <option v-for="permission in permissions" :value="permission.id">{{ permission.name }}</option>
-                                </select>
+                            <label>Permissions Testing</label>
+                            <div class="form-group" v-for="permission in permissions">
+                                <input type="checkbox" v-model="role.permissions" :value="permission.id"> {{ permission.name }}
                             </div>
-                            <button type="button" class="btn btn-success">Add Another Permission</button>
                         </div>
                         <div class="card-footer">
                             <button v-if="loadingSave" disabled type="submit" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i> Save</button>
                             <button v-else type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-danger" @click="showDeleteRoleModal = true">Delete Role</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <!-- Delete Role Modal -->
+        <modal v-if="showDeleteRoleModal">
+            <template slot="modal-title">Deleting: {{ role.name }}</template>
+            <template slot="modal-close">
+                <button type="button" class="close" @click="showDeleteRoleModal = false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </template>
+            <template slot="modal-body"> Are you sure you want to delete {{ role.name }}? </template>
+            <template slot="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showDeleteRoleModal = false">Close</button>
+
+                    <button v-if="loadingDelete" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                    <button v-else @click="deleteRole(role)" type="button" class="btn btn-danger">Delete Role</button>
+
+            </template>
+        </modal>
+        <!-- /.Delete Role Modal -->
     </div>
 </template>
 
 <script>
+    import Modal from "../Modal.vue";
+
     export default {
-        mounted() {
-            // console.log("Component mounted.");
+        components: {
+            modal: Modal,
         },
 
         created() {
@@ -64,12 +81,18 @@
 
         data() {
             return {
-                role: null,
+                role: {
+                    id: "",
+                    name: "",
+                    permissions: [],
+                },
                 errors: {
                     name: "",
                     permissions: "",
                 },
                 permissions: "",
+                showDeleteRoleModal: false,
+                loadingDelete: false,
                 loadingSave: false,
                 loadingRole: false,
             };
@@ -86,7 +109,11 @@
                 this.loadingRole = true;
                 axios.get("/api/roles/" + this.$route.params.id)
                 .then(({ data }) => {
-                    this.role = data;
+                    this.role.id = data.id;
+                    this.role.name = data.name;
+                    for(var i = 0; i < data.permissions.length; i++) {
+                        this.role.permissions.push(data.permissions[i].id);
+                    }
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -108,6 +135,7 @@
                 };
                 axios.patch("/api/roles/" + this.$route.params.id, {
                     name: this.role.name,
+                    permissions: this.role.permissions
                 })
                 .then(response => {
                     Vue.notify({
@@ -134,7 +162,22 @@
                         text: "There was a problem with your input."
                     });
                 });
-            }
+            },
+            removePermission (key) {
+                this.$delete(this.role.permissions, key)
+            },
+            deleteRole(role) {
+                this.loadingDelete = true;
+                axios.get("/api/roles/delete/" + role.id)
+                    .then(response => {
+                        this.loadingDelete = false;
+                        this.showDeleteRoleModal = false;
+                        this.$router.push({ path: "/roles" });
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    });
+            },
         }
     };
 </script>

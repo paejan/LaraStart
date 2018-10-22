@@ -36,7 +36,7 @@
                             <tbody v-else>
                             <tr v-for="role in roles" :key="role.id">
                                 <td>{{role.name}}</td>
-                                <td>{{role.users.length}}</td>
+                                <td>{{ role.users.length}} </td>
                                 <td>
                                     <router-link :to="{ name : 'edit_role', params : { id : role.id } }">
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit Role</button>
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <!-- Delete User Modal -->
+        <!-- Role User Count Modal -->
         <modal v-if="showRoleUsersModal">
             <template slot="modal-title">{{ role.name }} Users</template>
             <template slot="modal-close">
@@ -65,16 +65,44 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </template>
-            <template slot="modal-body">
-                <ul>
+            <template slot="modal-body" v-if="role.users">
+                <ul v-if="role.users.length > 0">
                     <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
+                </ul>
+                <ul v-else>
+                    <li> No users assigned to {{ role.name }}. </li>
                 </ul>
             </template>
             <template slot="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="showRoleUsersModal = false">Close</button>
             </template>
         </modal>
-        <!-- /.Delete User Modal -->
+        <!-- /.Role User Count Modal -->
+        <!-- Delete Role Modal -->
+        <modal v-if="showDeleteRoleModal">
+            <template slot="modal-title">Deleting: {{ role.name }}</template>
+            <template slot="modal-close">
+                <button type="button" class="close" @click="showDeleteRoleModal = false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </template>
+            <template slot="modal-body" v-if="role.users.length > 0">
+                {{ role.users.length }} users are assigned to this role. <br>
+                Please assign them to another role before deleting this permission role. <br>
+                <ul>
+                    <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
+                </ul>
+            </template>
+            <template slot="modal-body" v-else> Are you sure you want to delete {{ role.name }}? </template>
+            <template slot="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showDeleteRoleModal = false">Close</button>
+                <div v-if="role.users.length === 0">
+                    <button v-if="loadingDelete" disabled type="button" class="btn btn-danger"><i class="fa fa-sync fa-spin"></i></button>
+                    <button v-else @click="deleteRole(role)" type="button" class="btn btn-danger">Delete Role</button>
+                </div>
+            </template>
+        </modal>
+        <!-- /.Delete Role Modal -->
     </div>
 </template>
 
@@ -109,7 +137,7 @@
                 role: [],
                 roles: [],
                 loadingTable: true,
-                loadingDeleteRole: false,
+                loadingDelete: false,
                 showRoleUsersModal: false,
                 loadingRoles: true,
                 columns: columns,
@@ -141,8 +169,7 @@
                 this.loadingRoles = true;
                 this.loadingTable = true;
                 this.tableData.draw++;
-                axios
-                    .get(url, { params: this.tableData })
+                axios.get(url, { params: this.tableData })
                     .then(response => {
                         let data = response.data;
                         if (this.tableData.draw == data.draw) {
@@ -160,9 +187,6 @@
                 axios.get("api/roles/users/" + role_id).then(({ data }) => {
                     this.role = data;
                 });
-            },
-            refresh() {
-                this.getRoles();
             },
             configPagination(data) {
                 this.pagination.lastPage = data.last_page;
@@ -184,7 +208,30 @@
             },
             getIndex(array, key, value) {
                 return array.findIndex(i => i[key] == value);
-            }
+            },
+            getRole(id) {
+                axios.get("api/roles/users/" + id).then(({ data }) => {
+                    this.role = data;
+                });
+            },
+            deleteRole(role) {
+                this.loadingDelete = true;
+                axios.get("api/roles/delete/" + role.id)
+                    .then(response => {
+                        this.loadingDelete = false;
+                        this.getRoles();
+                        this.showDeleteRoleModal = false;
+                        this.$notify({
+                            group: "permissions",
+                            title: "Role Successfully Deleted",
+                            type: "success",
+                            text: role.name + " was successfully deleted."
+                        });
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    });
+            },
         }
     };
 </script>

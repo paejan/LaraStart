@@ -40,7 +40,9 @@
                 <!-- Menu Footer-->
                 <li style="padding: 10px;">
                     <div class="float-left">
-                        <a href="#" class="btn btn-primary btn-flat">Profile</a>
+                        <router-link to="/profile">
+                            <button class="btn btn-primary btn-flat">Profile</button>
+                        </router-link>
                     </div>
                     <div class="float-right">
                         <a href="#" class="btn btn-primary btn-flat">Logout</a>
