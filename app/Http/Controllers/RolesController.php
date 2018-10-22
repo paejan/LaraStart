@@ -98,10 +98,12 @@ class RolesController extends Controller
      * Returns the Role with all of the assigned permissions.
      *
      * @param Role $id
+     *
      * @return mixed
      */
-    public function show($id) {
-        return Role::with("permissions")
+    public function show($id)
+    {
+        return Role::with('permissions')
             ->findOrFail($id);
     }
 

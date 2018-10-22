@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +42,7 @@ class UserController extends Controller
      * Creates a new user account.
      *
      * @param Request $request
+     *
      * @return Collection
      */
     public function store(Request $request)
