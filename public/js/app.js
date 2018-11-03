@@ -56719,7 +56719,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: "success",
                     text: user.name + " was successfully deleted."
                 });
-                // this.$router.push({ path: "/users" });
+                _this5.$router.push({ path: "/users" });
             }).catch(function (errors) {
                 console.log(errors);
             });

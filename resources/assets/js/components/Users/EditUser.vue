@@ -384,7 +384,7 @@ export default {
                     type: "success",
                     text: user.name + " was successfully deleted."
                 });
-                // this.$router.push({ path: "/users" });
+                this.$router.push({ path: "/users" });
             })
             .catch(errors => {
                 console.log(errors);
