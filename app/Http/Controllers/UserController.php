@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns all users based on the search criteria.
      *
      * @param \Illuminate\Http\Request $request
      *
