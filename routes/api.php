@@ -11,11 +11,15 @@
 |
  */
 
+Route::get('users/count', 'UserController@count');
+Route::get('users/count/active', 'UserController@active');
+Route::get('users/count/new', 'UserController@newUsers');
+Route::get('users/count/online', 'UserController@online');
 Route::resource('users', 'UserController');
+
 Route::resource('permissions', 'PermissionsController');
 Route::resource('roles', 'RolesController');
 
-Route::get('count/users', 'UserController@count');
 Route::get('count/users/active', 'UserController@active');
 Route::get('count/users/new', 'UserController@newUsers');
 Route::get('count/users/online', 'UserController@online');

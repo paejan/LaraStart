@@ -41,7 +41,7 @@
             getOnlineUsersCount() {
                 this.lastUpdate = null;
                 this.loadingUsersOnlineCount = true;
-                axios.get("api/count/users/online")
+                axios.get("api/users/count/online")
                 .then(({ data }) => {
                     this.onlineUsers = data;
                     this.loadingUsersOnlineCount = false;

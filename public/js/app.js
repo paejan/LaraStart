@@ -55203,7 +55203,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.lastUpdate = null;
             this.loadingUserCount = true;
-            axios.get("api/count/users").then(function (_ref) {
+            axios.get("api/users/count").then(function (_ref) {
                 var data = _ref.data;
 
                 _this.userCount = data;
@@ -55392,7 +55392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.lastUpdate = null;
             this.loadingNewUserCount = true;
-            axios.get("api/count/users/new").then(function (_ref) {
+            axios.get("api/users/count/new").then(function (_ref) {
                 var data = _ref.data;
 
                 _this.newUserCount = data;
@@ -55582,7 +55582,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getUserCount: function getUserCount() {
             var _this = this;
 
-            axios.get("api/count/users").then(function (_ref) {
+            axios.get("api/users/count").then(function (_ref) {
                 var data = _ref.data;
 
                 _this.userCount = data;
@@ -55592,7 +55592,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.loadingActiveUserCount = true;
-            axios.get("api/count/users/active").then(function (_ref2) {
+            axios.get("api/users/count/active").then(function (_ref2) {
                 var data = _ref2.data;
 
                 _this2.activeUserCount = data;
@@ -55784,7 +55784,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.lastUpdate = null;
             this.loadingUsersOnlineCount = true;
-            axios.get("api/count/users/online").then(function (_ref) {
+            axios.get("api/users/count/online").then(function (_ref) {
                 var data = _ref.data;
 
                 _this.onlineUsers = data;
