@@ -62496,6 +62496,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -62908,29 +62915,45 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm.role.users.length > 0
+              _vm.role.users
                 ? _c("template", { slot: "modal-body" }, [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(_vm.role.users.length) +
-                        " users are assigned to this role. "
-                    ),
-                    _c("br"),
-                    _vm._v(
-                      "\n            Please assign them to another role before deleting this permission role. "
-                    ),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c(
-                      "ul",
-                      _vm._l(_vm.role.users, function(user) {
-                        return _c("li", [
+                    _vm.role.users.length > 0
+                      ? _c("p", [
                           _vm._v(
-                            _vm._s(user.name) + " (" + _vm._s(user.email) + ")"
+                            " \n                " +
+                              _vm._s(_vm.role.users.length) +
+                              " users are assigned to this role. "
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                Please assign them to another role before deleting this permission role. "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _vm.role.users
+                            ? _c(
+                                "ul",
+                                _vm._l(_vm.role.users, function(user) {
+                                  return _c("li", [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(user.name) +
+                                        " (" +
+                                        _vm._s(user.email) +
+                                        ")\n                    "
+                                    )
+                                  ])
+                                })
+                              )
+                            : _vm._e()
+                        ])
+                      : _c("p", [
+                          _vm._v(
+                            " \n                Are you sure you want to delete " +
+                              _vm._s(_vm.role.name) +
+                              "?\n            "
                           )
                         ])
-                      })
-                    )
                   ])
                 : _c("template", { slot: "modal-body" }, [
                     _vm._v(
@@ -62955,7 +62978,7 @@ var render = function() {
                   [_vm._v("Close")]
                 ),
                 _vm._v(" "),
-                _vm.role.users.length === 0
+                _vm.role.users && _vm.role.users.length === 0
                   ? _c("div", [
                       _vm.loadingDelete
                         ? _c(
