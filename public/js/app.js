@@ -62496,27 +62496,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -62637,7 +62616,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.loadingDelete = true;
-            axios.get("api/roles/delete/" + role.id).then(function (response) {
+            axios.delete("api/roles/" + role.id).then(function (response) {
                 _this4.loadingDelete = false;
                 _this4.getRoles();
                 _this4.showDeleteRoleModal = false;
@@ -62900,82 +62879,6 @@ var render = function() {
           ])
         ])
       ]),
-      _vm._v(" "),
-      _vm.showRoleUsersModal
-        ? _c(
-            "modal",
-            [
-              _c("template", { slot: "modal-title" }, [
-                _vm._v(_vm._s(_vm.role.name) + " Users")
-              ]),
-              _vm._v(" "),
-              _c("template", { slot: "modal-close" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: { type: "button", "aria-label": "Close" },
-                    on: {
-                      click: function($event) {
-                        _vm.showRoleUsersModal = false
-                      }
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _vm.role.users
-                ? _c("template", { slot: "modal-body" }, [
-                    _vm.role.users.length > 0
-                      ? _c(
-                          "ul",
-                          _vm._l(_vm.role.users, function(user) {
-                            return _c("li", [
-                              _vm._v(
-                                _vm._s(user.name) +
-                                  " (" +
-                                  _vm._s(user.email) +
-                                  ")"
-                              )
-                            ])
-                          })
-                        )
-                      : _c("ul", [
-                          _c("li", [
-                            _vm._v(
-                              " No users assigned to " +
-                                _vm._s(_vm.role.name) +
-                                ". "
-                            )
-                          ])
-                        ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("template", { slot: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.showRoleUsersModal = false
-                      }
-                    }
-                  },
-                  [_vm._v("Close")]
-                )
-              ])
-            ],
-            2
-          )
-        : _vm._e(),
       _vm._v(" "),
       _vm.showDeleteRoleModal
         ? _c(
@@ -63764,10 +63667,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             this.loadingDelete = true;
-            axios.get("/api/roles/delete/" + role.id).then(function (response) {
+            axios.delete("/api/roles/" + role.id).then(function (response) {
                 _this4.loadingDelete = false;
                 _this4.showDeleteRoleModal = false;
-                _this4.$router.push({ path: "/roles" });
+                // this.$router.push({ path: "/roles" });
             }).catch(function (errors) {
                 console.log(errors);
             });

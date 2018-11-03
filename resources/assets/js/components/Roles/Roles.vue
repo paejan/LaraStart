@@ -35,14 +35,14 @@
                             </tbody>
                             <tbody v-else>
                             <tr v-for="role in roles" :key="role.id">
-                                <td>{{role.name}}</td>
+                                <td>{{ role.name }}</td>
                                 <td>{{ role.users.length}} </td>
                                 <td>
                                     <router-link :to="{ name : 'edit_role', params : { id : role.id } }">
                                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-user-edit"></i> Edit Role</button>
                                     </router-link>
                                     <button @click="getRoleUsers(role.id); showRoleUsersModal = true" type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-users"></i> View Users</button>
-                                    <button @click="getRole(role.id); showDeleteRoleModal = true" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete Role</button>
+                                    <button @click="getRole(role.id); showDeleteRoleModal = true;" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i> Delete Role</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -57,27 +57,6 @@
                 </div>
             </div>
         </div>
-        <!-- Role User Count Modal -->
-        <modal v-if="showRoleUsersModal">
-            <template slot="modal-title">{{ role.name }} Users</template>
-            <template slot="modal-close">
-                <button type="button" class="close" @click="showRoleUsersModal = false" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </template>
-            <template slot="modal-body" v-if="role.users">
-                <ul v-if="role.users.length > 0">
-                    <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
-                </ul>
-                <ul v-else>
-                    <li> No users assigned to {{ role.name }}. </li>
-                </ul>
-            </template>
-            <template slot="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="showRoleUsersModal = false">Close</button>
-            </template>
-        </modal>
-        <!-- /.Role User Count Modal -->
         <!-- Delete Role Modal -->
         <modal v-if="showDeleteRoleModal">
             <template slot="modal-title">Deleting: {{ role.name }}</template>
@@ -216,7 +195,7 @@
             },
             deleteRole(role) {
                 this.loadingDelete = true;
-                axios.get("api/roles/delete/" + role.id)
+                axios.delete("api/roles/" + role.id)
                     .then(response => {
                         this.loadingDelete = false;
                         this.getRoles();

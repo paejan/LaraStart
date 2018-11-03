@@ -168,11 +168,11 @@
             },
             deleteRole(role) {
                 this.loadingDelete = true;
-                axios.get("/api/roles/delete/" + role.id)
+                axios.delete("/api/roles/" + role.id)
                     .then(response => {
                         this.loadingDelete = false;
                         this.showDeleteRoleModal = false;
-                        this.$router.push({ path: "/roles" });
+                        // this.$router.push({ path: "/roles" });
                     })
                     .catch(errors => {
                         console.log(errors);

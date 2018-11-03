@@ -51,7 +51,5 @@ Route::patch('profile', 'UserController@updateProfile');
 |
 */
 Route::resource('permissions', 'PermissionsController');
-Route::resource('roles', 'RolesController');
-
 Route::get('roles/users/{id}', 'RolesController@roleUsers');
-Route::get('roles/delete/{role}', 'RolesController@destroy');
+Route::resource('roles', 'RolesController');
