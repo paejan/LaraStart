@@ -194,7 +194,7 @@ export default {
       this.getUsers();
     },
     getUser(id) {
-      axios.get("api/user/" + id).then(({ data }) => {
+      axios.get("api/users/" + id).then(({ data }) => {
         this.user = data;
       });
     },

@@ -19,8 +19,6 @@ Route::get('count/users', 'UserController@count');
 Route::get('count/users/active', 'UserController@active');
 Route::get('count/users/new', 'UserController@newUsers');
 Route::get('count/users/online', 'UserController@online');
-Route::get('user/{user}', 'UserController@show');
-Route::get('user/delete/{user}', 'UserController@destroy');
 Route::post('user/update_role/{user}', 'UserController@updateRole');
 
 Route::get('profile', 'UserController@getProfile');

@@ -863,7 +863,7 @@ module.exports = getISOYear
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var startOfWeek = __webpack_require__(11)
+var startOfWeek = __webpack_require__(12)
 
 /**
  * @category ISO Week Helpers
@@ -1110,6 +1110,53 @@ module.exports = compareAsc
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(115)
+/* template */
+var __vue_template__ = __webpack_require__(116)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6e8d36f4", Component.options)
+  } else {
+    hotAPI.reload("data-v-6e8d36f4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var parse = __webpack_require__(0)
 
 /**
@@ -1151,7 +1198,7 @@ module.exports = startOfWeek
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var startOfDay = __webpack_require__(5)
@@ -1198,7 +1245,7 @@ module.exports = differenceInCalendarDays
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(0)
@@ -1238,7 +1285,7 @@ module.exports = addMonths
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(0)
@@ -1273,7 +1320,7 @@ module.exports = differenceInMilliseconds
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1375,53 +1422,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(115)
-/* template */
-var __vue_template__ = __webpack_require__(116)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/Modal.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6e8d36f4", Component.options)
-  } else {
-    hotAPI.reload("data-v-6e8d36f4", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 /* 17 */
@@ -1619,7 +1619,7 @@ module.exports = differenceInMonths
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var differenceInMilliseconds = __webpack_require__(14)
+var differenceInMilliseconds = __webpack_require__(15)
 
 /**
  * @category Second Helpers
@@ -1741,7 +1741,7 @@ module.exports = getISOWeek
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var startOfWeek = __webpack_require__(11)
+var startOfWeek = __webpack_require__(12)
 
 /**
  * @category Week Helpers
@@ -27411,7 +27411,7 @@ module.exports = addISOYears
 
 var parse = __webpack_require__(0)
 var startOfISOYear = __webpack_require__(9)
-var differenceInCalendarDays = __webpack_require__(12)
+var differenceInCalendarDays = __webpack_require__(13)
 
 /**
  * @category ISO Week-Numbering Year Helpers
@@ -27483,7 +27483,7 @@ module.exports = addMinutes
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var addMonths = __webpack_require__(13)
+var addMonths = __webpack_require__(14)
 
 /**
  * @category Quarter Helpers
@@ -27544,7 +27544,7 @@ module.exports = addSeconds
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var addMonths = __webpack_require__(13)
+var addMonths = __webpack_require__(14)
 
 /**
  * @category Year Helpers
@@ -27712,7 +27712,7 @@ module.exports = differenceInCalendarYears
 /***/ (function(module, exports, __webpack_require__) {
 
 var parse = __webpack_require__(0)
-var differenceInCalendarDays = __webpack_require__(12)
+var differenceInCalendarDays = __webpack_require__(13)
 var compareAsc = __webpack_require__(10)
 
 /**
@@ -28076,7 +28076,7 @@ module.exports = endOfMonth
 
 var parse = __webpack_require__(0)
 var startOfYear = __webpack_require__(56)
-var differenceInCalendarDays = __webpack_require__(12)
+var differenceInCalendarDays = __webpack_require__(13)
 
 /**
  * @category Day Helpers
@@ -50237,7 +50237,7 @@ module.exports = __webpack_require__(84);
 var utils = __webpack_require__(2);
 var bind = __webpack_require__(32);
 var Axios = __webpack_require__(86);
-var defaults = __webpack_require__(15);
+var defaults = __webpack_require__(16);
 
 /**
  * Create an instance of Axios
@@ -50320,7 +50320,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(15);
+var defaults = __webpack_require__(16);
 var utils = __webpack_require__(2);
 var InterceptorManager = __webpack_require__(95);
 var dispatchRequest = __webpack_require__(96);
@@ -50859,7 +50859,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(2);
 var transformData = __webpack_require__(97);
 var isCancel = __webpack_require__(35);
-var defaults = __webpack_require__(15);
+var defaults = __webpack_require__(16);
 var isAbsoluteURL = __webpack_require__(98);
 var combineURLs = __webpack_require__(99);
 
@@ -54563,7 +54563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DataTable_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Users_components_TotalUsers_vue__);
@@ -54767,7 +54767,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getUser: function getUser(id) {
       var _this2 = this;
 
-      axios.get("api/user/" + id).then(function (_ref) {
+      axios.get("api/users/" + id).then(function (_ref) {
         var data = _ref.data;
 
         _this2.user = data;
@@ -56330,7 +56330,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_date_fns__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Modal_vue__);
 //
 //
@@ -56567,22 +56567,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loadingUser = true;
-            axios.get("/api/user/" + this.$route.params.id).then(function (_ref) {
+            axios.get("/api/users/" + this.$route.params.id).then(function (_ref) {
                 var data = _ref.data;
 
                 _this.user = data;
                 _this.loadingUser = false;
                 _this.loadingSaveUser = false;
-                if (data.roles[0]) {
-                    _this.user_group = data.roles[0].id;
-                } else {
-                    Vue.notify({
-                        group: "notifications",
-                        title: "User Account Disabled",
-                        type: "error",
-                        text: "Please assign a user role to enable this user account."
-                    });
-                }
             }).catch(function (errors) {
                 console.log(errors);
                 _this.loadingUser = false;
@@ -56747,7 +56737,7 @@ module.exports = {
   addISOYears: __webpack_require__(40),
   addMilliseconds: __webpack_require__(8),
   addMinutes: __webpack_require__(42),
-  addMonths: __webpack_require__(13),
+  addMonths: __webpack_require__(14),
   addQuarters: __webpack_require__(43),
   addSeconds: __webpack_require__(44),
   addWeeks: __webpack_require__(19),
@@ -56757,7 +56747,7 @@ module.exports = {
   closestTo: __webpack_require__(135),
   compareAsc: __webpack_require__(10),
   compareDesc: __webpack_require__(20),
-  differenceInCalendarDays: __webpack_require__(12),
+  differenceInCalendarDays: __webpack_require__(13),
   differenceInCalendarISOWeeks: __webpack_require__(136),
   differenceInCalendarISOYears: __webpack_require__(46),
   differenceInCalendarMonths: __webpack_require__(47),
@@ -56767,7 +56757,7 @@ module.exports = {
   differenceInDays: __webpack_require__(50),
   differenceInHours: __webpack_require__(139),
   differenceInISOYears: __webpack_require__(140),
-  differenceInMilliseconds: __webpack_require__(14),
+  differenceInMilliseconds: __webpack_require__(15),
   differenceInMinutes: __webpack_require__(141),
   differenceInMonths: __webpack_require__(21),
   differenceInQuarters: __webpack_require__(142),
@@ -56883,7 +56873,7 @@ module.exports = {
   startOfSecond: __webpack_require__(70),
   startOfToday: __webpack_require__(222),
   startOfTomorrow: __webpack_require__(223),
-  startOfWeek: __webpack_require__(11),
+  startOfWeek: __webpack_require__(12),
   startOfYear: __webpack_require__(56),
   startOfYesterday: __webpack_require__(224),
   subDays: __webpack_require__(225),
@@ -57148,7 +57138,7 @@ module.exports = differenceInCalendarQuarters
 /* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var startOfWeek = __webpack_require__(11)
+var startOfWeek = __webpack_require__(12)
 
 var MILLISECONDS_IN_MINUTE = 60000
 var MILLISECONDS_IN_WEEK = 604800000
@@ -57206,7 +57196,7 @@ module.exports = differenceInCalendarWeeks
 /* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var differenceInMilliseconds = __webpack_require__(14)
+var differenceInMilliseconds = __webpack_require__(15)
 
 var MILLISECONDS_IN_HOUR = 3600000
 
@@ -57289,7 +57279,7 @@ module.exports = differenceInISOYears
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var differenceInMilliseconds = __webpack_require__(14)
+var differenceInMilliseconds = __webpack_require__(15)
 
 var MILLISECONDS_IN_MINUTE = 60000
 
@@ -60807,7 +60797,7 @@ module.exports = subMinutes
 /* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var addMonths = __webpack_require__(13)
+var addMonths = __webpack_require__(14)
 
 /**
  * @category Month Helpers
@@ -62417,7 +62407,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DataTable_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Pagination_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modal_vue__);
 //
 //
@@ -63595,7 +63585,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Modal_vue__);
 //
 //

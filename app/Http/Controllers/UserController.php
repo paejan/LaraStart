@@ -103,10 +103,9 @@ class UserController extends Controller
      *
      * @return User|int
      */
-    public function show($user)
+    public function show(User $user)
     {
-        return User::with('Roles')
-            ->find($user);
+        return $user;
     }
 
     /**

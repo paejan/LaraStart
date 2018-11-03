@@ -233,21 +233,11 @@ export default {
         getUser() {
             this.loadingUser = true;
             axios
-            .get("/api/user/" + this.$route.params.id)
+            .get("/api/users/" + this.$route.params.id)
             .then(({ data }) => {
                 this.user = data;
                 this.loadingUser = false;
                 this.loadingSaveUser = false;
-                if (data.roles[0]) {
-                    this.user_group = data.roles[0].id;
-                } else {
-                    Vue.notify({
-                        group: "notifications",
-                        title: "User Account Disabled",
-                        type: "error",
-                        text: "Please assign a user role to enable this user account."
-                    });
-                }
             })
             .catch(errors => {
                 console.log(errors);
