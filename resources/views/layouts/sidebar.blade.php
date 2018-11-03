@@ -20,16 +20,24 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
-                    <router-link to="/users" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i><p>Users</p>
-                    </router-link>
-                </li>
-
-                <li class="nav-item">
-                    <router-link to="/roles" class="nav-link">
-                        <i class="nav-icon fas fa-key"></i><p>Permissions</p>
-                    </router-link>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>
+                            Users 
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <router-link to="/users" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i><p>All Users</p>
+                            </router-link>
+                        </li>
+                        <router-link to="/roles" class="nav-link">
+                            <i class="nav-icon fas fa-key"></i><p>User Roles</p>
+                        </router-link>
+                    </ul>
                 </li>
             </ul>
         </nav> <!-- /.sidebar-menu -->

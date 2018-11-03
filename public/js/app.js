@@ -28774,7 +28774,7 @@ window.Vue = __webpack_require__(30);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
 
-var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(103) }, { name: 'profile', path: '/profile', component: __webpack_require__(106) }, { name: 'all_users', path: '/users', component: __webpack_require__(109) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(130) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(235) }, { name: 'all_roles', path: '/roles', component: __webpack_require__(238) }, { name: 'new_role', path: '/roles/new', component: __webpack_require__(241) }, { name: 'edit_role', path: '/roles/edit/:id', component: __webpack_require__(244) }];
+var routes = [{ name: 'dashboard', path: '/dashboard', component: __webpack_require__(103) }, { name: 'profile', path: '/profile', component: __webpack_require__(106) }, { name: 'all_users', path: '/users', component: __webpack_require__(109) }, { name: 'edit_user', path: '/users/:id', component: __webpack_require__(130) }, { name: 'new_user', path: '/users/new', component: __webpack_require__(235) }, { name: 'all_roles', path: '/roles', component: __webpack_require__(238) }, { name: 'new_role', path: '/roles/new', component: __webpack_require__(241) }, { name: 'edit_role', path: '/roles/:id', component: __webpack_require__(244) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
@@ -63819,7 +63819,7 @@ var render = function() {
                           })
                         ]),
                     _vm._v(" "),
-                    _c("label", [_vm._v("Permissions Testing")]),
+                    _c("label", [_vm._v("Permissions")]),
                     _vm._v(" "),
                     _vm._l(_vm.permissions, function(permission) {
                       return _c("div", { staticClass: "form-group" }, [
