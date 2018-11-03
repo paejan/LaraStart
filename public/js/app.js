@@ -54777,7 +54777,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this3 = this;
 
       this.loadingDeleteUser = true;
-      axios.get("api/user/delete/" + user.id).then(function (response) {
+      axios.delete("api/users/" + user.id).then(function (response) {
         _this3.loadingDeleteUser = false;
         _this3.refresh();
         _this3.showDeleteUserModal = false;

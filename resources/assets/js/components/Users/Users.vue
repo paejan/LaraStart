@@ -200,8 +200,7 @@ export default {
     },
     deleteUser(user) {
       this.loadingDeleteUser = true;
-      axios
-        .get("api/user/delete/" + user.id)
+      axios.delete("api/users/" + user.id)
         .then(response => {
           this.loadingDeleteUser = false;
           this.refresh();
