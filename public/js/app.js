@@ -56710,7 +56710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this5 = this;
 
             this.loadingDeleteUser = true;
-            axios.get("/api/user/delete/" + user.id).then(function (response) {
+            axios.delete("/api/users/" + user.id).then(function (response) {
                 _this5.loadingDeleteUser = false;
                 _this5.showDeleteUserModal = false;
                 _this5.$notify({
@@ -56719,7 +56719,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: "success",
                     text: user.name + " was successfully deleted."
                 });
-                _this5.$router.push({ path: "/users" });
+                // this.$router.push({ path: "/users" });
             }).catch(function (errors) {
                 console.log(errors);
             });

@@ -343,8 +343,7 @@ export default {
                 role: ""
             };
             console.log(this.user_group);
-            axios
-            .post("/api/user/update_role/" + this.$route.params.id, {
+            axios.post("/api/user/update_role/" + this.$route.params.id, {
                 user_group: this.user_group,
             })
             .then(response => {
@@ -375,8 +374,7 @@ export default {
         },
         deleteUser(user) {
             this.loadingDeleteUser = true;
-            axios
-            .get("/api/user/delete/" + user.id)
+            axios.delete("/api/users/" + user.id)
             .then(response => {
                 this.loadingDeleteUser = false;
                 this.showDeleteUserModal = false;
@@ -386,7 +384,7 @@ export default {
                     type: "success",
                     text: user.name + " was successfully deleted."
                 });
-                this.$router.push({ path: "/users" });
+                // this.$router.push({ path: "/users" });
             })
             .catch(errors => {
                 console.log(errors);
