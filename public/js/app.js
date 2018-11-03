@@ -63193,7 +63193,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: "success",
                     text: "This User Role has been created."
                 });
-                // this.$router.push({ path: "/role/" + response.data.id});
+                _this2.$router.push({ path: "/roles/" + response.data.id });
             }).catch(function (error) {
                 _this2.loadingSave = false;
                 if (error.response) {
@@ -63693,7 +63693,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.delete("/api/roles/" + role.id).then(function (response) {
                 _this4.loadingDelete = false;
                 _this4.showDeleteRoleModal = false;
-                // this.$router.push({ path: "/roles" });
+                _this4.$router.push({ path: "/roles" });
             }).catch(function (errors) {
                 console.log(errors);
             });

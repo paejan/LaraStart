@@ -91,15 +91,16 @@
                 axios.post("/api/roles", {
                     name: this.role.name,
                     permissions: this.role.permissions,
-                }).then(response => {
+                })
+                .then(response => {
                     Vue.notify({
                         group: "notifications",
                         title: "Role Created",
                         type: "success",
                         text: "This User Role has been created."
                     });
-                        // this.$router.push({ path: "/role/" + response.data.id});
-                    })
+                    this.$router.push({ path: "/roles/" + response.data.id});
+                })
                 .catch(error => {
                     this.loadingSave = false;
                     if (error.response) {
