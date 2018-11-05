@@ -33,7 +33,6 @@ Route::post('user/update_role/{user}', 'UserController@updateRole');
 Route::get('profile', 'UserController@getProfile');
 Route::patch('profile', 'UserController@updateProfile');
 
-
 /*
 |--------------------------------------------------------------------------
 | Roles/Permissions Routes
@@ -45,8 +44,8 @@ Route::patch('profile', 'UserController@updateProfile');
 | permissions, update the role data (including permisisons), and deletion
 | of the role.
 |
-| Note: Not to be confused with Roles - There is no accessibile way to 
-| create a new 'Permission' within the web interface. You can do it 
+| Note: Not to be confused with Roles - There is no accessibile way to
+| create a new 'Permission' within the web interface. You can do it
 | manually by writing `php artisan create:permission` in the console.
 |
 */

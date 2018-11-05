@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesController extends Controller
 {
@@ -35,11 +35,11 @@ class RolesController extends Controller
         return ['data' => $users, 'draw' => $request->input('draw')];
     }
 
-
     /**
      * Creates a new user role and assigns the specified permission(s).
      *
      * @param Request $request
+     *
      * @return \Illuminate\Database\Eloquent\Model|Role
      */
     public function store(Request $request)
@@ -67,6 +67,7 @@ class RolesController extends Controller
      * Updates a User Role.
      *
      * @param Request $request
+     *
      * @return Role
      */
     public function update(Request $request, Role $role)
@@ -111,8 +112,10 @@ class RolesController extends Controller
      * Deletes the specified role by the associated role id.
      *
      * @param Role $role
-     * @return Role
+     *
      * @throws \Exception
+     *
+     * @return Role
      */
     public function destroy(Role $role)
     {
