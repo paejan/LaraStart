@@ -194,14 +194,13 @@ export default {
       this.getUsers();
     },
     getUser(id) {
-      axios.get("api/user/" + id).then(({ data }) => {
+      axios.get("api/users/" + id).then(({ data }) => {
         this.user = data;
       });
     },
     deleteUser(user) {
       this.loadingDeleteUser = true;
-      axios
-        .get("api/user/delete/" + user.id)
+      axios.delete("api/users/" + user.id)
         .then(response => {
           this.loadingDeleteUser = false;
           this.refresh();

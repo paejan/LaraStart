@@ -158,7 +158,9 @@
                                 <label for="user_group">User Group</label>
                                 <select class="form-control" id="user_group" required name="user_group" v-model="user_group">
                                     <option value="">None</option>
-                                    <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
+                                    <option v-for="role in roles" :value="role.id">
+                                        {{ role.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -233,7 +235,7 @@ export default {
         getUser() {
             this.loadingUser = true;
             axios
-            .get("/api/user/" + this.$route.params.id)
+            .get("/api/users/" + this.$route.params.id)
             .then(({ data }) => {
                 this.user = data;
                 this.loadingUser = false;
@@ -241,12 +243,7 @@ export default {
                 if (data.roles[0]) {
                     this.user_group = data.roles[0].id;
                 } else {
-                    Vue.notify({
-                        group: "notifications",
-                        title: "User Account Disabled",
-                        type: "error",
-                        text: "Please assign a user role to enable this user account."
-                    });
+                    this.user_group = "";
                 }
             })
             .catch(errors => {
@@ -352,9 +349,7 @@ export default {
             this.errors = { // Clear any previous errors.
                 role: ""
             };
-            console.log(this.user_group);
-            axios
-            .post("/api/user/update_role/" + this.$route.params.id, {
+            axios.post("/api/user/update_role/" + this.$route.params.id, {
                 user_group: this.user_group,
             })
             .then(response => {
@@ -385,8 +380,7 @@ export default {
         },
         deleteUser(user) {
             this.loadingDeleteUser = true;
-            axios
-            .get("/api/user/delete/" + user.id)
+            axios.delete("/api/users/" + user.id)
             .then(response => {
                 this.loadingDeleteUser = false;
                 this.showDeleteUserModal = false;

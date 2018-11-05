@@ -31,7 +31,7 @@
                                 <label for="name">Name (*)</label>
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Enter Name" v-model="role.name">
                             </div>
-                            <label>Permissions Testing</label>
+                            <label>Permissions</label>
                             <div class="form-group" v-for="permission in permissions">
                                 <input type="checkbox" v-model="role.permissions" :value="permission.id"> {{ permission.name }}
                             </div>
@@ -168,7 +168,7 @@
             },
             deleteRole(role) {
                 this.loadingDelete = true;
-                axios.get("/api/roles/delete/" + role.id)
+                axios.delete("/api/roles/" + role.id)
                     .then(response => {
                         this.loadingDelete = false;
                         this.showDeleteRoleModal = false;

@@ -41,7 +41,7 @@
             getNewUserCount() {
                 this.lastUpdate = null;
                 this.loadingNewUserCount = true;
-                axios.get("api/count/users/new")
+                axios.get("api/users/count/new")
                     .then(({ data }) => {
                         this.newUserCount = data;
                         this.loadingNewUserCount = false;

@@ -42,14 +42,14 @@
 
         methods: {
             getUserCount() {
-                axios.get("api/count/users")
+                axios.get("api/users/count")
                 .then(({ data }) => {
                     this.userCount = data;
                 });
             },
             getActiveUserCount() {
                 this.loadingActiveUserCount = true;
-                axios.get("api/count/users/active")
+                axios.get("api/users/count/active")
                 .then(({ data }) => {
                     this.activeUserCount = data;
                     this.loadingActiveUserCount = false;

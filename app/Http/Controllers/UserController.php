@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns all users based on the search criteria.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -30,8 +29,8 @@ class UserController extends Controller
         $users = User::with('Roles')
             ->orderBy($columns[$request->column], $request->dir)
             ->when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('email', 'like', '%' . $request->search . '%');
+                $query->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhere('email', 'like', '%'.$request->search.'%');
             })
             ->paginate($request->length);
 
@@ -48,16 +47,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'nullable|string|min:6|max:255|confirmed',
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|string|email|max:255|unique:users',
+            'password'      => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
         return User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name'          => $request->name,
+            'email'         => $request->email,
+            'password'      => Hash::make($request->password),
             'profile_photo' => $request->profile_photo,
         ]);
     }
@@ -66,16 +65,16 @@ class UserController extends Controller
      * Updates the user information.
      *
      * @param Request $request
-     * @param int $id
+     * @param int     $id
      *
      * @return Collection
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'password' => 'nullable|string|min:6|max:255|confirmed',
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|string|email|max:255',
+            'password'      => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
 
@@ -91,22 +90,22 @@ class UserController extends Controller
                 ]);
             })
             ->update([
-                'name' => $request->name,
+                'name'  => $request->name,
                 'email' => $request->email,
             ]);
     }
 
     /**
-     * Returns a users data with roles by the specified id.
+     * Returns a User with assigned roles by the specified id.
      *
-     * @param int $user
+     * @param int $id
      *
-     * @return User|int
+     * @return
      */
-    public function show($user)
+    public function show($id)
     {
         return User::with('Roles')
-            ->find($user);
+            ->findOrFail($id);
     }
 
     /**
@@ -189,17 +188,18 @@ class UserController extends Controller
         return Auth::user();
     }
 
-
     /**
      * Updates the authenticated users profile.
      *
      * @param Request $request
-     * @return boolean
+     *
+     * @return bool
      */
-    public function updateProfile(Request $request) {
+    public function updateProfile(Request $request)
+    {
         $request->validate([
             'name'          => 'required|string|max:191',
-            'email'         => 'required|email|unique:users,email,' . Auth::user()->id . '|max:255',
+            'email'         => 'required|email|unique:users,email,'.Auth::user()->id.'|max:255',
             'password'      => 'nullable|string|min:6|max:255|confirmed',
             'profile_photo' => 'nullable|image64:jpeg,jpg,png',
         ]);
@@ -216,9 +216,8 @@ class UserController extends Controller
                 ]);
             })
             ->update([
-                'name' => $request->name,
+                'name'  => $request->name,
                 'email' => $request->email,
             ]);
     }
-
 }
