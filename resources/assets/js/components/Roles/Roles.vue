@@ -57,6 +57,27 @@
                 </div>
             </div>
         </div>
+        <!-- Roles Assigned Users Modal -->
+        <modal v-if="showRoleUsersModal">
+            <template slot="modal-title">{{ role.name }} Users</template>
+            <template slot="modal-close">
+                <button type="button" class="close" @click="showRoleUsersModal = false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </template>
+            <template slot="modal-body" v-if="role.users">
+                <ul v-if="role.users.length > 0">
+                    <li v-for="user in role.users">{{user.name }} ({{ user.email}})</li>
+                </ul>
+                <ul v-else>
+                    <li> No users assigned to {{ role.name }}. </li>
+                </ul>
+            </template>
+            <template slot="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showRoleUsersModal = false">Close</button>
+            </template>
+        </modal>
+        <!-- /.Roles Assigned Users Modal -->
         <!-- Delete Role Modal -->
         <modal v-if="showDeleteRoleModal">
             <template slot="modal-title">Deleting: {{ role.name }}</template>
