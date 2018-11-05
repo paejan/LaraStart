@@ -56523,6 +56523,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -56573,6 +56575,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.user = data;
                 _this.loadingUser = false;
                 _this.loadingSaveUser = false;
+                if (data.roles[0]) {
+                    _this.user_group = data.roles[0].id;
+                } else {
+                    _this.user_group = "";
+                }
             }).catch(function (errors) {
                 console.log(errors);
                 _this.loadingUser = false;
@@ -56678,7 +56685,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.errors = { // Clear any previous errors.
                 role: ""
             };
-            console.log(this.user_group);
             axios.post("/api/user/update_role/" + this.$route.params.id, {
                 user_group: this.user_group
             }).then(function (response) {
@@ -61523,7 +61529,13 @@ var render = function() {
                           return _c(
                             "option",
                             { domProps: { value: role.id } },
-                            [_vm._v(_vm._s(role.name))]
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(role.name) +
+                                  "\n                                "
+                              )
+                            ]
                           )
                         })
                       ],

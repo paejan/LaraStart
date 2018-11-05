@@ -158,7 +158,9 @@
                                 <label for="user_group">User Group</label>
                                 <select class="form-control" id="user_group" required name="user_group" v-model="user_group">
                                     <option value="">None</option>
-                                    <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
+                                    <option v-for="role in roles" :value="role.id">
+                                        {{ role.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -238,6 +240,11 @@ export default {
                 this.user = data;
                 this.loadingUser = false;
                 this.loadingSaveUser = false;
+                if (data.roles[0]) {
+                    this.user_group = data.roles[0].id;
+                } else {
+                    this.user_group = "";
+                }
             })
             .catch(errors => {
                 console.log(errors);
@@ -342,7 +349,6 @@ export default {
             this.errors = { // Clear any previous errors.
                 role: ""
             };
-            console.log(this.user_group);
             axios.post("/api/user/update_role/" + this.$route.params.id, {
                 user_group: this.user_group,
             })
