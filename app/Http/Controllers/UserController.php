@@ -97,15 +97,16 @@ class UserController extends Controller
     }
 
     /**
-     * Returns a users data with roles by the specified id.
+     * Returns a User with assigned roles by the specified id.
      *
-     * @param int $user
+     * @param int $id
      *
-     * @return User|int
+     * @return
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return $user;
+        return User::with('Roles')
+            ->findOrFail($id);
     }
 
     /**
